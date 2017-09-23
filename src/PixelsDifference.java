@@ -1,7 +1,5 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 import me.lemire.integercompression.differential.*;
 
@@ -29,10 +27,7 @@ public class PixelsDifference {
 
         numberOfPixels = 0;
 
-        // store different pixels in arrayList
-        ArrayList<Integer> tmpX = new ArrayList<>(),
-                           tmpY = new ArrayList<>(),
-                           tmpColor = new ArrayList<>();
+        ArrayList<Pixel> pixels = new ArrayList<>();
 
         if (oldPixels.length != newPixels.length)
             return;
@@ -43,22 +38,19 @@ public class PixelsDifference {
                 return;
 
             for (int j = 0; j < oldPixels[i].length; j++)
-                if (oldPixels[i][j] != newPixels[i][j]) {
-                    tmpX.add(i);
-                    tmpY.add(j);
-                    tmpColor.add(newPixels[i][j]);
-                }
+                if (oldPixels[i][j] != newPixels[i][j])
+                    pixels.add(new Pixel(i, j, newPixels[i][j]));
         }
 
-        IntegratedIntCompressor compressor = new IntegratedIntCompressor();
+        constructFromPixelList(pixels);
+    }
 
-        numberOfPixels = tmpColor.size();
-
-        // convert those 3 ArrayLists to Array and compress them
-        x = compressor.compress(fromList(tmpX));
-        y = compressor.compress(fromList(tmpY));
-        color = compressor.compress(fromList(tmpColor));
-
+    /**
+     * Directly construct a PixelsDifference Object from Pixel ArrayList
+     * @param pixels
+     */
+    PixelsDifference(ArrayList<Pixel> pixels) {
+        constructFromPixelList(pixels);
     }
 
     // return the number of pixels
@@ -114,6 +106,38 @@ public class PixelsDifference {
             System.out.println(Arrays.toString(c[i]));
     }
 
+    /**
+     * update PixelsDifference based on Pixel ArrayList
+     * @param pixels
+     */
+    private void constructFromPixelList(ArrayList<Pixel> pixels) {
+
+        // store different pixels in arrayList
+        ArrayList<Integer> tmpX = new ArrayList<>(),
+                tmpY = new ArrayList<>(),
+                tmpColor = new ArrayList<>();
+
+        for (Pixel pixel : pixels) {
+            tmpX.add(pixel.x());
+            tmpY.add(pixel.y());
+            tmpColor.add(pixel.color());
+        }
+
+        IntegratedIntCompressor compressor = new IntegratedIntCompressor();
+
+        numberOfPixels = tmpColor.size();
+
+        // convert those 3 ArrayLists to Array and compress them
+        x = compressor.compress(fromList(tmpX));
+        y = compressor.compress(fromList(tmpY));
+        color = compressor.compress(fromList(tmpColor));
+    }
+
+    /**
+     * Convert an ArrayList to Array
+     * @param list
+     * @return
+     */
     private static int[] fromList(ArrayList<Integer> list) {
 
         int[] result = new int [list.size()];
