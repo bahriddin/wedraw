@@ -1,4 +1,4 @@
-package Layout;
+package GUI.Layout;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -8,11 +8,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import Tools.Pen;
-import Tools.Tool;
+import GUI.Tools.Pen;
+import GUI.Tools.Tool;
 import javafx.scene.paint.Color;
 
-import static DrawSettings.DrawSettings.color;
+import static GUI.DrawSettings.DrawSettings.color;
 
 public class WhiteBoard extends BorderPane {
 

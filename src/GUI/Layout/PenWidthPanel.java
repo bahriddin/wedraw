@@ -1,6 +1,6 @@
-package Layout;
+package GUI.Layout;
 
-import DrawSettings.DrawSettings;
+import GUI.DrawSettings.DrawSettings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;

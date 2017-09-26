@@ -1,4 +1,4 @@
-package Layout;
+package GUI.Layout;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,9 +11,9 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import Tools.Pen;
-import Tools.Eraser;
-import Tools.Tool;
+import GUI.Tools.Pen;
+import GUI.Tools.Eraser;
+import GUI.Tools.Tool;
 
 
 public class ToolsPanel extends HBox {

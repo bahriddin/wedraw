@@ -1,4 +1,4 @@
-package Layout;
+package GUI.Layout;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,7 +7,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import DrawSettings.DrawSettings;
+import GUI.DrawSettings.DrawSettings;
 
 
 public class ColorPalette extends GridPane {

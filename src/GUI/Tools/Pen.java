@@ -1,11 +1,11 @@
-package Tools;
+package GUI.Tools;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 
-import DrawSettings.DrawSettings;
+import GUI.DrawSettings.DrawSettings;
 
-import Layout.Canvas;
+import GUI.Layout.Canvas;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 

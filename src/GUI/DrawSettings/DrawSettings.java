@@ -1,4 +1,4 @@
-package DrawSettings;
+package GUI.DrawSettings;
 
 import javafx.scene.paint.Color;
 

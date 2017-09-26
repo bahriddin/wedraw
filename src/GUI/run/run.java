@@ -1,11 +1,11 @@
-package run;
+package GUI.run;
 
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import Layout.WhiteBoard;
+import GUI.Layout.WhiteBoard;
 
 public class run extends Application {
 

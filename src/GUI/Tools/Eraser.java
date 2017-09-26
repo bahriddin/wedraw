@@ -1,9 +1,9 @@
-package Tools;
+package GUI.Tools;
 
 import javafx.scene.paint.Color;
 
 
-import Layout.Canvas;
+import GUI.Layout.Canvas;
 
 
 public class Eraser extends Pen {

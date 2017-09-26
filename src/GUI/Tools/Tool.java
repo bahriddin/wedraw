@@ -1,6 +1,6 @@
-package Tools;
+package GUI.Tools;
 
-import Layout.Canvas;
+import GUI.Layout.Canvas;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 

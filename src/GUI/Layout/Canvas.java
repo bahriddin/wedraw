@@ -1,4 +1,4 @@
-package Layout;
+package GUI.Layout;
 
 import java.util.LinkedList;
 import java.util.List;
