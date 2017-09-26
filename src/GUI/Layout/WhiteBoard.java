@@ -1,5 +1,6 @@
 package GUI.Layout;
 
+import GUI.Tools.Rectangular;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -34,7 +35,7 @@ public class WhiteBoard extends BorderPane {
 
         // Setup tools
         tools = new Tool();
-        tools.setTool(new Pen(canvas));
+        tools.setTool(new Rectangular(canvas));
 
         // Setup top/bottom panels.
         setupToolBar();

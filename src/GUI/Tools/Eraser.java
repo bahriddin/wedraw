@@ -25,6 +25,7 @@ public class Eraser extends Pen {
     protected void endLine(double x, double y) {
         freeDraw.setEndX(x);
         freeDraw.setEndY(y);
+        freeDraw.setFill(Color.TRANSPARENT);
         getCanvas().addErase(freeDraw);
     }
 
