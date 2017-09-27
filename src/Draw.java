@@ -1,7 +1,6 @@
-import javafx.scene.canvas.GraphicsContext;
+import Data.Coord;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * This class draws objects and pixels in the canvas

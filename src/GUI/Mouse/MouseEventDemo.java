@@ -1,3 +1,5 @@
+package GUI.Mouse;
+
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,7 +43,7 @@ public class MouseEventDemo extends JPanel {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("MouseEventDemo");
+        JFrame frame = new JFrame("GUI.Mouse.MouseEventDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.

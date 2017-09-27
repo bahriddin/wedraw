@@ -1,3 +1,5 @@
+package Data;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,9 +19,9 @@ public class PixelsDifference {
     private int numberOfPixels;
 
     /**
-     * PixelsDifference Object will store the different pixels between oldPixels and newPixels
+     * Data.PixelsDifference Object will store the different pixels between oldPixels and newPixels
      * Among those pixels, only the colors of newPixels will be stored
-     * Thus, PixelsDifference can be used to construct newPixels given oldPixels.
+     * Thus, Data.PixelsDifference can be used to construct newPixels given oldPixels.
      * @param oldPixels
      * @param newPixels
      */
@@ -46,7 +48,7 @@ public class PixelsDifference {
     }
 
     /**
-     * Directly construct a PixelsDifference Object from Pixel ArrayList
+     * Directly construct a Data.PixelsDifference Object from Data.Pixel ArrayList
      * @param pixels
      */
     PixelsDifference(ArrayList<Pixel> pixels) {
@@ -107,7 +109,7 @@ public class PixelsDifference {
     }
 
     /**
-     * update PixelsDifference based on Pixel ArrayList
+     * update Data.PixelsDifference based on Data.Pixel ArrayList
      * @param pixels
      */
     private void constructFromPixelList(ArrayList<Pixel> pixels) {
