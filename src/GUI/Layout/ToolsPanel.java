@@ -22,14 +22,17 @@ public class ToolsPanel extends HBox {
     public static String PEN_ICON = "../images/pen.png";
     public static String ERASER_ICON = "../images/erase.png";
     public static String RECT_ICON = "../images/rectangle.png";
-
+    public static String OVAL_ICON = "../images/oval.png";
+    public static String TEXT_ICON = "../images/text.png";
 
     public static int BTN_SIZE = 25;
 
     private Button penBtn;
     private Button eraserBtn;
     private Button rectBtn;
-    private Button colorPickerBtn;
+    private Button ovalBtn;
+    private Button textBtn;
+
     private Tool tools;
     private CanvasArea canvasArea;
 
@@ -47,10 +50,14 @@ public class ToolsPanel extends HBox {
         penBtn = new Button();
         eraserBtn = new Button();
         rectBtn = new Button();
+        ovalBtn = new Button();
+        textBtn = new Button();
 
         createBtn(penBtn, PEN_ICON);
         createBtn(eraserBtn, ERASER_ICON);
         createBtn(rectBtn,RECT_ICON);
+        createBtn(ovalBtn,OVAL_ICON);
+        createBtn(textBtn,TEXT_ICON);
 
         setupButtons();
 
@@ -100,6 +107,23 @@ public class ToolsPanel extends HBox {
             public void handle(ActionEvent arg0) {
                 tools.setTool(new Rectangular(canvasArea));
                 setActive(rectBtn);
+            }
+        });
+
+        // Change the tool to the oval when clicked.
+        ovalBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                tools.setTool(new Pen(canvasArea));
+                setActive(ovalBtn);
+            }
+        });
+
+        textBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                tools.setTool(new Pen(canvasArea));
+                setActive(textBtn);
             }
         });
 

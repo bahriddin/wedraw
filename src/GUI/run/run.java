@@ -18,7 +18,7 @@ public class run extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Whiteboard");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
     }
 }

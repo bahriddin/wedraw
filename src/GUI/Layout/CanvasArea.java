@@ -30,8 +30,6 @@ public class CanvasArea extends Pane  {
     }
 
 
-        Canvas temporaryCanvas = new Canvas();
-        Canvas permanentCanvas = new Canvas();
 
     public CanvasArea() {
 

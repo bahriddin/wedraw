@@ -44,7 +44,7 @@ public class Tool implements EventHandler<MouseEvent> {
      */
      public void setTool(Tool tool) {
         if (this.tool != null) {
-            // If the tool existed before, remove it's event handler
+            // If the tool existed before, remove it
             this.tool.getCanvas().removeEventHandler(MouseEvent.ANY, this.tool);
 
         }
@@ -53,7 +53,6 @@ public class Tool implements EventHandler<MouseEvent> {
         tool.getCanvas().setCursor(tool.getCursor());
         tool.getCanvas().addEventHandler(MouseEvent.ANY, tool);
     }
-
 
 
     public Cursor getCursor() {

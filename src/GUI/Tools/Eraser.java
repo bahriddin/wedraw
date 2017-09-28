@@ -1,12 +1,7 @@
 package GUI.Tools;
 
-import Data.Coord;
-import GUI.DrawSettings.DrawSettings;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-
-
 import GUI.Layout.CanvasArea;
+import javafx.scene.paint.Color;
 
 
 public class Eraser extends FreeDraw {
@@ -14,25 +9,6 @@ public class Eraser extends FreeDraw {
         super(canvasArea);
     }
 
-
-//    public Eraser(CanvasArea canvas) {
-//        super(canvas);
-//    }
-//
-//    @Override
-//    protected void startLine(double x, double y) {
-//
-//        super.startLine(x, y);
-//        freeDraw.setStroke(Color.WHITE);
-//
-//    }
-//
-//    @Override
-//    protected void endLine(double x, double y) {
-//        freeDraw.setEndX(x);
-//        freeDraw.setEndY(y);
-//        getCanvas().addShape(freeDraw);
-//    }
 
     @Override
     void startDraw() {
