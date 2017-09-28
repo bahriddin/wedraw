@@ -20,6 +20,10 @@ public class Coord {
         this.yValue = (int) yValue;
     }
 
+    @Override
+    public String toString() {
+        return " <"+xValue+","+yValue+"> ";
+    }
 
     public int x() {
         return xValue;
