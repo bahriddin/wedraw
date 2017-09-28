@@ -22,8 +22,8 @@ public class CanvasArea extends Pane  {
 
 
 
-        Canvas temporaryCanvas = new Canvas();
-        Canvas permanentCanvas = new Canvas();
+        Canvas temporaryCanvas = new Canvas(300,250);
+        Canvas permanentCanvas = new Canvas(300,250);
 
         getChildren().add(temporaryCanvas);
         getChildren().add(permanentCanvas);
@@ -38,6 +38,7 @@ public class CanvasArea extends Pane  {
         gc2.fillRect(90,90,100,100);
 
         temporaryCanvas.toFront();
+
 
 
 
