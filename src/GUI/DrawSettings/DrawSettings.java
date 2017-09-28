@@ -10,6 +10,11 @@ public class DrawSettings {
     public static final double DEAFAULT_DRAW_WIDTH = 5.0;
     private static double draw_width = DEAFAULT_DRAW_WIDTH;
 
+    public static final String DEAFAULT_FONT = "fd";
+//    private static double draw_width = DEAFAULT_DRAW_WIDTH;
+
+
+
 
 //      Get the  color.
 
@@ -42,6 +47,9 @@ public class DrawSettings {
         DrawSettings.draw_width = width;
 
     }
+
+    //     Set the pen width.
+
 
 
 }

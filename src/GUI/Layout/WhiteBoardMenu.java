@@ -19,7 +19,7 @@ public class WhiteBoardMenu extends MenuBar {
 
 
         // Setup the File Menu.
-        Menu file = new Menu("file");
+        Menu file = new Menu("File");
 
         // Create the screenshot menu item.
         MenuItem save = new MenuItem("Save");

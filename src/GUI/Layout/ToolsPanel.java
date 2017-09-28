@@ -1,6 +1,6 @@
 package GUI.Layout;
 
-import GUI.Tools.Rectangular;
+import GUI.Tools.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -12,9 +12,6 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import GUI.Tools.Pen;
-import GUI.Tools.Eraser;
-import GUI.Tools.Tool;
 
 
 public class ToolsPanel extends HBox {
@@ -114,7 +111,7 @@ public class ToolsPanel extends HBox {
         ovalBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                tools.setTool(new Pen(canvasArea));
+                tools.setTool(new Oval(canvasArea));
                 setActive(ovalBtn);
             }
         });
@@ -122,10 +119,11 @@ public class ToolsPanel extends HBox {
         textBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                tools.setTool(new Pen(canvasArea));
+                tools.setTool(new Text(canvasArea));
                 setActive(textBtn);
             }
         });
+
 
     }
 
