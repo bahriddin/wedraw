@@ -1,6 +1,7 @@
 package GUI.Layout;
 
 import javafx.geometry.Insets;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Background;
@@ -9,6 +10,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import Model.CanvasInteraction;
 
 
 public class CanvasArea extends Pane  {
@@ -16,14 +18,18 @@ public class CanvasArea extends Pane  {
     double locationX = 0.0;
     double locationY = 0.0;
 
+    Canvas temporaryCanvas = new Canvas(300,250);
+    Canvas permanentCanvas = new Canvas(300,250);
+
+    CanvasInteraction model = new CanvasInteraction(temporaryCanvas, permanentCanvas);
+
 //      Create a Canvas object.
 
+    public CanvasInteraction getModel(){
+        return model;
+    }
+
     public CanvasArea() {
-
-
-
-        Canvas temporaryCanvas = new Canvas(300,250);
-        Canvas permanentCanvas = new Canvas(300,250);
 
         getChildren().add(temporaryCanvas);
         getChildren().add(permanentCanvas);
@@ -38,9 +44,6 @@ public class CanvasArea extends Pane  {
         gc2.fillRect(90,90,100,100);
 
         temporaryCanvas.toFront();
-
-
-
 
     }
 
