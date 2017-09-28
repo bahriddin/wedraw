@@ -12,16 +12,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 
-public class Canvas extends Pane  {
+public class CanvasArea extends Pane  {
 
-    private List<Shape> erase;
     double locationX = 0.0;
     double locationY = 0.0;
 
 //      Create a Canvas object.
 
-    public Canvas() {
-        erase = new LinkedList<Shape>();
+    public CanvasArea() {
     }
 
 //    Set the background color of this Canvas
@@ -34,13 +32,6 @@ public class Canvas extends Pane  {
     public void addShape(Shape s) {
         getChildren().add(s);
     }
-
-//    add  eraser  to this Canvas.
-    public void addErase(Shape s) {
-        getChildren().add(s);
-        erase.add(s);
-    }
-
 
     /**
      * Get the X distance this Canvas is from the origin
