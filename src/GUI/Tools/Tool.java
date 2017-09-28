@@ -1,6 +1,7 @@
 package GUI.Tools;
 
 import GUI.Layout.CanvasArea;
+import Model.CanvasInteraction;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 
@@ -12,12 +13,13 @@ public class Tool implements EventHandler<MouseEvent> {
     private CanvasArea canvasArea;
     public Tool tool;
     private boolean leftClick;
-
-    public Tool() {}
+    protected CanvasInteraction model;
 
     public Tool(CanvasArea canvasArea) {
         this.canvasArea = canvasArea;
+        this.model = canvasArea.getModel();
     }
+    public Tool(){};
 
     public CanvasArea getCanvas() {
         return canvasArea;
