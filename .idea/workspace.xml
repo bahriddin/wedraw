@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58b7c732-4248-4314-926f-193677569cd4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Data/Coord.java" afterPath="$PROJECT_DIR$/src/Data/Coord.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java" afterPath="$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -28,9 +28,14 @@
       <file leaf-file-name="CanvasArea.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="58" column="7" lean-forward="true" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
-              <folding />
+            <state relative-caret-position="-435">
+              <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+              <folding>
+                <element signature="e#784#785#0" expanded="true" />
+                <element signature="e#812#813#0" expanded="true" />
+                <marker date="1506588290156" expanded="false" signature="1659:1670" ph=" { " />
+                <marker date="1506588290156" expanded="false" signature="1691:1697" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -372,9 +377,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="58" column="7" lean-forward="true" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="-435">
+          <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+          <folding>
+            <element signature="e#784#785#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <marker date="1506588290156" expanded="false" signature="1659:1670" ph=" { " />
+            <marker date="1506588290156" expanded="false" signature="1691:1697" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
