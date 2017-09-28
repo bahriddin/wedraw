@@ -127,7 +127,7 @@ public class CanvasInteraction {
     }
 
     // TBD
-    public void drawText() {
+    public void drawText(Coord start, String content, String font, Color color) {
 
     }
 

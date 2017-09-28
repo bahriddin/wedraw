@@ -48,17 +48,20 @@ public class WhiteBoard extends BorderPane {
         top = new VBox();
         HBox topControls = new HBox();
         ToolsPanel toolsPanel = new ToolsPanel(tools, canvasArea);
+        TextPanel textPanel = new TextPanel();
         PenWidthPanel widthPanel = new PenWidthPanel();
         ColorPalette colorPalette = new ColorPalette();
+        textPanel.setPrefWidth(120);
 
         // Setup some styling.
         top.setBackground(new Background(new BackgroundFill(PANE_COLOR,null, null)));
         topControls.setSpacing(10);
         topControls.setPadding(new Insets(5));
-        HBox.setHgrow(toolsPanel, Priority.ALWAYS);
+//        HBox.setHgrow(toolsPanel, Priority.ALWAYS);
 
         // Add children to top controls panel.
         topControls.getChildren().add(toolsPanel);
+        topControls.getChildren().add(textPanel);
         topControls.getChildren().add(widthPanel);
         topControls.getChildren().add(colorPalette);
 
