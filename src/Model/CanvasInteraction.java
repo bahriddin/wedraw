@@ -117,6 +117,7 @@ public class CanvasInteraction {
 
     // TBD
     public void drawText(Coord start, String content, String font, Color color) {
+        System.out.print("drawText"+": '"+content+"' in font: "+font+ " | "+ color +"\n");
 
     }
 

@@ -10,9 +10,13 @@ public class DrawSettings {
     public static final double DEAFAULT_DRAW_WIDTH = 5.0;
     private static double draw_width = DEAFAULT_DRAW_WIDTH;
 
-    public static final String DEAFAULT_FONT = "fd";
-//    private static double draw_width = DEAFAULT_DRAW_WIDTH;
+    public static final String DEAFAULT_FONT = "Arial";
+    private static String font = DEAFAULT_FONT;
 
+    public static final String DEAFAULT_TEXT_CONTENT = "Hello World";
+    private static String content = DEAFAULT_TEXT_CONTENT;
+
+//    StringProperty content = new SimpleStringProperty();
 
 
 
@@ -49,6 +53,23 @@ public class DrawSettings {
     }
 
     //     Set the pen width.
+    public static void setFont(String font) {
+        DrawSettings.font = font;
+
+    }
+
+    public static String getFont(){
+        return font;
+    }
+
+    public static void setContent(String content){
+        DrawSettings.content = content;
+    }
+
+
+    public static String getContent(){
+        return content;
+    }
 
 
 

@@ -1,6 +1,7 @@
 package GUI.Tools;
-
-
+/**
+ * Created by Maoyuan Xue on 29/09/2017.
+ */
 import Data.Coord;
 import GUI.DrawSettings.DrawSettings;
 import GUI.Layout.CanvasArea;
@@ -21,20 +22,14 @@ public class Text extends Tool{
         return new Coord(e.getX(),e.getY());
     }
 
-    void startDraw(){}
+    void startDraw(){this.model.drawText(coord,content,font,color);}
 
     public void onMouseDown(MouseEvent e) {
         coord = getCoord(e);
         color = DrawSettings.getColor();
-        font = "dsa";
+        font = DrawSettings.getFont();
+        content = DrawSettings.getContent();
         startDraw();
     }
-
-//    Called when the left mouse is dragged.
-
-
-
-//    Called when the left mouse is released.
-
 
 }
