@@ -19,7 +19,7 @@ public class CanvasInteraction {
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
-        
+
     }
 
     public void drawFree(ArrayList<Coord> coordList, Color color) {
@@ -43,19 +43,60 @@ public class CanvasInteraction {
 
     }
 
-    public void drawLine(Coord start, Coord end, Color color, int lineStyle) {
+    public void startDrawLine(Coord start, Coord end, Color color, int lineStyle) {
 
     }
 
-    public void drawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean isFilled) {
+    public void continueDrawLine(Coord start, Coord end, Color color, int lineStyle) {
 
     }
 
-    public void drawOval(Coord start, Coord end, Color color, int lineStyle, boolean isFilled) {
+    public void stopDrawLine(Coord start, Coord end, Color color, int lineStyle) {
 
     }
 
-    public void drawCircle(Coord start, Coord end, Color color, int lineStyle, boolean isFilled) {
+    public void startDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void continueDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void stopDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void startDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void continueDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void stopDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void startDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void cotinueDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
+
+    }
+
+    public void stopDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
+            isFilled) {
 
     }
 
@@ -64,6 +105,26 @@ public class CanvasInteraction {
     }
 
     public void unselectArea() {
+
+    }
+
+    // check if currentMouse is in the selected area, or close to, or far away from
+    public int getLocationStatus(Coord currentMouse) {
+
+    }
+
+    // TBD
+    public void drawText() {
+
+    }
+
+    // TBD
+    public void moveArea() {
+
+    }
+
+    // TBD
+    public void resizeArea() {
 
     }
 }
