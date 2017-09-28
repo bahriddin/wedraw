@@ -19,6 +19,7 @@ public class CanvasInteraction {
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
+        
     }
 
     public void drawFree(ArrayList<Coord> coordList, Color color) {
