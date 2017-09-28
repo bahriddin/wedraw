@@ -9,7 +9,7 @@ public class Pixel {
     private int coordinateY;
     private int colorValue;
 
-    Pixel(int coordinateX, int coordinateY, int colorValue) {
+    public Pixel(int coordinateX, int coordinateY, int colorValue) {
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
         this.colorValue = colorValue;
