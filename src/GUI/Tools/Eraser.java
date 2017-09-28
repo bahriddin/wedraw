@@ -3,13 +3,13 @@ package GUI.Tools;
 import javafx.scene.paint.Color;
 
 
-import GUI.Layout.Canvas;
+import GUI.Layout.CanvasArea;
 
 
 public class Eraser extends Pen {
 
 
-    public Eraser(Canvas canvas) {
+    public Eraser(CanvasArea canvas) {
         super(canvas);
     }
 
@@ -25,8 +25,7 @@ public class Eraser extends Pen {
     protected void endLine(double x, double y) {
         freeDraw.setEndX(x);
         freeDraw.setEndY(y);
-        freeDraw.setFill(Color.TRANSPARENT);
-        getCanvas().addErase(freeDraw);
+        getCanvas().addShape(freeDraw);
     }
 
 }

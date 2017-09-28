@@ -1,6 +1,6 @@
 package GUI.Tools;
 
-import GUI.Layout.Canvas;
+import GUI.Layout.CanvasArea;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 
@@ -9,18 +9,18 @@ import javafx.scene.input.MouseEvent;
 
 public class Tool implements EventHandler<MouseEvent> {
 
-    private Canvas canvas;
+    private CanvasArea canvasArea;
     public Tool tool;
     private boolean leftClick;
 
     public Tool() {}
 
-    public Tool(Canvas canvas) {
-        this.canvas = canvas;
+    public Tool(CanvasArea canvasArea) {
+        this.canvasArea = canvasArea;
     }
 
-    public Canvas getCanvas() {
-        return canvas;
+    public CanvasArea getCanvas() {
+        return canvasArea;
     }
 
 
@@ -40,12 +40,18 @@ public class Tool implements EventHandler<MouseEvent> {
     /*
      Set the current Tool
      */
-    public void setTool(Tool tool) {
+     public void setTool(Tool tool) {
+        if (this.tool != null) {
+            // If the tool existed before, remove it's event handler
+            this.tool.getCanvas().removeEventHandler(MouseEvent.ANY, this.tool);
+
+        }
         // Setup the tool.
         this.tool = tool;
         tool.getCanvas().setCursor(tool.getCursor());
         tool.getCanvas().addEventHandler(MouseEvent.ANY, tool);
     }
+
 
 
     public Cursor getCursor() {
@@ -72,7 +78,3 @@ public class Tool implements EventHandler<MouseEvent> {
     }
 
 }
-
-
-
-

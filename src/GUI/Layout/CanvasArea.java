@@ -1,9 +1,8 @@
 package GUI.Layout;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import javafx.geometry.Insets;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -20,13 +19,35 @@ public class CanvasArea extends Pane  {
 //      Create a Canvas object.
 
     public CanvasArea() {
+
+
+
+        Canvas temporaryCanvas = new Canvas();
+        Canvas permanentCanvas = new Canvas();
+
+        getChildren().add(temporaryCanvas);
+        getChildren().add(permanentCanvas);
+
+        //////////test
+        GraphicsContext gc1 = temporaryCanvas.getGraphicsContext2D();
+        GraphicsContext gc2 = permanentCanvas.getGraphicsContext2D();
+
+        gc1.setFill(Color.BLUE);
+        gc1.fillRect(75,75,100,100);
+        gc2.setFill(Color.RED);
+        gc2.fillRect(90,90,100,100);
+
+        temporaryCanvas.toFront();
+
+
+
     }
 
 //    Set the background color of this Canvas
-    void setBackground(Color color) {
-        setBackground(new Background(new BackgroundFill(
-                color, new CornerRadii(0), new Insets(0))));
-    }
+//    void setBackground(Color color) {
+//        setBackground(new Background(new BackgroundFill(
+//                color, new CornerRadii(0), new Insets(0))));
+//    }
 
 //    Add a Shape to this Canvas.
     public void addShape(Shape s) {

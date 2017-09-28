@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 public class CoordsPanel extends HBox {
 
-    public CoordsPanel(final Canvas canvas) {
+    public CoordsPanel(final CanvasArea canvas) {
         super();
 
         final Label locationLbl = new Label("Location: (X: 0, Y: 0)");

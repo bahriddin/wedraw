@@ -27,17 +27,17 @@ public class ToolsPanel extends HBox {
     private Button eraserBtn;
     private Button colorPickerBtn;
     private Tool tools;
-    private Canvas canvas;
+    private CanvasArea canvasArea;
 
 
 //    Create a ToolsPanel.
 
-    public ToolsPanel(Tool tools, Canvas canvas) {
+    public ToolsPanel(Tool tools, CanvasArea canvas) {
         super();
 
         // Setup variables.
         this.tools = tools;
-        this.canvas = canvas;
+        this.canvasArea = canvas;
 
         // Create the buttons.
         penBtn = new Button();
@@ -70,7 +70,7 @@ public class ToolsPanel extends HBox {
         penBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                tools.setTool(new Pen(canvas));
+                tools.setTool(new Pen(canvasArea));
                 setActive(penBtn);
             }
         });
@@ -79,7 +79,7 @@ public class ToolsPanel extends HBox {
         eraserBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                tools.setTool(new Eraser(canvas));
+                tools.setTool(new Eraser(canvasArea));
                 setActive(eraserBtn);
             }
         });

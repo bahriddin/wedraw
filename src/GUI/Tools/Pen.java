@@ -1,11 +1,12 @@
 package GUI.Tools;
 
+import GUI.Layout.CanvasArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 
 import GUI.DrawSettings.DrawSettings;
 
-import GUI.Layout.Canvas;
+import GUI.Layout.CanvasArea;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 
@@ -14,8 +15,8 @@ public class Pen extends Tool {
 
     public Line freeDraw;
 
-    public Pen(Canvas canvas) {
-        super(canvas);
+    public Pen(CanvasArea canvasArea) {
+        super();
     }
 
     protected void startLine(double x, double y) {
