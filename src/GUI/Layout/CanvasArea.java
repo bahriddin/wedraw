@@ -40,8 +40,6 @@ public class CanvasArea extends Pane  {
         temporaryCanvas.toFront();
 
 
-
-
     }
 
 //    Set the background color of this Canvas

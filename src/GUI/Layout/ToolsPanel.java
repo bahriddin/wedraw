@@ -1,5 +1,6 @@
 package GUI.Layout;
 
+import GUI.Tools.Rectangular;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -20,11 +21,14 @@ public class ToolsPanel extends HBox {
 
     public static String PEN_ICON = "../images/pen.png";
     public static String ERASER_ICON = "../images/erase.png";
+    public static String RECT_ICON = "../images/rectangle.png";
+
 
     public static int BTN_SIZE = 25;
 
     private Button penBtn;
     private Button eraserBtn;
+    private Button rectBtn;
     private Button colorPickerBtn;
     private Tool tools;
     private CanvasArea canvasArea;
@@ -42,8 +46,12 @@ public class ToolsPanel extends HBox {
         // Create the buttons.
         penBtn = new Button();
         eraserBtn = new Button();
+        rectBtn = new Button();
+
         createBtn(penBtn, PEN_ICON);
         createBtn(eraserBtn, ERASER_ICON);
+        createBtn(rectBtn,RECT_ICON);
+
         setupButtons();
 
         // The pen is the initial tool.
@@ -82,7 +90,19 @@ public class ToolsPanel extends HBox {
                 tools.setTool(new Eraser(canvasArea));
                 setActive(eraserBtn);
             }
+
         });
+
+        // Change the tool to the rect when clicked.
+
+       rectBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                tools.setTool(new Rectangular(canvasArea));
+                setActive(rectBtn);
+            }
+        });
+
     }
 
 
