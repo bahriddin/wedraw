@@ -1,6 +1,7 @@
 package GUI.Tools;
 import Data.Coord;
 import GUI.DrawSettings.DrawSettings;
+import GUI.Layout.CanvasArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -11,6 +12,10 @@ public class FreeDraw extends Tool{
     protected Coord coord;
     protected Color color;
     protected int lineStyle;
+
+    public FreeDraw(CanvasArea canvasArea) {
+        super(canvasArea);
+    }
 
     Coord getCoord(MouseEvent e){
         return new Coord(e.getX(),e.getY());

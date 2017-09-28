@@ -2,6 +2,7 @@ package GUI.Tools;
 
 import Data.Coord;
 import GUI.DrawSettings.DrawSettings;
+import GUI.Layout.CanvasArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -16,6 +17,10 @@ public class Shape extends Tool{
     protected Color color;
     protected int lineStyle;
     protected boolean isFilled;
+
+    public Shape(CanvasArea canvasArea) {
+        super(canvasArea);
+    }
 
     Coord getCoord(MouseEvent e){
         return new Coord(e.getX(),e.getY());

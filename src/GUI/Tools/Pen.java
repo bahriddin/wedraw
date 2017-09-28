@@ -12,6 +12,9 @@ import javafx.scene.shape.StrokeLineJoin;
 
 
 public class Pen extends FreeDraw {
+    public Pen(CanvasArea canvasArea) {
+        super(canvasArea);
+    }
 
 //    public Line freeDraw;
 //

@@ -10,6 +10,9 @@ import GUI.Layout.CanvasArea;
 
 
 public class Eraser extends FreeDraw {
+    public Eraser(CanvasArea canvasArea) {
+        super(canvasArea);
+    }
 
 
 //    public Eraser(CanvasArea canvas) {

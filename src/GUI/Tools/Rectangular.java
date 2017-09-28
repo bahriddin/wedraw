@@ -9,6 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Rectangular extends Shape{
+    public Rectangular(CanvasArea canvasArea) {
+        super(canvasArea);
+    }
 
 //    private double x1, y1, x2, y2;
 //    Rectangle rect;
