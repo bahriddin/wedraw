@@ -2,6 +2,8 @@ package Model;
 
 import Data.Coord;
 import Data.PixelsDifference;
+import Data.CanvasLog;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
@@ -14,10 +16,13 @@ public class CanvasInteraction {
     private Canvas permanentCanvas;
     private Canvas temporaryCanvas;
 
+    private CanvasLog log;
+
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
 
+        //log = new CanvasLog();
     }
 
     public void drawFree(ArrayList<Coord> coordList, Color color, int lineStyle) {

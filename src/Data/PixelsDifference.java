@@ -10,8 +10,6 @@ import me.lemire.integercompression.differential.*;
  */
 public class PixelsDifference {
 
-    public final static int N = 100;
-
     // compressed list of coordinates x, y and color
     private int[] x, y, color;
 
@@ -25,7 +23,7 @@ public class PixelsDifference {
      * @param oldPixels
      * @param newPixels
      */
-    PixelsDifference(int[][] oldPixels, int[][] newPixels) {
+    public PixelsDifference(int[][] oldPixels, int[][] newPixels) {
 
         numberOfPixels = 0;
 
@@ -51,7 +49,7 @@ public class PixelsDifference {
      * Directly construct a Data.PixelsDifference Object from Data.Pixel ArrayList
      * @param pixels
      */
-    PixelsDifference(ArrayList<Pixel> pixels) {
+    public PixelsDifference(ArrayList<Pixel> pixels) {
         constructFromPixelList(pixels);
     }
 
@@ -98,11 +96,11 @@ public class PixelsDifference {
 
         PixelsDifference d = new PixelsDifference(a, b);
 
-        CanvasLog log = new CanvasLog();
+        CanvasLog log = new CanvasLog(b);
 
-        log.updateCanvas(a, b);
+        log.updateCanvas(a);
 
-        int[][] c = log.undo(b);
+        int[][] c = log.undo();
 
         for (int i = 0; i < c.length; i++)
             System.out.println(Arrays.toString(c[i]));

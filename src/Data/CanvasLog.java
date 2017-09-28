@@ -9,12 +9,16 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class CanvasLog {
 
-    Queue<PixelsDifference> logs;
+    private Queue<PixelsDifference> logs;
+
+    private int[][] currentCanvas;
 
     public static final int MAX_LOG_LENGTH = 100;
 
-    CanvasLog() {
+    public CanvasLog(int[][] initialCanvas) {
         logs = new ArrayBlockingQueue<PixelsDifference>(MAX_LOG_LENGTH);
+
+        currentCanvas = initialCanvas;
     }
 
     /**
@@ -22,22 +26,24 @@ public class CanvasLog {
      * @param oldCanvas
      * @param newCanvas
      */
-    void updateCanvas(int[][] oldCanvas, int[][] newCanvas) {
+    void updateCanvas(int[][] newCanvas) {
 
         // to implement undo, the colors of the modified part of oldCanvas should be stored
-        PixelsDifference operation = new PixelsDifference(newCanvas, oldCanvas);
+        PixelsDifference operation = new PixelsDifference(newCanvas, currentCanvas);
 
         if (logs.size() >= MAX_LOG_LENGTH)
             logs.remove();
 
         logs.add(operation);
+
+        currentCanvas = newCanvas;
     }
 
     /**
      * pop and return the last operation
      * @return last operation, null if failed
      */
-    PixelsDifference undo() {
+    PixelsDifference popLastOperation() {
         if (logs.isEmpty())
             return null;
 
@@ -45,24 +51,23 @@ public class CanvasLog {
     }
 
     /**
-     * pop the last operation, and apply it to the canvas
-     * @param canvas
+     * pop the last operation, and apply it to current canvas
      * @return restored canvas, null if failed
      */
-    int[][] undo(int[][] canvas) {
+    int[][] undo() {
         if (logs.isEmpty())
             return null;
 
         PixelsDifference operation = logs.remove();
 
-        if (operation.size() == 0 || canvas.length == 0)
+        if (operation.size() == 0 || currentCanvas.length == 0)
             return null;
 
-        int[][] result = new int[canvas.length][];
+        int[][] result = new int[currentCanvas.length][];
 
         try {
-            for (int i = 0; i < canvas.length; i++)
-                result[i] = canvas[i].clone();
+            for (int i = 0; i < currentCanvas.length; i++)
+                result[i] = currentCanvas[i].clone();
 
             ArrayList<Pixel> pixels = operation.getPixels();
             for (Pixel pixel : pixels)
@@ -71,6 +76,8 @@ public class CanvasLog {
         } catch (Exception e) {
             return null;
         }
+
+        currentCanvas = result;
 
         return result;
     }
