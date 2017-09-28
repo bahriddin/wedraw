@@ -3,10 +3,12 @@ package Model;
 import Data.Coord;
 import Data.PixelsDifference;
 import Data.CanvasLog;
+import Data.CanvasHelper;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by zy on 27/09/2017.
@@ -22,10 +24,19 @@ public class CanvasInteraction {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
 
-        //log = new CanvasLog();
+        log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
+
+        int[][] tmp = log.getCurrentCanvas();
+
+        System.out.println("current canvas:");
+        if (tmp != null)
+            for (int i = 0; i < tmp.length; i++)
+                System.out.println(Arrays.toString(tmp[i]));
     }
 
     public void drawFree(ArrayList<Coord> coordList, Color color, int lineStyle) {
+
+
 
     }
 
@@ -132,6 +143,8 @@ public class CanvasInteraction {
     }
 
     public static void main(String[] args) {
+
         System.out.println("test");
+
     }
 }
