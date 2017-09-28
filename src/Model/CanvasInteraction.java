@@ -2,6 +2,7 @@ package Model;
 
 import Data.Coord;
 import Data.PixelsDifference;
+import javafx.scene.paint.Color;
 
 import java.awt.Canvas;
 import java.util.ArrayList;
@@ -20,19 +21,20 @@ public class CanvasInteraction {
         this.temporaryCanvas = temporaryCanvas;
     }
 
-    public void drawFree(ArrayList<Coord> coordList, int color) {
+    public void drawFree(ArrayList<Coord> coordList, Color color) {
+
 
     }
 
-    public void startDrawFree(Coord start, int color) {
+    public void startDrawFree(Coord start, Color color) {
 
     }
 
-    public void continueDrawFree(Coord current, int color) {
+    public void continueDrawFree(Coord current, Color color) {
 
     }
 
-    public void stopDrawFree(Coord end, int color) {
+    public void stopDrawFree(Coord end, Color color) {
 
     }
 
@@ -40,19 +42,19 @@ public class CanvasInteraction {
 
     }
 
-    public void drawLine(Coord start, Coord end, int color, int lineStyle) {
+    public void drawLine(Coord start, Coord end, Color color, int lineStyle) {
 
     }
 
-    public void drawRectangle(Coord start, Coord end, int color, int lineStyle, boolean isFilled) {
+    public void drawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean isFilled) {
 
     }
 
-    public void drawOval(Coord start, Coord end, int color, int lineStyle, boolean isFilled) {
+    public void drawOval(Coord start, Coord end, Color color, int lineStyle, boolean isFilled) {
 
     }
 
-    public void drawCircle(Coord start, Coord end, int color, int lineStyle, boolean isFilled) {
+    public void drawCircle(Coord start, Coord end, Color color, int lineStyle, boolean isFilled) {
 
     }
 
