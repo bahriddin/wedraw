@@ -127,4 +127,8 @@ public class CanvasInteraction {
     public void resizeArea() {
 
     }
+
+    public static void main(String[] args) {
+        System.out.println("test");
+    }
 }
