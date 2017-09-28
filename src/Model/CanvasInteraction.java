@@ -2,9 +2,8 @@ package Model;
 
 import Data.Coord;
 import Data.PixelsDifference;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
-
-import java.awt.Canvas;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 public class CanvasInteraction {
 
     private Canvas permanentCanvas;
-
     private Canvas temporaryCanvas;
 
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
@@ -22,20 +20,20 @@ public class CanvasInteraction {
 
     }
 
-    public void drawFree(ArrayList<Coord> coordList, Color color) {
+    public void drawFree(ArrayList<Coord> coordList, Color color, int lineStyle) {
 
 
     }
 
-    public void startDrawFree(Coord start, Color color) {
+    public void startDrawFree(Coord start, Color color , int lineStyle) {
 
     }
 
-    public void continueDrawFree(Coord current, Color color) {
+    public void continueDrawFree(Coord current, Color color, int lineStyle) {
 
     }
 
-    public void stopDrawFree(Coord end, Color color) {
+    public void stopDrawFree(Coord end, Color color, int lineStyle) {
 
     }
 
