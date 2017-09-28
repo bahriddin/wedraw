@@ -22,6 +22,23 @@ public class CanvasLog {
     }
 
     /**
+     * getter
+     * @return currentCanvas
+     */
+    public int[][] getCurrentCanvas() {
+
+        if (currentCanvas == null || currentCanvas.length < 1)
+            return null;
+
+        int[][] result = new int[currentCanvas.length][];
+
+        for (int i = 0; i < currentCanvas.length; i++)
+            result[i] = currentCanvas[i].clone();
+
+        return result;
+    }
+
+    /**
      * record the update operation which turns oldCanvas into newCanvas
      * @param oldCanvas
      * @param newCanvas
@@ -60,7 +77,8 @@ public class CanvasLog {
 
         PixelsDifference operation = logs.remove();
 
-        if (operation.size() == 0 || currentCanvas.length == 0)
+        if (operation == null || operation.size() == 0 ||
+                currentCanvas == null || currentCanvas.length < 1)
             return null;
 
         int[][] result = new int[currentCanvas.length][];
@@ -77,7 +95,8 @@ public class CanvasLog {
             return null;
         }
 
-        currentCanvas = result;
+        for (int i = 0; i < result.length; i++)
+            currentCanvas[i] = result[i].clone();
 
         return result;
     }
