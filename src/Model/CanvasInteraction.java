@@ -110,7 +110,7 @@ public class CanvasInteraction {
 
     // check if currentMouse is in the selected area, or close to, or far away from
     public int getLocationStatus(Coord currentMouse) {
-
+        return 0;
     }
 
     // TBD
