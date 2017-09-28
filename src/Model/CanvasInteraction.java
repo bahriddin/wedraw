@@ -22,19 +22,18 @@ public class CanvasInteraction {
 
     public void drawFree(ArrayList<Coord> coordList, Color color, int lineStyle) {
 
-
     }
 
     public void startDrawFree(Coord start, Color color , int lineStyle) {
-
+        System.out.print("startDrawFree"+start+color+lineStyle);
     }
 
     public void continueDrawFree(Coord current, Color color, int lineStyle) {
-
+        System.out.print("continueDrawFree"+current+color+lineStyle);
     }
 
     public void stopDrawFree(Coord end, Color color, int lineStyle) {
-
+        System.out.print("stopDrawFree"+end+color+lineStyle);
     }
 
     public void drawFree(PixelsDifference pixels) {
@@ -55,6 +54,7 @@ public class CanvasInteraction {
 
     public void startDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        System.out.print("startDrawFree"+start+color+lineStyle);
 
     }
 
