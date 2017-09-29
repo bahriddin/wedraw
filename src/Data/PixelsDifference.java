@@ -104,7 +104,7 @@ public class PixelsDifference {
 
         log.updateCanvas(a);
 
-        int[][] c = log.undo();
+        int[][] c = log.popLastCanvas();
 
         for (int i = 0; i < c.length; i++)
             System.out.println(Arrays.toString(c[i]));

@@ -315,23 +315,10 @@ public class CanvasInteraction {
      * undo
      */
     public void undo() {
-
-
-        int[][] tmp = log.undo();
-
-        if (tmp != null)
-            for (int i = 0; i < tmp.length; i++)
-                for (int j = 0; j < tmp[i].length; j++)
-                    permanentCanvas.getGraphicsContext2D().getPixelWriter().setColor(i, j,
-                            CanvasHelper.intToColor(tmp[i][j]));
-
-        /* todo advanced logging
         PixelsDifference lastOperation = log.popLastOperation();
 
-        if (lastOperation != null)
+        if (lastOperation != null && lastOperation.size() > 0)
             drawFreeWithoutLogging(lastOperation);
-            */
-
     }
 
     private void updateLog(){

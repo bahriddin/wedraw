@@ -54,7 +54,8 @@ public class CanvasLog {
 
         logs.add(operation);
 
-        currentCanvas = newCanvas;
+        for (int i = 0; i < newCanvas.length; i++)
+            currentCanvas[i] = newCanvas[i].clone();
     }
 
     /**
@@ -65,18 +66,29 @@ public class CanvasLog {
         if (logs.isEmpty())
             return null;
 
-        return logs.pop();
+        PixelsDifference result = logs.pop();
+        undo(result);
+        return result;
     }
 
     /**
-     * pop the last operation, then return the restored canvas
+     * pop the last operation, then return the last(restored) canvas
      * @return restored canvas, null if failed
      */
-    public int[][] undo() {
+    public int[][] popLastCanvas() {
         if (logs.isEmpty())
             return null;
 
-        PixelsDifference operation = logs.pop();
+        return undo(logs.pop());
+    }
+
+    /**
+     * return the restored canvas
+     * this method is used to update currentCanvas
+     * @param operation
+     * @return restored canvas, null if failed
+     */
+    private int[][] undo(PixelsDifference operation) {
 
         if (operation == null || operation.size() == 0 ||
                 currentCanvas == null || currentCanvas.length < 1)
