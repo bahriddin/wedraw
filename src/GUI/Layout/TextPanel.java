@@ -37,7 +37,6 @@ public class TextPanel extends VBox{
         ObservableList<String> fontSize = FXCollections.observableList(sizeValue);
         ComboBox<String> fontSizeMenu= new ComboBox<String>(fontSize);
 
-
         fontSizeMenu.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue ov, String s, String s1) {
