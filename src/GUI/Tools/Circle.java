@@ -14,7 +14,7 @@ public class Circle extends Shape{
         this.model.startDrawCircle(start,end,color,lineStyle,isFilled);
     }
     void continueDraw(){
-        this.model.cotinueDrawCircle(start,end,color,lineStyle,isFilled);
+        this.model.continueDrawCircle(start,end,color,lineStyle,isFilled);
     }
     void endDraw(){
         this.model.stopDrawCircle(start,end,color,lineStyle,isFilled);

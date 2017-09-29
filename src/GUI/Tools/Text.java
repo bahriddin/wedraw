@@ -22,7 +22,8 @@ public class Text extends Tool{
         return new Coord(e.getX(),e.getY());
     }
 
-    void startDraw(){this.model.drawText(coord,content,font,color);}
+    //todo: add size
+    void startDraw(){this.model.drawText(coord,content,font,1,color);}
 
     public void onMouseDown(MouseEvent e) {
         coord = getCoord(e);

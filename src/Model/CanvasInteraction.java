@@ -25,6 +25,11 @@ public class CanvasInteraction {
 
     private Draw draw;
 
+    /**
+     * initialize the model
+     * @param permanentCanvas
+     * @param temporaryCanvas
+     */
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
@@ -40,101 +45,211 @@ public class CanvasInteraction {
 
     }
 
-    public void drawFree(ArrayList<Coord> coordList, Color color, int lineStyle) {
-
-
-
-    }
-
     public void drawFree(PixelsDifference pixels) {
 
     }
 
+    /**
+     * start drawing (press the LMB, Left Mouse Button)
+     * @param start
+     * @param color
+     * @param lineStyle
+     */
     public void startDrawFree(Coord start, Color color , int lineStyle) {
         status.drawFree(start);
         System.out.print("startDrawFree"+start+color+"|"+lineStyle+"\n");
     }
 
+    /**
+     * continue drawing ( moving the mouse while the LMB is pressed)
+     * @param current
+     * @param color
+     * @param lineStyle
+     */
     public void continueDrawFree(Coord current, Color color, int lineStyle) {
         if (status.status() != CanvasStatus.DRAW_FREE)
             return;
 
         draw.drawLine(status.stratCoord(), current, color, lineStyle, Draw.PERMANENT_LAYER);
-
         status.drawFree(current);
-
         System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
     }
 
+    /**
+     * finish drawing (release the LMB)
+     * @param end
+     * @param color
+     * @param lineStyle
+     */
     public void stopDrawFree(Coord end, Color color, int lineStyle) {
         if (status.status() != CanvasStatus.DRAW_FREE)
             return;
-
         draw.drawLine(status.stratCoord(), end, color, lineStyle, Draw.PERMANENT_LAYER);
-
         status.nothing();
+        updateLog();
 
-        log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
-
-        System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
     }
 
+    /**
+     * start drawing (press the LMB, Left Mouse Button)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     */
     public void startDrawLine(Coord start, Coord end, Color color, int lineStyle) {
-
+        draw.drawLine(start, end, color, lineStyle, Draw.TEMPORARY_LAYER);
     }
 
+    /**
+     * continue drawing ( moving the mouse while the LMB is pressed)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     */
     public void continueDrawLine(Coord start, Coord end, Color color, int lineStyle) {
-
+        draw.clearTemporaryLayer();
+        draw.drawLine(start, end, color, lineStyle, Draw.TEMPORARY_LAYER);
     }
 
+    /**
+     * finish drawing (release the LMB)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     */
     public void stopDrawLine(Coord start, Coord end, Color color, int lineStyle) {
-
+        draw.clearTemporaryLayer();
+        draw.drawLine(start, end, color, lineStyle, Draw.PERMANENT_LAYER);
+        updateLog();
     }
 
+    /**
+     * start drawing (press the LMB, Left Mouse Button)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void startDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.drawRectangle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
+    /**
+     * continue drawing ( moving the mouse while the LMB is pressed)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void continueDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-        GraphicsContext gc = temporaryCanvas.getGraphicsContext2D();
-        gc.rect(start.x(),start.y(),end.x()-start.x(),end.y()-start.y());
+        draw.clearTemporaryLayer();
+        draw.drawRectangle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
+    /**
+     * finish drawing (release the LMB)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void stopDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.clearTemporaryLayer();
+        draw.drawRectangle(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
+        updateLog();
     }
 
+    /**
+     * start drawing (press the LMB, Left Mouse Button)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void startDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.drawOval(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
+    /**
+     * continue drawing ( moving the mouse while the LMB is pressed)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void continueDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.clearTemporaryLayer();
+        draw.drawOval(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
+    /**
+     * finish drawing (release the LMB)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void stopDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.clearTemporaryLayer();
+        draw.drawOval(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
+        updateLog();
     }
 
+    /**
+     * start drawing (press the LMB, Left Mouse Button)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void startDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.drawCircle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
-    public void cotinueDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
+    /**
+     * continue drawing ( moving the mouse while the LMB is pressed)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
+    public void continueDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.clearTemporaryLayer();
+        draw.drawCircle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
+    /**
+     * finish drawing (release the LMB)
+     * @param start
+     * @param end
+     * @param color
+     * @param lineStyle
+     * @param isFilled
+     */
     public void stopDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        draw.clearTemporaryLayer();
+        draw.drawCircle(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
+        updateLog();
     }
 
     public void selectArea(Coord start, Coord end) {
@@ -151,7 +266,7 @@ public class CanvasInteraction {
     }
 
     // TBD
-    public void drawText(Coord start, String content, String font, Color color) {
+    public void drawText(Coord start, String content, String font, int size, Color color) {
         System.out.print("drawText"+start+": '"+content+"' in font: "+font+ " | "+ color +"\n");
 
     }
@@ -177,6 +292,10 @@ public class CanvasInteraction {
 
         if (lastCanvas != null)
             permanentCanvas = CanvasHelper.matrixToCanvas(lastCanvas);
+    }
+
+    private void updateLog(){
+        log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
     }
 
     public static void main(String[] args) {
