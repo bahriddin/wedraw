@@ -30,6 +30,8 @@ public class WhiteBoard extends BorderPane {
         // Setup canvas
         canvasArea = new CanvasArea();
 
+        canvasArea.setStyle("-fx-background-color: white");
+
         // Setup tools
         tools = new Tool();
         tools.setTool(new Pen(canvasArea));
