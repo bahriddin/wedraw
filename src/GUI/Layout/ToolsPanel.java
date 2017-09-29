@@ -193,6 +193,14 @@ public class ToolsPanel extends VBox {
             }
         });
 
+        eraserBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                tools.setTool(new Eraser(canvasArea));
+                setActive(eraserBtn);
+            }
+        });
+
 
     }
 
