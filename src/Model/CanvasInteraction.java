@@ -2,6 +2,7 @@ package Model;
 
 import Data.*;
 
+import GUI.Tools.Draw;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -22,6 +23,8 @@ public class CanvasInteraction {
 
     private CanvasStatus status;
 
+    private Draw draw;
+
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
@@ -29,6 +32,11 @@ public class CanvasInteraction {
         log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
 
         status = new CanvasStatus();
+
+        Canvas[] tmpCanvas = new Canvas[2];
+        tmpCanvas[Draw.PERMANENT_LAYER] = permanentCanvas;
+        tmpCanvas[Draw.TEMPORARY_LAYER] = temporaryCanvas;
+        draw = new Draw(tmpCanvas);
 
     }
 
@@ -38,20 +46,37 @@ public class CanvasInteraction {
 
     }
 
+    public void drawFree(PixelsDifference pixels) {
+
+    }
+
     public void startDrawFree(Coord start, Color color , int lineStyle) {
+        status.drawFree(start);
         System.out.print("startDrawFree"+start+color+"|"+lineStyle+"\n");
     }
 
     public void continueDrawFree(Coord current, Color color, int lineStyle) {
+        if (status.status() != CanvasStatus.DRAW_FREE)
+            return;
+
+        draw.drawLine(status.stratCoord(), current, color, lineStyle, Draw.PERMANENT_LAYER);
+
+        status.drawFree(current);
+
         System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
     }
 
     public void stopDrawFree(Coord end, Color color, int lineStyle) {
+        if (status.status() != CanvasStatus.DRAW_FREE)
+            return;
+
+        draw.drawLine(status.stratCoord(), end, color, lineStyle, Draw.PERMANENT_LAYER);
+
+        status.nothing();
+
+        log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
+
         System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
-    }
-
-    public void drawFree(PixelsDifference pixels) {
-
     }
 
     public void startDrawLine(Coord start, Coord end, Color color, int lineStyle) {
