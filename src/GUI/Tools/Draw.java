@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 
@@ -135,4 +136,10 @@ public class Draw {
         }
     }
 
+    public void drawText(Coord start, String content, String font, int size, Color color, int layerType) {
+        GraphicsContext gc = initGC(layerType, color);
+        gc.setFont(new Font(font, size));
+        gc.setFill(color);
+        gc.fillText(content, start.x(), start.y());
+    }
 }
