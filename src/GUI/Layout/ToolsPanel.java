@@ -1,5 +1,6 @@
 package GUI.Layout;
 
+import GUI.DrawSettings.DrawSettings;
 import GUI.Tools.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +25,6 @@ public class ToolsPanel extends VBox {
     public static String UNDO_ICON = "../images/undo.png";
     public static String FILLED_ICON = "../images/filled.png";
     public static String UNFILLED_ICON = "../images/unfilled.png";
-    boolean is_filled = false;
 
 
     public static int BTN_SIZE = 25;
@@ -85,14 +85,14 @@ public class ToolsPanel extends VBox {
         isFilled.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                if(is_filled == true){
-                    is_filled = false;
+                if(DrawSettings.IS_FIILED == true){
+                    DrawSettings.IS_FIILED = false;
                     isFilled.setGraphic(new ImageView(unfilled));
                     isFilled.setText("UnFilled");
                 }
                 else
                 {
-                is_filled = true;
+                    DrawSettings.IS_FIILED = true;
                 isFilled.setGraphic(new ImageView(filled));
                     isFilled.setText("Filled");
 

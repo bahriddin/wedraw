@@ -35,7 +35,7 @@ public class Shape extends Tool{
         end = getCoord(e);
         color = DrawSettings.getColor();
         lineStyle = (int) DrawSettings.getWidth();
-        isFilled = (color != null);
+        isFilled = (DrawSettings.IS_FIILED);
         startDraw();
     }
 

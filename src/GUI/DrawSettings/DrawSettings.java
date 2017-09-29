@@ -19,6 +19,8 @@ public class DrawSettings {
     public static final int DEAFAULT_FONT_SIEZE = 10;
     private static int fontSize = DEAFAULT_FONT_SIEZE;
 
+    public static  boolean IS_FIILED = false;
+
 //    StringProperty content = new SimpleStringProperty();
 
 
