@@ -3,7 +3,10 @@ package GUI.Tools;
 import Data.Coord;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 public class Draw {
     public final static int PERMANENT_LAYER = 0;
@@ -72,6 +75,7 @@ public class Draw {
     }
 
     /**
+     * Draws rectangle
      *
      * @param start Starting coordinate
      * @param end Ending coordinate
@@ -119,6 +123,13 @@ public class Draw {
     public void clearTemporaryLayer() {
         GraphicsContext gc = layers[TEMPORARY_LAYER];
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
+
+    public void drawFree(ArrayList<Coord> coordList, Color color, int layerType) {
+        PixelWriter pixelWriter = layers[TEMPORARY_LAYER].getPixelWriter();
+        for (Coord coord: coordList) {
+            pixelWriter.setColor(coord.x(), coord.y(), color);
+        }
     }
 
 }
