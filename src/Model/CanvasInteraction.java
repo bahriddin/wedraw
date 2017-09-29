@@ -6,7 +6,10 @@ import Data.CanvasLog;
 import Data.CanvasHelper;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -75,7 +78,8 @@ public class CanvasInteraction {
 
     public void continueDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
-
+        GraphicsContext gc = temporaryCanvas.getGraphicsContext2D();
+        gc.rect(start.x(),start.y(),end.x()-start.x(),end.y()-start.y());
     }
 
     public void stopDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
