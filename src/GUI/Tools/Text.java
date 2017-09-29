@@ -14,6 +14,8 @@ public class Text extends Tool{
     protected String content;
     protected String font;
     protected Color color;
+    protected int fontSize;
+
     public Text(CanvasArea canvasArea) {
         super(canvasArea);
     }
@@ -23,13 +25,14 @@ public class Text extends Tool{
     }
 
     //todo: add size
-    void startDraw(){this.model.drawText(coord,content,font,1,color);}
+    void startDraw(){this.model.drawText(coord,content,font,fontSize,color);}
 
     public void onMouseDown(MouseEvent e) {
         coord = getCoord(e);
         color = DrawSettings.getColor();
         font = DrawSettings.getFont();
         content = DrawSettings.getContent();
+        fontSize = DrawSettings.getFontSize();
         startDraw();
     }
 

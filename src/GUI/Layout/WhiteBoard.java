@@ -53,7 +53,7 @@ public class WhiteBoard extends BorderPane {
         TextPanel textPanel = new TextPanel();
         PenWidthPanel widthPanel = new PenWidthPanel();
         ColorPalette colorPalette = new ColorPalette();
-        textPanel.setPrefWidth(120);
+        textPanel.setPrefWidth(200);
 
         // Setup some styling.
         top.setBackground(new Background(new BackgroundFill(PANE_COLOR,null, null)));

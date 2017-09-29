@@ -16,6 +16,9 @@ public class DrawSettings {
     public static final String DEAFAULT_TEXT_CONTENT = "Hello World";
     private static String content = DEAFAULT_TEXT_CONTENT;
 
+    public static final int DEAFAULT_FONT_SIEZE = 10;
+    private static int fontSize = DEAFAULT_FONT_SIEZE;
+
 //    StringProperty content = new SimpleStringProperty();
 
 
@@ -69,6 +72,16 @@ public class DrawSettings {
 
     public static String getContent(){
         return content;
+    }
+
+
+    public static void setFontSize(int fontSize) {
+        DrawSettings.fontSize = fontSize;
+
+    }
+
+    public static int getFontSize(){
+        return fontSize;
     }
 
 
