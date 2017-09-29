@@ -17,7 +17,7 @@ public class CanvasArea extends Pane  {
     Canvas temporaryCanvas = new Canvas(1000,1000);
     Canvas permanentCanvas = new Canvas(1000,1000);
 
-    CanvasInteraction model = new CanvasInteraction(temporaryCanvas, permanentCanvas);
+    CanvasInteraction model = new CanvasInteraction(permanentCanvas, temporaryCanvas);
 
 //      Create a Canvas object.
 

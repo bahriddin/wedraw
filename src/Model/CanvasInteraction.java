@@ -45,8 +45,20 @@ public class CanvasInteraction {
 
     }
 
-    public void drawFree(PixelsDifference pixels) {
+    /**
+     * draw some pixels based on PixelsDifference
+     * @param difference
+     */
+    public void drawFree(PixelsDifference difference) {
+        drawFree(difference.getPixels());
+    }
 
+    /**
+     * draw some pixels based on a Pixel list
+     * @param pixels
+     */
+    public void drawFree(ArrayList<Pixel> pixels) {
+        draw.drawFree(pixels, Draw.PERMANENT_LAYER);
     }
 
     /**
@@ -293,12 +305,10 @@ public class CanvasInteraction {
      */
     public void undo() {
 
-        // todo: based on PixelsDifference and drawFree instead of replacing the entire canvas
+        PixelsDifference lastOperation = log.popLastOperation();
 
-        int[][] lastCanvas = log.undo();
-
-        if (lastCanvas != null)
-            permanentCanvas = CanvasHelper.matrixToCanvas(lastCanvas);
+        if (lastOperation != null)
+            drawFree(lastOperation);
     }
 
     private void updateLog(){
