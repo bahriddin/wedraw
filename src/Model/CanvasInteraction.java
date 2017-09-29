@@ -46,11 +46,21 @@ public class CanvasInteraction {
     }
 
     /**
+     * draw some pixels without adding new log
+     * this method is used by undo
+     * @param difference
+     */
+    public void drawFreeWithoutLogging(PixelsDifference difference) {
+        draw.drawFree(difference.getPixels(), Draw.PERMANENT_LAYER);
+    }
+
+    /**
      * draw some pixels based on PixelsDifference
      * @param difference
      */
     public void drawFree(PixelsDifference difference) {
-        drawFree(difference.getPixels());
+        drawFreeWithoutLogging(difference);
+        updateLog();
     }
 
     /**
@@ -59,6 +69,7 @@ public class CanvasInteraction {
      */
     public void drawFree(ArrayList<Pixel> pixels) {
         draw.drawFree(pixels, Draw.PERMANENT_LAYER);
+        updateLog();
     }
 
     /**
@@ -98,8 +109,8 @@ public class CanvasInteraction {
             return;
         draw.drawLine(status.stratCoord(), end, color, lineStyle, Draw.PERMANENT_LAYER);
         status.nothing();
+        System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
         updateLog();
-
     }
 
     /**
@@ -305,10 +316,22 @@ public class CanvasInteraction {
      */
     public void undo() {
 
+
+        int[][] tmp = log.undo();
+
+        if (tmp != null)
+            for (int i = 0; i < tmp.length; i++)
+                for (int j = 0; j < tmp[i].length; j++)
+                    permanentCanvas.getGraphicsContext2D().getPixelWriter().setColor(i, j,
+                            CanvasHelper.intToColor(tmp[i][j]));
+
+        /* todo advanced logging
         PixelsDifference lastOperation = log.popLastOperation();
 
         if (lastOperation != null)
-            drawFree(lastOperation);
+            drawFreeWithoutLogging(lastOperation);
+            */
+
     }
 
     private void updateLog(){

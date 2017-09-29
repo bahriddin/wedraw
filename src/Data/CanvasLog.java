@@ -1,22 +1,23 @@
 package Data;
 
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Stack;
 
 /**
  * Created by zy on 20/09/2017.
  */
 public class CanvasLog {
 
-    private Queue<PixelsDifference> logs;
+    private Stack<PixelsDifference> logs;
 
     private int[][] currentCanvas;
 
     public static final int MAX_LOG_LENGTH = 100;
 
     public CanvasLog(int[][] initialCanvas) {
-        logs = new ArrayBlockingQueue<PixelsDifference>(MAX_LOG_LENGTH);
+
+        logs = new Stack<PixelsDifference>();
+        //logs = new ArrayBlockingStack<PixelsDifference>(MAX_LOG_LENGTH);
 
         currentCanvas = initialCanvas;
     }
@@ -49,7 +50,7 @@ public class CanvasLog {
         PixelsDifference operation = new PixelsDifference(newCanvas, currentCanvas);
 
         if (logs.size() >= MAX_LOG_LENGTH)
-            logs.remove();
+            logs.remove(0);
 
         logs.add(operation);
 
@@ -64,7 +65,7 @@ public class CanvasLog {
         if (logs.isEmpty())
             return null;
 
-        return logs.remove();
+        return logs.pop();
     }
 
     /**
@@ -75,7 +76,7 @@ public class CanvasLog {
         if (logs.isEmpty())
             return null;
 
-        PixelsDifference operation = logs.remove();
+        PixelsDifference operation = logs.pop();
 
         if (operation == null || operation.size() == 0 ||
                 currentCanvas == null || currentCanvas.length < 1)
