@@ -1,9 +1,6 @@
 package Model;
 
-import Data.Coord;
-import Data.PixelsDifference;
-import Data.CanvasLog;
-import Data.CanvasHelper;
+import Data.*;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,18 +20,16 @@ public class CanvasInteraction {
 
     private CanvasLog log;
 
+    private CanvasStatus status;
+
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
 
         log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
 
-        int[][] tmp = log.getCurrentCanvas();
+        status = new CanvasStatus();
 
-        System.out.println("current canvas:");
-        if (tmp != null)
-            for (int i = 0; i < tmp.length; i++)
-                System.out.println(Arrays.toString(tmp[i]));
     }
 
     public void drawFree(ArrayList<Coord> coordList, Color color, int lineStyle) {
@@ -144,6 +139,19 @@ public class CanvasInteraction {
     // TBD
     public void resizeArea() {
 
+    }
+
+    /**
+     * undo
+     */
+    public void undo() {
+
+        // todo: based on PixelsDifference and drawFree instead of replacing the entire canvas
+
+        int[][] lastCanvas = log.undo();
+
+        if (lastCanvas != null)
+            permanentCanvas = CanvasHelper.matrixToCanvas(lastCanvas);
     }
 
     public static void main(String[] args) {

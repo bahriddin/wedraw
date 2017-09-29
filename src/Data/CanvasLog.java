@@ -43,7 +43,7 @@ public class CanvasLog {
      * @param oldCanvas
      * @param newCanvas
      */
-    void updateCanvas(int[][] newCanvas) {
+    public void updateCanvas(int[][] newCanvas) {
 
         // to implement undo, the colors of the modified part of oldCanvas should be stored
         PixelsDifference operation = new PixelsDifference(newCanvas, currentCanvas);
@@ -60,7 +60,7 @@ public class CanvasLog {
      * pop and return the last operation
      * @return last operation, null if failed
      */
-    PixelsDifference popLastOperation() {
+    public PixelsDifference popLastOperation() {
         if (logs.isEmpty())
             return null;
 
@@ -68,10 +68,10 @@ public class CanvasLog {
     }
 
     /**
-     * pop the last operation, and apply it to current canvas
+     * pop the last operation, then return the restored canvas
      * @return restored canvas, null if failed
      */
-    int[][] undo() {
+    public int[][] undo() {
         if (logs.isEmpty())
             return null;
 
