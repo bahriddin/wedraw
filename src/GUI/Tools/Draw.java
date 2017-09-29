@@ -24,6 +24,35 @@ public class Draw {
         }
     }
 
+    private GraphicsContext initGC(int layerType, Color color) {
+        GraphicsContext gc = layers[layerType];
+        gc.setStroke(color);
+        gc.setFill(color);
+
+        return gc;
+    }
+
+    private GraphicsContext initLineStyle(GraphicsContext gc, int lineStyle) {
+        if (lineStyle > 0) {
+            gc.setLineWidth(lineStyle);
+        }
+        else {
+            gc.setLineWidth(-lineStyle);
+            gc.setLineDashes(-2 * lineStyle);
+        }
+        return gc;
+    }
+
+    private int[] initFigureData(Coord start, Coord end) {
+        int[] res = new int[4];
+        res[0] = Math.min(start.x(), end.x());
+        res[1] = Math.min(start.y(), end.y());
+        res[2] = Math.max(start.x(), end.x()) - res[0];
+        res[3] = Math.max(start.y(), end.y()) - res[1];
+
+        return res;
+    }
+
 
     /**
      * Negative lineStyle represents a dotted line, positive lifestyle represents
@@ -36,36 +65,60 @@ public class Draw {
      * @param layerType Layer number (temp. or perm.)
      */
     public void drawLine(Coord start, Coord end, Color color, int lineStyle, int layerType) {
-        GraphicsContext gc = layers[layerType];
-        gc.setStroke(color);
-
-        if (lineStyle > 0) {
-            gc.setLineWidth(lineStyle);
-        }
-        else {
-            gc.setLineWidth(-lineStyle);
-            gc.setLineDashes(-2 * lineStyle);
-        }
+        GraphicsContext gc = initGC(layerType, color);
+        initLineStyle(gc, lineStyle);
 
         gc.strokeLine(start.x(), start.y(), end.x(), end.y());
     }
 
     /**
-     * Draw dashed line
      *
      * @param start Starting coordinate
      * @param end Ending coordinate
      * @param color Color RGBa
-     * @param width width of the line
+     * @param lineStyle Width + dotted if negative
+     * @param isFilled should be filled figure with color
      * @param layerType Layer number (temp. or perm.)
      */
-    private void drawDashed(Coord start, Coord end, Color color, int width, int layerType) {
-        GraphicsContext gc = layers[layerType];
-        gc.setStroke(color);
-        gc.setLineWidth(width);
-        gc.setLineDashes(2*width);
-        gc.strokeLine(start.x(), start.y(), end.x(), end.y());
+    public void drawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean isFilled, int layerType) {
+        GraphicsContext gc = initGC(layerType, color);
+        initLineStyle(gc, lineStyle);
+        int[] xywh = initFigureData(start, end);
+
+        if (isFilled)
+            gc.fillRect(xywh[0], xywh[1], xywh[2], xywh[3]);
+
+        gc.strokeRect(xywh[0], xywh[1], xywh[2], xywh[3]);
     }
 
+    public void drawOval(Coord start, Coord end, Color color, int lineStyle, boolean isFilled, int layerType) {
+        GraphicsContext gc = initGC(layerType, color);
+        initLineStyle(gc, lineStyle);
+        int[] xywh = initFigureData(start, end);
+
+        if (isFilled)
+            gc.fillOval(xywh[0], xywh[1], xywh[2], xywh[3]);
+
+        gc.strokeOval(xywh[0], xywh[1], xywh[2], xywh[3]);
+    }
+
+    public void drawCircle(Coord start, Coord end, Color color, int lineStyle, boolean isFilled, int layerType) {
+        GraphicsContext gc = initGC(layerType, color);
+        initLineStyle(gc, lineStyle);
+        int[] xywh = initFigureData(start, end);
+
+        xywh[2] = Math.max(xywh[2], xywh[3]);
+        xywh[3] = xywh[2];
+
+        if (isFilled)
+            gc.fillOval(xywh[0], xywh[1], xywh[2], xywh[3]);
+
+        gc.strokeOval(xywh[0], xywh[1], xywh[2], xywh[3]);
+    }
+
+    public void clearTemporaryLayer() {
+        GraphicsContext gc = layers[TEMPORARY_LAYER];
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
 
 }
