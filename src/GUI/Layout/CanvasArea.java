@@ -30,8 +30,9 @@ public class CanvasArea extends Pane  {
     public CanvasArea() {
 
 
-        getChildren().add(temporaryCanvas);
         getChildren().add(permanentCanvas);
+        getChildren().add(temporaryCanvas);
+
 
         //////////test
         GraphicsContext gc1 = temporaryCanvas.getGraphicsContext2D();

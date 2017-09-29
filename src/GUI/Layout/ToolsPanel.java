@@ -5,22 +5,27 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 
-public class ToolsPanel extends HBox {
+public class ToolsPanel extends VBox {
 
     public static String PEN_ICON = "../images/pen.png";
     public static String ERASER_ICON = "../images/erase.png";
     public static String RECT_ICON = "../images/rectangle.png";
     public static String OVAL_ICON = "../images/oval.png";
     public static String TEXT_ICON = "../images/text.png";
+    public static String CIRCLE_ICON = "../images/circle.png";
+    public static String LINE_ICON = "../images/line.png";
+    public static String UNDO_ICON = "../images/undo.png";
+    public static String FILLED_ICON = "../images/filled.png";
+    public static String UNFILLED_ICON = "../images/unfilled.png";
+    boolean is_filled = false;
+
 
     public static int BTN_SIZE = 25;
 
@@ -29,9 +34,14 @@ public class ToolsPanel extends HBox {
     private Button rectBtn;
     private Button ovalBtn;
     private Button textBtn;
+    private Button circleBtn;
+    private Button lineBtn;
 
     private Tool tools;
     private CanvasArea canvasArea;
+
+    HBox hbox1 = new HBox();
+    HBox hbox2 = new HBox();
 
 
 //    Create a ToolsPanel.
@@ -49,10 +59,57 @@ public class ToolsPanel extends HBox {
         rectBtn = new Button();
         ovalBtn = new Button();
         textBtn = new Button();
+        circleBtn = new Button();
+        lineBtn = new Button();
 
-        createBtn(penBtn, PEN_ICON);
+        getChildren().add(hbox1);
+        getChildren().add(hbox2);
+
+
+        Image undo_img = new Image(getClass().getResourceAsStream(UNDO_ICON),60, 30, true, true);
+        Button undoBtn = new Button("Undo", new ImageView(undo_img));
+        undoBtn.setStyle(" -fx-base: #b6e7c9;");
+
+        undoBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                canvasArea.getModel().undo();
+            }
+        });
+
+        Image filled = new Image(getClass().getResourceAsStream(FILLED_ICON),60, 30, true, true);
+        Image unfilled = new Image(getClass().getResourceAsStream(UNFILLED_ICON),60, 30, true, true);
+
+        Button isFilled = new Button("UnFilled", new ImageView(unfilled));
+
+        isFilled.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                if(is_filled == true){
+                    is_filled = false;
+                    isFilled.setGraphic(new ImageView(unfilled));
+                    isFilled.setText("UnFilled");
+                }
+                else
+                {
+                is_filled = true;
+                isFilled.setGraphic(new ImageView(filled));
+                    isFilled.setText("Filled");
+
+
+            }}
+        });
+
+        hbox2.getChildren().add(undoBtn);
+        hbox2.getChildren().add(isFilled);
+
+
+
         createBtn(eraserBtn, ERASER_ICON);
+        createBtn(penBtn, PEN_ICON);
+        createBtn(lineBtn,LINE_ICON);
         createBtn(rectBtn,RECT_ICON);
+        createBtn(circleBtn,CIRCLE_ICON);
         createBtn(ovalBtn,OVAL_ICON);
         createBtn(textBtn,TEXT_ICON);
 
@@ -71,13 +128,16 @@ public class ToolsPanel extends HBox {
         btn.setPrefSize(BTN_SIZE, BTN_SIZE);
 
         // Add it to the HBox.
-        getChildren().add(btn);
+        hbox1.getChildren().add(btn);
     }
 
 
 //      Setup the button actions.
 
     private void setupButtons() {
+
+
+
         // Change the tool to the pen when clicked.
         penBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -87,15 +147,16 @@ public class ToolsPanel extends HBox {
             }
         });
 
-        // Change the tool to the eraser when clicked.
-        eraserBtn.setOnAction(new EventHandler<ActionEvent>() {
+        lineBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                tools.setTool(new Eraser(canvasArea));
-                setActive(eraserBtn);
+                tools.setTool(new Line(canvasArea));
+                setActive(lineBtn);
             }
-
         });
+
+        // Change the tool to the eraser when clicked.
+
 
         // Change the tool to the rect when clicked.
 
@@ -104,6 +165,14 @@ public class ToolsPanel extends HBox {
             public void handle(ActionEvent arg0) {
                 tools.setTool(new Rectangular(canvasArea));
                 setActive(rectBtn);
+            }
+        });
+
+        circleBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                tools.setTool(new Circle(canvasArea));
+                setActive(circleBtn);
             }
         });
 
@@ -133,7 +202,7 @@ public class ToolsPanel extends HBox {
         btn.setBorder(new Border(new BorderStroke(Color.CORNFLOWERBLUE, BorderStrokeStyle.SOLID, null, null)));
 
         // Deactivate the rest of the buttons.
-        for (Node n : getChildren()) {
+        for (Node n : hbox1.getChildren()) {
             if (!n.equals(btn)) {
                 ((Button) n).setBorder(null);
             }
