@@ -8,6 +8,10 @@ import me.lemire.integercompression.differential.*;
 /**
  * Created by zy on 20/09/2017.
  */
+
+/**
+ * this class can be regarded as a compressed representation of a list of pixels
+ */
 public class PixelsDifference {
 
     // compressed list of coordinates x, y and color

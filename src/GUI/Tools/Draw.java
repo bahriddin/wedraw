@@ -1,6 +1,8 @@
 package GUI.Tools;
 
+import Data.CanvasHelper;
 import Data.Coord;
+import Data.Pixel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
@@ -129,10 +131,10 @@ public class Draw {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 
-    public void drawFree(ArrayList<Coord> coordList, Color color, int layerType) {
+    public void drawFree(ArrayList<Pixel> pixels, int layerType) {
         PixelWriter pixelWriter = layers[layerType].getPixelWriter();
-        for (Coord coord: coordList) {
-            pixelWriter.setColor(coord.x(), coord.y(), color);
+        for (Pixel pixel: pixels) {
+            pixelWriter.setColor(pixel.x(), pixel.y(), CanvasHelper.intToColor(pixel.color()));
         }
     }
 
