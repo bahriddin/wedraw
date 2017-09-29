@@ -130,7 +130,7 @@ public class Draw {
     }
 
     public void drawFree(ArrayList<Coord> coordList, Color color, int layerType) {
-        PixelWriter pixelWriter = layers[TEMPORARY_LAYER].getPixelWriter();
+        PixelWriter pixelWriter = layers[layerType].getPixelWriter();
         for (Coord coord: coordList) {
             pixelWriter.setColor(coord.x(), coord.y(), color);
         }
