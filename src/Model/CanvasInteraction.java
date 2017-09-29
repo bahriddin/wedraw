@@ -265,10 +265,17 @@ public class CanvasInteraction {
         return 0;
     }
 
-    // TBD
+    /**
+     * draw text
+     * @param start
+     * @param content
+     * @param font
+     * @param size
+     * @param color
+     */
     public void drawText(Coord start, String content, String font, int size, Color color) {
-        System.out.print("drawText"+start+": '"+content+"' in font: "+font+ " | "+ color +"\n");
-
+        draw.drawText(start, content, font, size, color, Draw.PERMANENT_LAYER);
+        updateLog();
     }
 
     // TBD
