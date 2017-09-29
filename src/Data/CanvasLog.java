@@ -17,7 +17,6 @@ public class CanvasLog {
     public CanvasLog(int[][] initialCanvas) {
 
         logs = new Stack<PixelsDifference>();
-        //logs = new ArrayBlockingStack<PixelsDifference>(MAX_LOG_LENGTH);
 
         currentCanvas = initialCanvas;
     }
@@ -48,6 +47,10 @@ public class CanvasLog {
 
         // to implement undo, the colors of the modified part of oldCanvas should be stored
         PixelsDifference operation = new PixelsDifference(newCanvas, currentCanvas);
+
+        // no need to update
+        if (operation.size() == 0)
+            return;
 
         if (logs.size() >= MAX_LOG_LENGTH)
             logs.remove(0);
