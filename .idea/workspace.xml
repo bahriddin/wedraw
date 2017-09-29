@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="58b7c732-4248-4314-926f-193677569cd4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GUI/DrawSettings/DrawSettings.java" afterPath="$PROJECT_DIR$/src/GUI/DrawSettings/DrawSettings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GUI/Layout/TextPanel.java" afterPath="$PROJECT_DIR$/src/GUI/Layout/TextPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GUI/Tools/Text.java" afterPath="$PROJECT_DIR$/src/GUI/Tools/Text.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/CanvasInteraction.java" afterPath="$PROJECT_DIR$/src/Model/CanvasInteraction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java" afterPath="$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,16 +52,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ColorPalette.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GUI/Layout/ColorPalette.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Shape.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GUI/Tools/Shape.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -75,26 +62,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tool.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GUI/Tools/Tool.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DrawSettings.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DrawSettings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GUI/DrawSettings/DrawSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="64" column="50" lean-forward="true" selection-start-line="64" selection-start-column="50" selection-end-line="64" selection-end-column="50" />
+            <state relative-caret-position="210">
+              <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
               <folding>
                 <element signature="e#1323#1324#0" expanded="true" />
                 <element signature="e#1350#1351#0" expanded="true" />
+                <element signature="e#1402#1403#0" expanded="true" />
                 <element signature="e#1448#1449#0" expanded="true" />
                 <element signature="e#1489#1490#0" expanded="true" />
                 <element signature="e#1519#1520#0" expanded="true" />
@@ -103,14 +79,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CanvasArea.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CanvasInteraction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/CanvasInteraction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CanvasArea.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="23" column="27" lean-forward="false" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="27" />
+            <state relative-caret-position="525">
+              <caret line="37" column="32" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rectangular.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/GUI/Tools/Rectangular.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -170,7 +166,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java" />
         <option value="$PROJECT_DIR$/src/GUI/Tools/Rectangular.java" />
         <option value="$PROJECT_DIR$/src/GUI/Tools/Pen.java" />
         <option value="$PROJECT_DIR$/src/GUI/Tools/Eraser.java" />
@@ -180,10 +175,11 @@
         <option value="$PROJECT_DIR$/src/GUI/Layout/WhiteBoard.java" />
         <option value="$PROJECT_DIR$/src/GUI/Layout/ToolsPanel.java" />
         <option value="$PROJECT_DIR$/src/GUI/Layout/WhiteBoardMenu.java" />
-        <option value="$PROJECT_DIR$/src/Model/CanvasInteraction.java" />
         <option value="$PROJECT_DIR$/src/GUI/Tools/Text.java" />
         <option value="$PROJECT_DIR$/src/GUI/Layout/TextPanel.java" />
         <option value="$PROJECT_DIR$/src/GUI/DrawSettings/DrawSettings.java" />
+        <option value="$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java" />
+        <option value="$PROJECT_DIR$/src/Model/CanvasInteraction.java" />
       </list>
     </option>
   </component>
@@ -242,13 +238,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="GUI" type="462c0819:PsiDirectoryNode" />
               <item name="Layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wedraw" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wedraw" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-              <item name="Mouse" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wedraw" type="b2602c69:ProjectViewProjectNode" />
@@ -663,16 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/CanvasInteraction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="12" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Draw.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -689,14 +668,6 @@
             <element signature="e#280#281#0" expanded="true" />
             <element signature="e#359#360#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/Tools/Rectangular.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="24" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -736,16 +707,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="23" column="27" lean-forward="false" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI/Tools/Shape.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -761,14 +722,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/Layout/WhiteBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="78" column="17" lean-forward="false" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -797,14 +750,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI/DrawSettings/DrawSettings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="64" column="50" lean-forward="true" selection-start-line="64" selection-start-column="50" selection-end-line="64" selection-end-column="50" />
+        <state relative-caret-position="210">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
           <folding>
             <element signature="e#1323#1324#0" expanded="true" />
             <element signature="e#1350#1351#0" expanded="true" />
+            <element signature="e#1402#1403#0" expanded="true" />
             <element signature="e#1448#1449#0" expanded="true" />
             <element signature="e#1489#1490#0" expanded="true" />
             <element signature="e#1519#1520#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GUI/Layout/WhiteBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="78" column="17" lean-forward="false" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GUI/Tools/Rectangular.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/CanvasInteraction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GUI/Layout/CanvasArea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="37" column="32" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

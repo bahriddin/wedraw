@@ -18,8 +18,8 @@ public class CanvasArea extends Pane  {
     double locationX = 0.0;
     double locationY = 0.0;
 
-    Canvas temporaryCanvas = new Canvas(300,250);
-    Canvas permanentCanvas = new Canvas(300,250);
+    Canvas temporaryCanvas = new Canvas(1000,1000);
+    Canvas permanentCanvas = new Canvas(1000,1000);
 
     CanvasInteraction model = new CanvasInteraction(temporaryCanvas, permanentCanvas);
 
