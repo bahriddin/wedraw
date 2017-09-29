@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeLineCap;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,8 @@ public class Draw {
             gc.setLineWidth(-lineStyle);
             gc.setLineDashes(-2 * lineStyle);
         }
+        gc.setLineCap(StrokeLineCap.ROUND);
+
         return gc;
     }
 
