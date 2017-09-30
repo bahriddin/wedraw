@@ -25,6 +25,9 @@ public class CanvasInteraction {
 
     private Draw draw;
 
+    // determine if a pixel is near the selected area
+    private static final int MAXIMUM_CLOSE_DISTANCE = 5;
+
     /**
      * initialize the model
      * @param permanentCanvas
@@ -93,7 +96,7 @@ public class CanvasInteraction {
         if (status.status() != CanvasStatus.DRAW_FREE)
             return;
 
-        draw.drawLine(status.stratCoord(), current, color, lineStyle, Draw.PERMANENT_LAYER);
+        draw.drawLine(status.start(), current, color, lineStyle, Draw.PERMANENT_LAYER);
         status.drawFree(current);
         System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
     }
@@ -107,7 +110,7 @@ public class CanvasInteraction {
     public void stopDrawFree(Coord end, Color color, int lineStyle) {
         if (status.status() != CanvasStatus.DRAW_FREE)
             return;
-        draw.drawLine(status.stratCoord(), end, color, lineStyle, Draw.PERMANENT_LAYER);
+        draw.drawLine(status.start(), end, color, lineStyle, Draw.PERMANENT_LAYER);
         status.nothing();
         System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
         updateLog();
@@ -121,6 +124,7 @@ public class CanvasInteraction {
      * @param lineStyle
      */
     public void startDrawLine(Coord start, Coord end, Color color, int lineStyle) {
+        status.drawLine(start, end);
         draw.drawLine(start, end, color, lineStyle, Draw.TEMPORARY_LAYER);
     }
 
@@ -132,6 +136,7 @@ public class CanvasInteraction {
      * @param lineStyle
      */
     public void continueDrawLine(Coord start, Coord end, Color color, int lineStyle) {
+        status.drawLine(start, end);
         draw.clearTemporaryLayer();
         draw.drawLine(start, end, color, lineStyle, Draw.TEMPORARY_LAYER);
     }
@@ -144,6 +149,7 @@ public class CanvasInteraction {
      * @param lineStyle
      */
     public void stopDrawLine(Coord start, Coord end, Color color, int lineStyle) {
+        status.nothing();
         draw.clearTemporaryLayer();
         draw.drawLine(start, end, color, lineStyle, Draw.PERMANENT_LAYER);
         updateLog();
@@ -159,6 +165,7 @@ public class CanvasInteraction {
      */
     public void startDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.drawRectangle(start, end);
         draw.drawRectangle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
@@ -172,6 +179,7 @@ public class CanvasInteraction {
      */
     public void continueDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.drawRectangle(start, end);
         draw.clearTemporaryLayer();
         draw.drawRectangle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
@@ -186,6 +194,7 @@ public class CanvasInteraction {
      */
     public void stopDrawRectangle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.nothing();
         draw.clearTemporaryLayer();
         draw.drawRectangle(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
         updateLog();
@@ -201,6 +210,7 @@ public class CanvasInteraction {
      */
     public void startDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.drawOval(start, end);
         draw.drawOval(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
@@ -214,6 +224,7 @@ public class CanvasInteraction {
      */
     public void continueDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.drawOval(start, end);
         draw.clearTemporaryLayer();
         draw.drawOval(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
@@ -228,6 +239,7 @@ public class CanvasInteraction {
      */
     public void stopDrawOval(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.nothing();
         draw.clearTemporaryLayer();
         draw.drawOval(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
         updateLog();
@@ -243,6 +255,7 @@ public class CanvasInteraction {
      */
     public void startDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.drawCircle(start, end);
         draw.drawCircle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
 
@@ -256,6 +269,7 @@ public class CanvasInteraction {
      */
     public void continueDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.drawCircle(start, end);
         draw.clearTemporaryLayer();
         draw.drawCircle(start, end, color, lineStyle, isFilled, Draw.TEMPORARY_LAYER);
     }
@@ -270,22 +284,81 @@ public class CanvasInteraction {
      */
     public void stopDrawCircle(Coord start, Coord end, Color color, int lineStyle, boolean
             isFilled) {
+        status.nothing();
         draw.clearTemporaryLayer();
         draw.drawCircle(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
         updateLog();
     }
 
-    public void selectArea(Coord start, Coord end) {
+    /**
+     * start selecting area, draw a dotted rectangle in the TEMPORARY_LAYER
+     * @param start
+     * @param end
+     */
+    public void startSelectArea(Coord start, Coord end) {
+
 
     }
 
+    /**
+     * continue selecting area, draw a dotted rectangle in the TEMPORARY_LAYER
+     * @param start
+     * @param end
+     */
+    public void continueSelectArea(Coord start, Coord end) {
+
+    }
+
+    /**
+     * finish selecting area, call the actual selcetArea method
+     * @param start
+     * @param end
+     */
+    public void stopSelectArea(Coord start, Coord end) {
+        status.selectArea(start, end);
+    }
+
+    /**
+     * unselect area
+     */
     public void unselectArea() {
-
+        if (status.status() != CanvasStatus.AREA_SELECTED)
+            return;
     }
 
-    // check if currentMouse is in the selected area, or close to, or far away from
+    /**
+     * check if currentMouse is in the selected area, or close to, or far away from
+     * return 1 (FAR_FROM_SELECTED_AREA) when there is no selected area
+     * @param currentMouse
+     * @return [-1, 0, 1], see CanvasStatus.INSIDE_SELECTED_AREA and so on
+     */
     public int getLocationStatus(Coord currentMouse) {
-        return 0;
+        if (status.status() != CanvasStatus.AREA_SELECTED)
+            return CanvasStatus.FAR_FROM_SELECTED_AREA;
+
+        return getLocationBasedOnArea(currentMouse, status.start(), status.end());
+    }
+
+    private int getLocationBasedOnArea(Coord current, Coord start, Coord end) {
+        Coord max, min;
+
+        min = new Coord(Math.min(start.x(), end.x()),
+                Math.min(start.y(), end.y()));
+
+        max = new Coord(Math.max(start.x(), end.x()),
+                Math.max(start.y(), end.y()));
+
+        if (current.x() < max.x() && current.y() < max.y()
+                && current.x() > min.x() && current.y() > min.y())
+            return CanvasStatus.INSIDE_SELECTED_AREA;
+
+        if (current.x() < max.x() + MAXIMUM_CLOSE_DISTANCE
+                && current.y() < max.y() + MAXIMUM_CLOSE_DISTANCE
+                && current.x() > min.x() - MAXIMUM_CLOSE_DISTANCE
+                && current.y() > min.y() - MAXIMUM_CLOSE_DISTANCE)
+            return CanvasStatus.NEAR_SELECTED_AREA;
+
+        return CanvasStatus.FAR_FROM_SELECTED_AREA;
     }
 
     /**

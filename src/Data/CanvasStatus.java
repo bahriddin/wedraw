@@ -5,9 +5,9 @@ package Data;
  */
 public class CanvasStatus {
 
-    private Coord startCoordValue;
+    private Coord startValue;
 
-    private Coord endCoordValue;
+    private Coord endValue;
 
     private int statusValue;
 
@@ -23,18 +23,24 @@ public class CanvasStatus {
 
     public static final int DRAW_CIRCLE = 5;
 
-    public static final int SELECT_AREA = 6;
+    public static final int AREA_SELECTED = 6;
+
+    public static final int INSIDE_SELECTED_AREA = -1;
+
+    public static final int NEAR_SELECTED_AREA = 0;
+
+    public static final int FAR_FROM_SELECTED_AREA = 1;
 
     public CanvasStatus() {
 
     }
 
-    public Coord stratCoord() {
-        return startCoordValue;
+    public Coord start() {
+        return startValue;
     }
 
-    public Coord endCoord() {
-        return endCoordValue;
+    public Coord end() {
+        return endValue;
     }
 
     public int status() {
@@ -42,14 +48,45 @@ public class CanvasStatus {
     }
 
     public void nothing() {
-        startCoordValue = null;
-        endCoordValue = null;
+        startValue = null;
+        endValue = null;
         statusValue = NOTHING;
     }
 
     public void drawFree(Coord start) {
-        startCoordValue = start;
+        startValue = start;
+        endValue = null;
         statusValue = DRAW_FREE;
+    }
+
+    public void drawLine(Coord start, Coord end) {
+        startValue = start;
+        endValue = end;
+        statusValue = DRAW_LINE;
+    }
+
+    public void drawRectangle(Coord start, Coord end) {
+        startValue = start;
+        endValue = end;
+        statusValue = DRAW_RECTANGLE;
+    }
+
+    public void drawOval(Coord start, Coord end) {
+        startValue = start;
+        endValue = end;
+        statusValue = DRAW_OVAL;
+    }
+
+    public void drawCircle(Coord start, Coord end) {
+        startValue = start;
+        endValue = end;
+        statusValue = DRAW_CIRCLE;
+    }
+
+    public void selectArea(Coord start, Coord end) {
+        startValue = start;
+        endValue = end;
+        statusValue = AREA_SELECTED;
     }
 
 }
