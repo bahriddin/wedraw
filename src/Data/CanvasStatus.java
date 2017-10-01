@@ -9,6 +9,8 @@ public class CanvasStatus {
 
     private Coord endValue;
 
+    private Coord lastValue;
+
     private int statusValue;
 
     public static final int NOTHING = 0;
@@ -25,11 +27,20 @@ public class CanvasStatus {
 
     public static final int AREA_SELECTED = 6;
 
-    public static final int INSIDE_SELECTED_AREA = -1;
+    // ready for moving
+    public static final int INSIDE_SELECTED_AREA = 0;
 
-    public static final int NEAR_SELECTED_AREA = 0;
+    // ready for vertically resizing
+    public static final int VERTICALLY_NEAR = 1;
 
-    public static final int FAR_FROM_SELECTED_AREA = 1;
+    // ready for horizontally resizing
+    public static final int HORIZONTALLY_NEAR = 2;
+
+    // ready for resizing in all directions
+    public static final int JUST_NEAR = 3;
+
+    // not ready for moving or resizing
+    public static final int FAR_FROM_SELECTED_AREA = 4;
 
     public CanvasStatus() {
 
@@ -43,6 +54,10 @@ public class CanvasStatus {
         return endValue;
     }
 
+    public Coord last() {
+        return lastValue;
+    }
+
     public int status() {
         return statusValue;
     }
@@ -50,43 +65,55 @@ public class CanvasStatus {
     public void nothing() {
         startValue = null;
         endValue = null;
+        lastValue = null;
         statusValue = NOTHING;
     }
 
     public void drawFree(Coord start) {
         startValue = start;
         endValue = null;
+        lastValue = null;
         statusValue = DRAW_FREE;
     }
 
     public void drawLine(Coord start, Coord end) {
         startValue = start;
         endValue = end;
+        lastValue = null;
         statusValue = DRAW_LINE;
     }
 
     public void drawRectangle(Coord start, Coord end) {
         startValue = start;
         endValue = end;
+        lastValue = null;
         statusValue = DRAW_RECTANGLE;
     }
 
     public void drawOval(Coord start, Coord end) {
         startValue = start;
         endValue = end;
+        lastValue = null;
         statusValue = DRAW_OVAL;
     }
 
     public void drawCircle(Coord start, Coord end) {
         startValue = start;
         endValue = end;
+        lastValue = null;
         statusValue = DRAW_CIRCLE;
     }
 
     public void selectArea(Coord start, Coord end) {
         startValue = start;
         endValue = end;
+        lastValue = null;
         statusValue = AREA_SELECTED;
+    }
+
+    public void updateArea(Coord start, Coord end, Coord last) {
+        selectArea(start, end);
+        lastValue = last;
     }
 
 }

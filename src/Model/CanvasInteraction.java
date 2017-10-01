@@ -332,13 +332,115 @@ public class CanvasInteraction {
             return;
 
         draw.unselectArea(status.start(), status.end());
+        status.nothing();
+    }
+
+    /**
+     * start moving area
+     * @param current
+     */
+    public void startMoveArea(Coord current) {
+        if (getLocationStatus(current) != CanvasStatus.INSIDE_SELECTED_AREA)
+            return;
+
+        status.updateArea(status.start(), status.end(), current);
+    }
+
+    /**
+     * continue moving area
+     * @param current
+     */
+    public void continueMoveArea(Coord current) {
+        if (status.status() != CanvasStatus.AREA_SELECTED || status.last() == null)
+            return;
+
+        Coord diff = diffCoord(status.last(), current);
+
+        Coord newStart = plusCoord(status.start(), diff),
+             newEnd = plusCoord(status.end(), diff);
+
+        draw.moveArea(status.start(), status.end(), newStart, newEnd);
+
+        status.updateArea(newStart, newEnd, current);
+    }
+
+    /**
+     * stop moving area
+     * @param current
+     */
+    public void stopMoveArea(Coord current) {
+        continueMoveArea(current);
+
+        status.selectArea(status.start(), status.end());
+    }
+
+    /**
+     * start resizing area
+     * @param current
+     * @param resizeType see CanvasStatus.VERTICALLY_NEAR etc.
+     */
+    public void startResizeArea(Coord current, int resizeType) {
+        if (getLocationStatus(current) != CanvasStatus.INSIDE_SELECTED_AREA)
+            return;
+
+        status.updateArea(status.start(), status.end(), current);
+    }
+
+    /**
+     * continue resizing area
+     * @param current
+     * @param resizeType see CanvasStatus.VERTICALLY_NEAR etc.
+     */
+    public void continueResizeArea(Coord current, int resizeType) {
+        if (status.status() != CanvasStatus.AREA_SELECTED || status.last() == null)
+            return;
+
+        Coord diff = diffCoord(status.last(), current);
+
+        Coord newStart, newEnd;
+
+        switch (resizeType) {
+
+            case CanvasStatus.VERTICALLY_NEAR:
+                newStart = plusCoordYOnly(status.start(), diff);
+                newEnd = plusCoordYOnly(status.end(), diff);
+                break;
+
+            case CanvasStatus.HORIZONTALLY_NEAR:
+                newStart = plusCoordXOnly(status.start(), diff);
+                newEnd = plusCoordXOnly(status.end(), diff);
+                break;
+
+            case CanvasStatus.JUST_NEAR:
+                newStart = plusCoord(status.start(), diff);
+                newEnd = plusCoord(status.end(), diff);
+                break;
+
+            default:
+                return;
+        }
+
+        draw.resizeArea(status.start(), status.end(), newStart, newEnd);
+
+        status.updateArea(newStart, newEnd, current);
+    }
+
+    /**
+     * stop resizing area
+     * @param current
+     * @param resizeType see CanvasStatus.VERTICALLY_NEAR etc.
+     */
+    public void stopResizeArea(Coord current, int resizeType) {
+        continueResizeArea(current, resizeType);
+
+        status.selectArea(status.start(), status.end());
     }
 
     /**
      * check if currentMouse is in the selected area, or close to, or far away from
-     * return 1 (FAR_FROM_SELECTED_AREA) when there is no selected area
+     * return (CanvasStatus.FAR_FROM_SELECTED_AREA) when there is no selected area
      * @param currentMouse
-     * @return [-1, 0, 1], see CanvasStatus.INSIDE_SELECTED_AREA and so on
+     * @return see CanvasStatus.INSIDE_SELECTED_AREA and so on
      */
     public int getLocationStatus(Coord currentMouse) {
         if (status.status() != CanvasStatus.AREA_SELECTED)
@@ -356,15 +458,25 @@ public class CanvasInteraction {
         max = new Coord(Math.max(start.x(), end.x()),
                 Math.max(start.y(), end.y()));
 
-        if (current.x() < max.x() && current.y() < max.y()
-                && current.x() > min.x() && current.y() > min.y())
+        if (current.x() < max.x() && current.x() > min.x()
+                &&  current.y() < max.y() && current.y() > min.y())
             return CanvasStatus.INSIDE_SELECTED_AREA;
+
+        if (current.x() < max.x() && current.x() > min.x()
+                && current.y() < max.y() + MAXIMUM_CLOSE_DISTANCE
+                && current.y() > min.y() - MAXIMUM_CLOSE_DISTANCE)
+            return CanvasStatus.VERTICALLY_NEAR;
+
+        if (current.y() < max.y() && current.y() > min.y()
+                && current.x() < max.x() + MAXIMUM_CLOSE_DISTANCE
+                && current.x() > min.x() - MAXIMUM_CLOSE_DISTANCE)
+            return CanvasStatus.HORIZONTALLY_NEAR;
 
         if (current.x() < max.x() + MAXIMUM_CLOSE_DISTANCE
                 && current.y() < max.y() + MAXIMUM_CLOSE_DISTANCE
                 && current.x() > min.x() - MAXIMUM_CLOSE_DISTANCE
                 && current.y() > min.y() - MAXIMUM_CLOSE_DISTANCE)
-            return CanvasStatus.NEAR_SELECTED_AREA;
+            return CanvasStatus.JUST_NEAR;
 
         return CanvasStatus.FAR_FROM_SELECTED_AREA;
     }
@@ -382,16 +494,6 @@ public class CanvasInteraction {
         updateLog();
     }
 
-    // TBD
-    public void moveArea() {
-
-    }
-
-    // TBD
-    public void resizeArea() {
-
-    }
-
     /**
      * undo
      */
@@ -404,6 +506,22 @@ public class CanvasInteraction {
 
     private void updateLog(){
         log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
+    }
+
+    private Coord diffCoord(Coord last, Coord current) {
+        return new Coord(current.x() - last.x(), current.y() - last.y());
+    }
+
+    private Coord plusCoord(Coord old, Coord diff) {
+        return new Coord(old.x() + diff.x(), old.y() + diff.y());
+    }
+
+    private Coord plusCoordXOnly(Coord old, Coord diff) {
+        return new Coord(old.x() + diff.x(), old.y());
+    }
+
+    private Coord plusCoordYOnly(Coord old, Coord diff) {
+        return new Coord(old.x(), old.y() + diff.y());
     }
 
     public static void main(String[] args) {
