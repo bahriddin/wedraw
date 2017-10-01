@@ -238,6 +238,18 @@ public class Draw {
     }
 
     /**
+     * called when selecting area (when the mouse is pressed)
+     * @param start
+     * @param end
+     */
+    public void drawSelection(Coord start, Coord end) {
+        int[] xywh = initFigureData(start, end);
+
+        // Draw selection border
+        drawSelection(xywh[0], xywh[1], xywh[2], xywh[3]);
+    }
+
+    /**
      * Draw selection border (dashed rectangle with 4 dots on the corners)
      *
      * @param x initial x coordinate

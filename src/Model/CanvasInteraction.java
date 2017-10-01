@@ -296,8 +296,8 @@ public class CanvasInteraction {
      * @param end
      */
     public void startSelectArea(Coord start, Coord end) {
-
-
+        // temporarily draw selection border
+        draw.drawSelection(start, end);
     }
 
     /**
@@ -306,7 +306,9 @@ public class CanvasInteraction {
      * @param end
      */
     public void continueSelectArea(Coord start, Coord end) {
-
+        draw.clearTemporaryLayer();
+        // temporarily draw selection border
+        draw.drawSelection(start, end);
     }
 
     /**
@@ -315,6 +317,10 @@ public class CanvasInteraction {
      * @param end
      */
     public void stopSelectArea(Coord start, Coord end) {
+        draw.clearTemporaryLayer();
+
+        // actually select the area
+        draw.selectArea(start, end);
         status.selectArea(start, end);
     }
 
@@ -324,6 +330,8 @@ public class CanvasInteraction {
     public void unselectArea() {
         if (status.status() != CanvasStatus.AREA_SELECTED)
             return;
+
+        draw.unselectArea(status.start(), status.end());
     }
 
     /**
