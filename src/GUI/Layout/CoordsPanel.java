@@ -18,8 +18,18 @@ public class CoordsPanel extends HBox {
         canvas.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                int x = (int) (canvas.getLocationX() - e.getX()) * -1;
-                int y = (int) (canvas.getLocationY() - e.getY()) * -1;
+                int x =  (int)e.getX();
+                int y = (int) e.getY();
+                locationLbl.setText("Location: (X: " + x + ", Y: " + y + ")");
+            }
+
+        });
+
+        canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                int x =  (int)e.getX();
+                int y = (int) e.getY();
                 locationLbl.setText("Location: (X: " + x + ", Y: " + y + ")");
             }
 
