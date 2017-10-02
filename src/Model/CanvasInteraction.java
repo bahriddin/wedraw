@@ -26,7 +26,7 @@ public class CanvasInteraction {
     private Draw draw;
 
     // determine if a pixel is near the selected area
-    private static final int MAXIMUM_CLOSE_DISTANCE = 5;
+    private static final int MAXIMUM_CLOSE_DISTANCE = 10;
 
     /**
      * initialize the model
