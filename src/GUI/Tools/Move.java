@@ -19,10 +19,10 @@ import java.io.File;
 public class Move extends FreeDraw{
 
 
-    ImageCursor horizontal_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/horizontal.png"), 30, 30, true, true));
-    ImageCursor vertical_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/vertical.png"), 30, 30, true, true));
-   ImageCursor move_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/move.png"), 30, 30, true, true));
-    ImageCursor resize_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/resize_curser.png"), 30, 30, true, true));
+    ImageCursor horizontal_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/horizontal.png"), 30, 30, true, true),15,15);
+    ImageCursor vertical_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/vertical.png"), 30, 30, true, true),15,15);
+   ImageCursor move_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/move.png"), 30, 30, true, true),15,15);
+    ImageCursor resize_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/resize_curser.png"), 30, 30, true, true),15,15);
 
 
 
