@@ -33,16 +33,15 @@ public class CanvasArea extends Pane  {
         getChildren().add(permanentCanvas);
         getChildren().add(temporaryCanvas);
 
-        /*
-        //////////test
-        GraphicsContext gc1 = temporaryCanvas.getGraphicsContext2D();
-        GraphicsContext gc2 = permanentCanvas.getGraphicsContext2D();
+//        //////////test
+//        GraphicsContext gc1 = temporaryCanvas.getGraphicsContext2D();
+//        GraphicsContext gc2 = permanentCanvas.getGraphicsContext2D();
+//
+//        gc1.setFill(Color.BLUE);
+//        gc1.fillRect(90,90,100,100);
+//        gc2.setFill(Color.RED);
+//        gc2.fillRect(90,90,100,100);
 
-        gc1.setFill(Color.BLUE);
-        gc1.fillRect(75,75,100,100);
-        gc2.setFill(Color.RED);
-        gc2.fillRect(90,90,100,100);
-        */
 
         temporaryCanvas.toFront();
 
