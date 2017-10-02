@@ -23,7 +23,7 @@ public class Select extends Shape{
     }
     void endDraw() {
         this.model.stopSelectArea(start, end);
-        setTool(new Move(getCanvas()));
+        getCanvas().tools.setTool(new Move(getCanvas()));
 
 }
 }

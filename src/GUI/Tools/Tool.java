@@ -47,6 +47,7 @@ public class Tool implements EventHandler<MouseEvent> {
             // If the tool existed before, remove it
             this.tool.getCanvas().removeEventHandler(MouseEvent.ANY, this.tool);
 
+
         }
         // Setup the tool.
         this.tool = tool;

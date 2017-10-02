@@ -1,6 +1,7 @@
 package GUI.Layout;
 
 
+import GUI.Tools.Tool;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -17,6 +18,8 @@ public class CanvasArea extends Pane  {
     Canvas temporaryCanvas = new Canvas(1000,1000);
     Canvas permanentCanvas = new Canvas(1000,1000);
 
+    public Tool tools;
+
     CanvasInteraction model = new CanvasInteraction(permanentCanvas, temporaryCanvas);
 
 //      Create a Canvas object.
@@ -27,7 +30,9 @@ public class CanvasArea extends Pane  {
 
 
 
-    public CanvasArea() {
+    public CanvasArea(Tool tools) {
+
+        this.tools= tools;
 
 
         getChildren().add(permanentCanvas);

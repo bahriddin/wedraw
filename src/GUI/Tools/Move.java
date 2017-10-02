@@ -44,6 +44,8 @@ public class Move extends FreeDraw{
                 }
                 if (model.getLocationStatus(coord) == CanvasStatus.INSIDE_SELECTED_AREA ){
                     getCanvas().setCursor(move_curser);
+
+
                 }
                 if (model.getLocationStatus(coord) == CanvasStatus.FAR_FROM_SELECTED_AREA ){
                     getCanvas().setCursor(Cursor.DEFAULT);
@@ -63,13 +65,11 @@ public class Move extends FreeDraw{
     void continueDraw() {
         this.model.continueMoveArea(coord);
     }
-
     @Override
     void endDraw() {
         this.model.stopMoveArea(coord);
 
     }
-
 
 }
 
