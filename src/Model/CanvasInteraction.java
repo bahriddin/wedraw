@@ -296,6 +296,10 @@ public class CanvasInteraction {
      * @param end
      */
     public void startSelectArea(Coord start, Coord end) {
+
+        // if there is an area that has already been selected, do unselect first
+        unselectArea();
+
         // temporarily draw selection border
         draw.drawSelection(start, end);
     }
