@@ -2,6 +2,7 @@ package GUI.Layout;
 
 import GUI.DrawSettings.DrawSettings;
 import GUI.Tools.*;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -25,6 +26,7 @@ public class ToolsPanel extends VBox {
     public static String UNDO_ICON = "../images/undo.png";
     public static String FILLED_ICON = "../images/filled.png";
     public static String UNFILLED_ICON = "../images/unfilled.png";
+    public static String RESIZE_ICON = "../images/resize.png";
 
 
     public static int BTN_SIZE = 25;
@@ -36,6 +38,8 @@ public class ToolsPanel extends VBox {
     private Button textBtn;
     private Button circleBtn;
     private Button lineBtn;
+    private Button resizeBtn;
+
 
     private Tool tools;
     private CanvasArea canvasArea;
@@ -61,10 +65,18 @@ public class ToolsPanel extends VBox {
         textBtn = new Button();
         circleBtn = new Button();
         lineBtn = new Button();
+        resizeBtn = new Button();
 
         getChildren().add(hbox1);
         getChildren().add(hbox2);
 
+
+
+
+        Image img = new Image(getClass().getResourceAsStream(RESIZE_ICON), 30, 30, true, true);
+        ImageView imgView = new ImageView(img);
+        resizeBtn.setGraphic(imgView);
+        resizeBtn.setPrefSize(BTN_SIZE, BTN_SIZE);
 
         Image undo_img = new Image(getClass().getResourceAsStream(UNDO_ICON),60, 30, true, true);
         Button undoBtn = new Button("Undo", new ImageView(undo_img));
@@ -100,8 +112,13 @@ public class ToolsPanel extends VBox {
             }}
         });
 
+        Pane spacePane = new Pane();
+        HBox.setHgrow(spacePane, Priority.ALWAYS);
+
         hbox2.getChildren().add(undoBtn);
         hbox2.getChildren().add(isFilled);
+        hbox2.getChildren().add(spacePane);
+        hbox2.getChildren().add(resizeBtn);
 
 
 
@@ -118,6 +135,9 @@ public class ToolsPanel extends VBox {
         // The pen is the initial tool.
         setActive(penBtn);
     }
+
+
+
 
 
     private void createBtn(Button btn, String imgLocation) {
@@ -201,6 +221,14 @@ public class ToolsPanel extends VBox {
             }
         });
 
+        resizeBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                tools.setTool(new Select(canvasArea));
+                setActive(resizeBtn);
+            }
+        });
+
 
     }
 
@@ -213,6 +241,9 @@ public class ToolsPanel extends VBox {
         for (Node n : hbox1.getChildren()) {
             if (!n.equals(btn)) {
                 ((Button) n).setBorder(null);
+            }
+            if(!btn.equals(resizeBtn)){
+                resizeBtn.setBorder(null);
             }
         }
     }

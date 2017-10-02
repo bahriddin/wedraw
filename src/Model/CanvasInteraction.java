@@ -319,7 +319,7 @@ public class CanvasInteraction {
     public void stopSelectArea(Coord start, Coord end) {
         draw.clearTemporaryLayer();
 
-        // actually select the area
+        // actually Select the area
         draw.selectArea(start, end);
         status.selectArea(start, end);
     }
