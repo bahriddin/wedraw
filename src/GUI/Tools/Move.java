@@ -21,7 +21,7 @@ public class Move extends FreeDraw{
 
     ImageCursor horizontal_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/horizontal.png"), 30, 30, true, true),15,15);
     ImageCursor vertical_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/vertical.png"), 30, 30, true, true),15,15);
-   ImageCursor move_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/move.png"), 30, 30, true, true),15,15);
+    ImageCursor move_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/move.png"), 30, 30, true, true),15,15);
     ImageCursor resize_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/resize_curser.png"), 30, 30, true, true),15,15);
 
 
@@ -68,9 +68,16 @@ public class Move extends FreeDraw{
     @Override
     void endDraw() {
         this.model.stopMoveArea(coord);
-
     }
 
+    @Override
+    public void onMouseDown(MouseEvent e) {
+        super.onMouseDown(e);
+        if (model.getLocationStatus(coord) == CanvasStatus.FAR_FROM_SELECTED_AREA ){
+            this.model.unselectArea();
+            this.getCanvas().tools.setTool(new Select(getCanvas()));
+        }
+    }
 }
 
 

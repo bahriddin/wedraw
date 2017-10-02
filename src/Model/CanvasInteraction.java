@@ -512,11 +512,11 @@ public class CanvasInteraction {
         log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
     }
 
-    private Coord diffCoord(Coord last, Coord current) {
+    public Coord diffCoord(Coord last, Coord current) {
         return new Coord(current.x() - last.x(), current.y() - last.y());
     }
 
-    private Coord plusCoord(Coord old, Coord diff) {
+    public Coord plusCoord(Coord old, Coord diff) {
         return new Coord(old.x() + diff.x(), old.y() + diff.y());
     }
 
