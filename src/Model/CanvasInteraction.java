@@ -388,7 +388,7 @@ public class CanvasInteraction {
      * @param resizeType see CanvasStatus.VERTICALLY_NEAR etc.
      */
     public void startResizeArea(Coord current, int resizeType) {
-        if (getLocationStatus(current) != CanvasStatus.INSIDE_SELECTED_AREA)
+        if (status.status() != CanvasStatus.AREA_SELECTED)
             return;
 
         status.updateArea(status.start(), status.end(), current);
@@ -538,9 +538,4 @@ public class CanvasInteraction {
         return new Coord(old.x(), old.y() + diff.y());
     }
 
-    public static void main(String[] args) {
-
-        System.out.println("test");
-
-    }
 }
