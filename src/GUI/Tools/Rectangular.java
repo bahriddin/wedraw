@@ -19,6 +19,6 @@ public class Rectangular extends Shape{
         start = new Coord(start.x()-this.lineStyle,start.y()-this.lineStyle);
         end = new Coord(end.x()+this.lineStyle,end.y()+this.lineStyle);
         this.model.stopSelectArea(start,end);
-        this.getCanvas().tools.setTool(new Move(getCanvas()));
+        this.getCanvas().tools.setTool(new Selected(getCanvas()));
     }
 }

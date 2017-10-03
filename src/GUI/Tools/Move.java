@@ -16,67 +16,30 @@ import java.awt.*;
 import java.io.File;
 
 
-public class Move extends FreeDraw{
-
-
-    ImageCursor horizontal_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/horizontal.png"), 30, 30, true, true),15,15);
-    ImageCursor vertical_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/vertical.png"), 30, 30, true, true),15,15);
-    ImageCursor move_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/move.png"), 30, 30, true, true),15,15);
-    ImageCursor resize_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/resize_curser.png"), 30, 30, true, true),15,15);
-
-
+public class Move extends Selected{
 
 
     public Move(CanvasArea canvasArea) {
         super(canvasArea);
-        this.getCanvas().setOnMouseMoved(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                coord = getCoord(e);
-                if (model.getLocationStatus(coord) == CanvasStatus.HORIZONTALLY_NEAR ){
-                    getCanvas().setCursor(horizontal_curser);
-                }
-                if (model.getLocationStatus(coord) == CanvasStatus.VERTICALLY_NEAR ){
-                    getCanvas().setCursor(vertical_curser);
-                }
-                if (model.getLocationStatus(coord) == CanvasStatus.JUST_NEAR ){
-                    getCanvas().setCursor(resize_curser);
-                }
-                if (model.getLocationStatus(coord) == CanvasStatus.INSIDE_SELECTED_AREA ){
-                    getCanvas().setCursor(move_curser);
-
-
-                }
-                if (model.getLocationStatus(coord) == CanvasStatus.FAR_FROM_SELECTED_AREA ){
-                    getCanvas().setCursor(Cursor.DEFAULT);
-                }
-
-            }
-
-        });
     }
 
     @Override
-    void startDraw() {
+    public void startDraw() {
         this.model.startMoveArea(coord);
     }
 
     @Override
-    void continueDraw() {
+    public void continueDraw() {
         this.model.continueMoveArea(coord);
     }
     @Override
-    void endDraw() {
+    public void endDraw() {
         this.model.stopMoveArea(coord);
     }
 
     @Override
-    public void onMouseDown(MouseEvent e) {
-        super.onMouseDown(e);
-        if (model.getLocationStatus(coord) == CanvasStatus.FAR_FROM_SELECTED_AREA ){
-            this.model.unselectArea();
-            this.getCanvas().tools.setTool(new Select(getCanvas()));
-        }
+    public String toString() {
+        return "Move";
     }
 }
 
