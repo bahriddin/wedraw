@@ -83,7 +83,7 @@ public class CanvasInteraction {
      */
     public void startDrawFree(Coord start, Color color , int lineStyle) {
         status.drawFree(start);
-        System.out.print("startDrawFree"+start+color+"|"+lineStyle+"\n");
+        //System.out.print("startDrawFree"+start+color+"|"+lineStyle+"\n");
     }
 
     /**
@@ -98,7 +98,7 @@ public class CanvasInteraction {
 
         draw.drawLine(status.start(), current, color, lineStyle, Draw.PERMANENT_LAYER);
         status.drawFree(current);
-        System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
+        //System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
     }
 
     /**
@@ -112,7 +112,7 @@ public class CanvasInteraction {
             return;
         draw.drawLine(status.start(), end, color, lineStyle, Draw.PERMANENT_LAYER);
         status.nothing();
-        System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
+        //System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
         updateLog();
     }
 

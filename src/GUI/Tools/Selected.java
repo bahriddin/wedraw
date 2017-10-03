@@ -44,10 +44,10 @@ public class Selected extends FreeDraw{
 
                 coord = getCoord(e);
                 PixType = model.getLocationStatus(coord);
-                System.out.print("Selected"+coord + PixType +"\n");
+                //System.out.print("Selected"+coord + PixType +"\n");
                 if (PixType != PixType0) {
                     updatePixType0(PixType);
-                    System.out.println("change pix type");
+                    //System.out.println("change pix type");
                     if (PixType == CanvasStatus.HORIZONTALLY_NEAR) {
                         getCanvas().tools.setTool(new Resize(getCanvas(), PixType));
                         getCanvas().setCursor(horizontal_curser);
