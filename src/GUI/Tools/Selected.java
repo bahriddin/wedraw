@@ -18,6 +18,11 @@ public class Selected extends FreeDraw{
     ImageCursor move_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/move.png"), 30, 30, true, true),15,15);
     ImageCursor resize_curser = new ImageCursor(new Image(getClass().getResourceAsStream("../images/resize_curser.png"), 30, 30, true, true),15,15);
     int PixType;
+    static int PixType0;
+
+    void updatePixType0(int PixType){
+        PixType0 = PixType;
+    }
 
 
     @Override
@@ -40,26 +45,29 @@ public class Selected extends FreeDraw{
                 coord = getCoord(e);
                 PixType = model.getLocationStatus(coord);
                 System.out.print("Selected"+coord + PixType +"\n");
-
-                if (PixType == CanvasStatus.HORIZONTALLY_NEAR ){
-                    getCanvas().setCursor(horizontal_curser);
-                    getCanvas().tools.setTool(new Resize(getCanvas(),PixType));
-                }
-                if (PixType == CanvasStatus.VERTICALLY_NEAR ){
-                    getCanvas().setCursor(vertical_curser);
-                    getCanvas().tools.setTool(new Resize(getCanvas(),PixType));
-                }
-                if (PixType == CanvasStatus.JUST_NEAR ){
-                    getCanvas().setCursor(resize_curser);
-                    getCanvas().tools.setTool(new Resize(getCanvas(),PixType));
-                }
-                if (PixType == CanvasStatus.INSIDE_SELECTED_AREA ){
-                    getCanvas().setCursor(move_curser);
-                    getCanvas().tools.setTool(new Move(getCanvas()));
-                }
-                if (PixType == CanvasStatus.FAR_FROM_SELECTED_AREA ){
-                    getCanvas().setCursor(Cursor.DEFAULT);
-                    getCanvas().tools.setTool(new Selected(getCanvas()));
+                if (PixType != PixType0) {
+                    updatePixType0(PixType);
+                    System.out.println("change pix type");
+                    if (PixType == CanvasStatus.HORIZONTALLY_NEAR) {
+                        getCanvas().setCursor(horizontal_curser);
+                        getCanvas().tools.setTool(new Resize(getCanvas(), PixType));
+                    }
+                    if (PixType == CanvasStatus.VERTICALLY_NEAR) {
+                        getCanvas().setCursor(vertical_curser);
+                        getCanvas().tools.setTool(new Resize(getCanvas(), PixType));
+                    }
+                    if (PixType == CanvasStatus.JUST_NEAR) {
+                        getCanvas().setCursor(resize_curser);
+                        getCanvas().tools.setTool(new Resize(getCanvas(), PixType));
+                    }
+                    if (PixType == CanvasStatus.INSIDE_SELECTED_AREA) {
+                        getCanvas().setCursor(move_curser);
+                        getCanvas().tools.setTool(new Move(getCanvas()));
+                    }
+                    if (PixType == CanvasStatus.FAR_FROM_SELECTED_AREA) {
+                        getCanvas().setCursor(Cursor.DEFAULT);
+                        getCanvas().tools.setTool(new Selected(getCanvas()));
+                    }
                 }
 
             }
