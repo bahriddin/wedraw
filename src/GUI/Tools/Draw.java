@@ -217,7 +217,9 @@ public class Draw {
         updateImage(PERMANENT_LAYER);
 
         // Clear selected area from permanent layer
-        layers[PERMANENT_LAYER].clearRect(xywh[0], xywh[1], xywh[2], xywh[3]);
+        layers[PERMANENT_LAYER].clearRect(xywh[0] + 1, xywh[1] + 1, xywh[2] - 1, xywh[3] - 1);
+
+
 
         gc.drawImage(image, xywh[0], xywh[1], xywh[2], xywh[3],
                 xywh[0], xywh[1], xywh[2], xywh[3]);
@@ -258,6 +260,7 @@ public class Draw {
      * @param h height
      */
     private void drawSelection(int x, int y, int w, int h) {
+
         Color color = Color.DARKGRAY;
         int dotWidth = 4;
         drawRectangle(new Coord(x, y), new Coord(x + w, y + h), color, -2, false, TEMPORARY_LAYER);
@@ -268,6 +271,7 @@ public class Draw {
         gc.fillRect(x - dotWidth, y + h, dotWidth, dotWidth);
         gc.fillRect(x + w, y - dotWidth, dotWidth, dotWidth);
         gc.fillRect(x + w, y + h, dotWidth, dotWidth);
+
     }
 
     /**
