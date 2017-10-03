@@ -9,9 +9,11 @@ public class CanvasStatus {
 
     private Coord endValue;
 
-    private Coord lastValue;
+    private int resizeTypeValue;
 
     private int statusValue;
+
+    private Coord lastValue;
 
     public static final int NOTHING = 0;
 
@@ -42,6 +44,22 @@ public class CanvasStatus {
     // not ready for moving or resizing
     public static final int FAR_FROM_SELECTED_AREA = 4;
 
+    public static final int FIXED_TOP = 0;
+
+    public static final int FIXED_BOTTOM = 1;
+
+    public static final int FIXED_LEFT = 2;
+
+    public static final int FIXED_RIGHT = 3;
+
+    public static final int FIXED_TOPLEFT = 4;
+
+    public static final int FIXED_TOPRIGHT = 5;
+
+    public static final int FIXED_BOTTOMLEFT = 6;
+
+    public static final int FIXED_BOTTOMRIGHT = 7;
+
     public CanvasStatus() {
 
     }
@@ -52,6 +70,10 @@ public class CanvasStatus {
 
     public Coord end() {
         return endValue;
+    }
+
+    public int resizeType() {
+        return resizeTypeValue;
     }
 
     public Coord last() {
@@ -66,6 +88,7 @@ public class CanvasStatus {
         startValue = null;
         endValue = null;
         lastValue = null;
+        resizeTypeValue = NOTHING;
         statusValue = NOTHING;
     }
 
@@ -73,6 +96,7 @@ public class CanvasStatus {
         startValue = start;
         endValue = null;
         lastValue = null;
+        resizeTypeValue = NOTHING;
         statusValue = DRAW_FREE;
     }
 
@@ -80,6 +104,7 @@ public class CanvasStatus {
         startValue = start;
         endValue = end;
         lastValue = null;
+        resizeTypeValue = NOTHING;
         statusValue = DRAW_LINE;
     }
 
@@ -87,13 +112,14 @@ public class CanvasStatus {
         startValue = start;
         endValue = end;
         lastValue = null;
+        resizeTypeValue = NOTHING;
         statusValue = DRAW_RECTANGLE;
     }
 
     public void drawOval(Coord start, Coord end) {
         startValue = start;
         endValue = end;
-        lastValue = null;
+        resizeTypeValue = NOTHING;
         statusValue = DRAW_OVAL;
     }
 
@@ -101,6 +127,7 @@ public class CanvasStatus {
         startValue = start;
         endValue = end;
         lastValue = null;
+        resizeTypeValue = NOTHING;
         statusValue = DRAW_CIRCLE;
     }
 
@@ -108,12 +135,18 @@ public class CanvasStatus {
         startValue = start;
         endValue = end;
         lastValue = null;
+        resizeTypeValue = NOTHING;
         statusValue = AREA_SELECTED;
     }
 
-    public void updateArea(Coord start, Coord end, Coord last) {
+    public void moveArea(Coord start, Coord end, Coord last) {
         selectArea(start, end);
         lastValue = last;
+    }
+
+    public void resizeArea(Coord start, Coord end, int moveType) {
+        selectArea(start, end);
+        resizeTypeValue = moveType;
     }
 
 }

@@ -312,7 +312,7 @@ public class CanvasInteraction {
     public void continueSelectArea(Coord start, Coord end) {
         draw.clearTemporaryLayer();
         // temporarily draw selection border
-        draw.drawSelection(start, end);
+        startSelectArea(start, end);
     }
 
     /**
@@ -322,6 +322,7 @@ public class CanvasInteraction {
      */
     public void stopSelectArea(Coord start, Coord end) {
         draw.clearTemporaryLayer();
+
 
         // actually Select the area
         draw.selectArea(start, end);
@@ -348,7 +349,7 @@ public class CanvasInteraction {
         if (getLocationStatus(current) != CanvasStatus.INSIDE_SELECTED_AREA)
             return;
 
-        status.updateArea(status.start(), status.end(), current);
+        status.moveArea(status.start(), status.end(), current);
     }
 
     /**
@@ -366,7 +367,7 @@ public class CanvasInteraction {
 
         draw.moveArea(status.start(), status.end(), newStart, newEnd);
 
-        status.updateArea(newStart, newEnd, current);
+        status.moveArea(newStart, newEnd, current);
     }
 
     /**
@@ -385,61 +386,132 @@ public class CanvasInteraction {
     /**
      * start resizing area
      * @param current
-     * @param resizeType see CanvasStatus.VERTICALLY_NEAR etc.
+     * @param resizeDirection see CanvasStatus.VERTICALLY_NEAR etc.
      */
-    public void startResizeArea(Coord current, int resizeType) {
+    public void startResizeArea(Coord current, int resizeDirection) {
         if (status.status() != CanvasStatus.AREA_SELECTED)
             return;
 
-        status.updateArea(status.start(), status.end(), current);
-    }
+        int resizeType = 0;
 
-    /**
-     * continue resizing area
-     * @param current
-     * @param resizeType see CanvasStatus.VERTICALLY_NEAR etc.
-     */
-    public void continueResizeArea(Coord current, int resizeType) {
-        if (status.status() != CanvasStatus.AREA_SELECTED || status.last() == null)
-            return;
+        Coord min = minCoord(status.start(), status.end()),
+              max = maxCoord(status.start(), status.end());
 
-        Coord diff = diffCoord(status.last(), current);
-
-        Coord newStart, newEnd;
-
-        switch (resizeType) {
+        switch (resizeDirection) {
 
             case CanvasStatus.VERTICALLY_NEAR:
-                newStart = plusCoordYOnly(status.start(), diff);
-                newEnd = plusCoordYOnly(status.end(), diff);
+                if (current.y() <= min.y())
+                    resizeType = CanvasStatus.FIXED_BOTTOM;
+                else if (current.y() >= max.y())
+                    resizeType = CanvasStatus.FIXED_TOP;
+                else
+                    return;
                 break;
 
             case CanvasStatus.HORIZONTALLY_NEAR:
-                newStart = plusCoordXOnly(status.start(), diff);
-                newEnd = plusCoordXOnly(status.end(), diff);
+                if (current.x() <= min.x())
+                    resizeType = CanvasStatus.FIXED_RIGHT;
+                else if (current.x() >= max.x())
+                    resizeType = CanvasStatus.FIXED_LEFT;
+                else
+                    return;
                 break;
 
             case CanvasStatus.JUST_NEAR:
-                newStart = plusCoord(status.start(), diff);
-                newEnd = plusCoord(status.end(), diff);
+                if (current.x() <= min.x() && current.y() <= min.y())
+                    resizeType = CanvasStatus.FIXED_BOTTOMRIGHT;
+                else if (current.x() <= min.x() && current.y() >= max.y())
+                    resizeType = CanvasStatus.FIXED_TOPRIGHT;
+                else if (current.x() >= max.x() && current.y() <= min.y())
+                    resizeType = CanvasStatus.FIXED_BOTTOMLEFT;
+                else if (current.x() >= max.x() && current.y() >= max.y())
+                    resizeType = CanvasStatus.FIXED_TOPLEFT;
+                else
+                    return;
                 break;
 
             default:
                 return;
         }
 
+        status.resizeArea(min, max, resizeType);
+    }
+
+    /**
+     * continue resizing area
+     * @param current
+     * @param resizeDirection Deprecated, only useful when start resizing
+     */
+    public void continueResizeArea(Coord current, int resizeDirection) {
+        if (status.status() != CanvasStatus.AREA_SELECTED)
+            return;
+
+        Coord newStart, newEnd ;
+
+        Coord min = minCoord(status.start(), status.end()),
+                max = maxCoord(status.start(), status.end());
+
+        switch (status.resizeType()) {
+
+            case CanvasStatus.FIXED_TOP:
+                newStart = new Coord(min.x(), min.y());
+                newEnd = new Coord(max.x(), current.y());
+                break;
+
+            case CanvasStatus.FIXED_BOTTOM:
+                newStart = new Coord(min.x(), current.y());
+                newEnd = new Coord(max.x(), max.y());
+                break;
+
+            case CanvasStatus.FIXED_LEFT:
+                newStart = new Coord(min.x(), min.y());
+                newEnd = new Coord(current.x(), max.y());
+                break;
+
+            case CanvasStatus.FIXED_RIGHT:
+                newStart = new Coord(current.x(), min.y());
+                newEnd = new Coord(max.x(), max.y());
+                break;
+
+            case CanvasStatus.FIXED_TOPLEFT:
+                newStart = new Coord(min.x(), min.y());
+                newEnd = new Coord(current.x(), current.y());
+                break;
+
+            case CanvasStatus.FIXED_TOPRIGHT:
+                newStart = new Coord(current.x(), min.y());
+                newEnd = new Coord(max.x(), current.y());
+                break;
+
+            case CanvasStatus.FIXED_BOTTOMLEFT:
+                newStart = new Coord(min.x(), current.y());
+                newEnd = new Coord(current.x(), max.y());
+                break;
+
+            case CanvasStatus.FIXED_BOTTOMRIGHT:
+                newStart = new Coord(current.x(), current.y());
+                newEnd = new Coord(max.x(), max.y());
+                break;
+
+            default:
+                return;
+        }
+
+        if (newStart.x() >= newEnd.x() || newStart.y() >= newEnd.y())
+            return;
+
         draw.resizeArea(status.start(), status.end(), newStart, newEnd);
 
-        status.updateArea(newStart, newEnd, current);
+        status.resizeArea(newStart, newEnd, status.resizeType());
     }
 
     /**
      * stop resizing area
      * @param current
-     * @param resizeType see CanvasStatus.VERTICALLY_NEAR etc.
+     * @param resizeDirection Deprecated, only useful when start Resizing
      */
-    public void stopResizeArea(Coord current, int resizeType) {
-        continueResizeArea(current, resizeType);
+    public void stopResizeArea(Coord current, int resizeDirection) {
+        continueResizeArea(current, resizeDirection);
 
         status.selectArea(status.start(), status.end());
 
@@ -530,12 +602,14 @@ public class CanvasInteraction {
         return new Coord(old.x() + diff.x(), old.y() + diff.y());
     }
 
-    private Coord plusCoordXOnly(Coord old, Coord diff) {
-        return new Coord(old.x() + diff.x(), old.y());
+    private Coord minCoord(Coord start, Coord end) {
+        return new Coord(Math.min(start.x(), end.x()),
+                Math.min(start.y(), end.y()));
     }
 
-    private Coord plusCoordYOnly(Coord old, Coord diff) {
-        return new Coord(old.x(), old.y() + diff.y());
+    private Coord maxCoord(Coord start, Coord end) {
+        return new Coord(Math.max(start.x(), end.x()),
+                Math.max(start.y(), end.y()));
     }
 
 }
