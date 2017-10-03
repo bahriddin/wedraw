@@ -336,6 +336,7 @@ public class CanvasInteraction {
             return;
 
         draw.unselectArea(status.start(), status.end());
+        updateLog();
         status.nothing();
     }
 
@@ -376,6 +377,9 @@ public class CanvasInteraction {
         continueMoveArea(current);
 
         status.selectArea(status.start(), status.end());
+
+        // do not undate log atm, only update when unselect
+        // updateLog();
     }
 
     /**
@@ -438,6 +442,8 @@ public class CanvasInteraction {
         continueResizeArea(current, resizeType);
 
         status.selectArea(status.start(), status.end());
+
+        // do not update log atm, only update when unselect()
     }
 
     /**
@@ -502,6 +508,10 @@ public class CanvasInteraction {
      * undo
      */
     public void undo() {
+        // if there is an area selected, unselct first
+        if (status.status() == CanvasStatus.AREA_SELECTED)
+            unselectArea();
+
         PixelsDifference lastOperation = log.popLastOperation();
 
         if (lastOperation != null && lastOperation.size() > 0)
