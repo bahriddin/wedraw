@@ -21,6 +21,7 @@ public class PenWidthPanel extends VBox {
         // Create the GUI.
         setAlignment(Pos.CENTER);
         widthSlider = new Slider(1, 100.0, DrawSettings.getWidth());
+        widthSlider.setPrefWidth(115);
         widthLabel = new Label("Width: " + (int) widthSlider.getValue());
         widthLabel.setTextFill(Color.rgb(30, 60, 90));
 

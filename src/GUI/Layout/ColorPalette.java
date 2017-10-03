@@ -23,7 +23,7 @@ public class ColorPalette extends GridPane {
         Label ColorLabel = new Label("Color");
         ColorLabel.setTextFill(Color.rgb(30, 60, 90));
         ColorPicker = new ColorPicker(Color.BLACK);
-        ColorPicker.setPrefWidth(103.0);
+        ColorPicker.setPrefWidth(110.0);
         ColorPicker.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {

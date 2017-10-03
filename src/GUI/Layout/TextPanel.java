@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,7 +20,9 @@ public class TextPanel extends VBox{
 
     public TextPanel(){
 
-        TextField textField = new TextField(DrawSettings.DEAFAULT_TEXT_CONTENT);
+        TextArea textField = new TextArea(DrawSettings.DEAFAULT_TEXT_CONTENT);
+        textField.setPrefRowCount(2);
+        textField.setPrefHeight(50);
 
         textField.textProperty().addListener((obs, oldText, newText) -> {
             DrawSettings.setContent(newText);

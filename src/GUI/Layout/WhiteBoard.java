@@ -66,8 +66,14 @@ public class WhiteBoard extends BorderPane {
         // Add children to top controls panel.
         topControls.getChildren().add(toolsPanel);
         topControls.getChildren().add(textPanel);
-        topControls.getChildren().add(widthPanel);
-        topControls.getChildren().add(colorPalette);
+
+        VBox colorWidth = new VBox();
+        colorWidth.getChildren().add(widthPanel);
+        colorWidth.getChildren().add(colorPalette);
+        topControls.getChildren().add(colorWidth);
+
+//        topControls.getChildren().add(widthPanel);
+//        topControls.getChildren().add(colorPalette);
 
         top.getChildren().add(new WhiteBoardMenu());
         top.getChildren().add(topControls);
