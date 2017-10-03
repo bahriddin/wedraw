@@ -49,24 +49,29 @@ public class Selected extends FreeDraw{
                     updatePixType0(PixType);
                     System.out.println("change pix type");
                     if (PixType == CanvasStatus.HORIZONTALLY_NEAR) {
-                        getCanvas().setCursor(horizontal_curser);
                         getCanvas().tools.setTool(new Resize(getCanvas(), PixType));
+                        getCanvas().setCursor(horizontal_curser);
+
                     }
                     if (PixType == CanvasStatus.VERTICALLY_NEAR) {
-                        getCanvas().setCursor(vertical_curser);
                         getCanvas().tools.setTool(new Resize(getCanvas(), PixType));
+                        getCanvas().setCursor(vertical_curser);
+
                     }
                     if (PixType == CanvasStatus.JUST_NEAR) {
-                        getCanvas().setCursor(resize_curser);
                         getCanvas().tools.setTool(new Resize(getCanvas(), PixType));
+                        getCanvas().setCursor(resize_curser);
+
                     }
                     if (PixType == CanvasStatus.INSIDE_SELECTED_AREA) {
-                        getCanvas().setCursor(move_curser);
                         getCanvas().tools.setTool(new Move(getCanvas()));
+                        getCanvas().setCursor(move_curser);
+
                     }
                     if (PixType == CanvasStatus.FAR_FROM_SELECTED_AREA) {
-                        getCanvas().setCursor(Cursor.DEFAULT);
                         getCanvas().tools.setTool(new Selected(getCanvas()));
+                        getCanvas().setCursor(Cursor.DEFAULT);
+
                     }
                 }
 

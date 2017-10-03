@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 public class ToolsPanel extends VBox {
 
     public static String PEN_ICON = "../images/pen.png";
-    public static String ERASER_ICON = "../images/erase.png";
+    public static String ERASER_ICON = "../images/eraser.png";
     public static String RECT_ICON = "../images/rectangle.png";
     public static String OVAL_ICON = "../images/oval.png";
     public static String TEXT_ICON = "../images/text.png";
@@ -76,7 +76,8 @@ public class ToolsPanel extends VBox {
         Image img = new Image(getClass().getResourceAsStream(RESIZE_ICON), 30, 30, true, true);
         ImageView imgView = new ImageView(img);
         resizeBtn.setGraphic(imgView);
-        resizeBtn.setPrefSize(BTN_SIZE, BTN_SIZE);
+        resizeBtn.setText("Select");
+        resizeBtn.setMinSize(60, 30);
 
         Image undo_img = new Image(getClass().getResourceAsStream(UNDO_ICON),60, 30, true, true);
         Button undoBtn = new Button("Undo", new ImageView(undo_img));
