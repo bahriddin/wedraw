@@ -51,6 +51,7 @@ public class Shape extends Tool{
     public void onMouseReleased(MouseEvent e) {
         end = getCoord(e);
         endDraw();
+
     }
 
 }

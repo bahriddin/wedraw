@@ -16,9 +16,5 @@ public class Rectangular extends Shape{
     }
     void endDraw(){
         this.model.stopDrawRectangle(start,end,color,lineStyle,isFilled);
-        start = new Coord(start.x()-this.lineStyle,start.y()-this.lineStyle);
-        end = new Coord(end.x()+this.lineStyle,end.y()+this.lineStyle);
-        this.model.stopSelectArea(start,end);
-        this.getCanvas().tools.setTool(new Selected(getCanvas()));
     }
 }
