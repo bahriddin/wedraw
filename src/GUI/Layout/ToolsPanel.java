@@ -242,6 +242,8 @@ public class ToolsPanel extends VBox {
         for (Node n : hbox1.getChildren()) {
             if (!n.equals(btn)) {
                 ((Button) n).setBorder(null);
+                canvasArea.getModel().unselectArea();
+
             }
             if(!btn.equals(resizeBtn)){
                 resizeBtn.setBorder(null);
