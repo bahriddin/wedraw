@@ -45,7 +45,32 @@ public class CanvasInteraction {
         tmpCanvas[Draw.PERMANENT_LAYER] = permanentCanvas;
         tmpCanvas[Draw.TEMPORARY_LAYER] = temporaryCanvas;
         draw = new Draw(tmpCanvas);
+    }
 
+    /**
+     * constructor used for loading function
+     * @param permanentCanvas
+     * @param temporaryCanvas
+     * @param log
+     */
+    public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas, CanvasLog log) {
+        this(permanentCanvas, temporaryCanvas);
+
+        this.log = log;
+
+        draw.clearTemporaryLayer();
+        draw.clearPermanentLayer();
+
+        draw.drawFree(CanvasHelper.matrixToPixelList(log.getCurrentCanvas()), Draw.PERMANENT_LAYER);
+    }
+
+    /**
+     * get current Log
+     * NOTICE: this is NOT a deep copy, do not call any method of this log object
+     * @return current Log
+     */
+    public CanvasLog getLog() {
+        return log;
     }
 
     /**

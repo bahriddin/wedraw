@@ -173,6 +173,11 @@ public class Draw {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 
+    public void clearPermanentLayer() {
+        GraphicsContext gc = layers[PERMANENT_LAYER];
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
+
     /**
      * Free drawing tool
      *

@@ -18,7 +18,10 @@ public class CanvasLog {
 
         logs = new Stack<PixelsDifference>();
 
-        currentCanvas = initialCanvas;
+        currentCanvas = new int[initialCanvas.length][];
+
+            for (int i = 0; i< initialCanvas.length; i++)
+                currentCanvas[i] = initialCanvas[i].clone();
     }
 
     /**
