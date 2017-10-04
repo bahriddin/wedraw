@@ -4,6 +4,7 @@ package GUI.Layout;
 
 import Data.CanvasLog;
 import GUI.run.run;
+import Model.CanvasInteraction;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -124,7 +125,7 @@ public class WhiteBoardMenu extends MenuBar {
                         FileInputStream fis = new FileInputStream(file);
                         ObjectInputStream ois = new ObjectInputStream(fis);
                         CanvasLog readLog = (CanvasLog) ois.readObject();
-                        canvasArea.model.setLog(readLog);
+                        canvasArea.model = new CanvasInteraction(canvasArea.temporaryCanvas,canvasArea.permanentCanvas,readLog);
                         ois.close();
 
                     } catch (IOException ex) {
