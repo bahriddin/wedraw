@@ -1,12 +1,13 @@
 package Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
 
 /**
  * Created by zy on 20/09/2017.
  */
-public class CanvasLog {
+public class CanvasLog implements Serializable {
 
     private Stack<PixelsDifference> logs;
 
@@ -18,7 +19,10 @@ public class CanvasLog {
 
         logs = new Stack<PixelsDifference>();
 
-        currentCanvas = initialCanvas;
+        currentCanvas = new int[initialCanvas.length][];
+
+            for (int i = 0; i< initialCanvas.length; i++)
+                currentCanvas[i] = initialCanvas[i].clone();
     }
 
     /**

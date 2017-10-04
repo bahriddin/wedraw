@@ -45,7 +45,32 @@ public class CanvasInteraction {
         tmpCanvas[Draw.PERMANENT_LAYER] = permanentCanvas;
         tmpCanvas[Draw.TEMPORARY_LAYER] = temporaryCanvas;
         draw = new Draw(tmpCanvas);
+    }
 
+    /**
+     * constructor used for loading function
+     * @param permanentCanvas
+     * @param temporaryCanvas
+     * @param log
+     */
+    public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas, CanvasLog log) {
+        this(permanentCanvas, temporaryCanvas);
+
+        this.log = log;
+
+        draw.clearTemporaryLayer();
+        draw.clearPermanentLayer();
+
+        draw.drawFree(CanvasHelper.matrixToPixelList(log.getCurrentCanvas()), Draw.PERMANENT_LAYER);
+    }
+
+    /**
+     * get current Log
+     * NOTICE: this is NOT a deep copy, do not call any method of this log object
+     * @return current Log
+     */
+    public CanvasLog getLog() {
+        return log;
     }
 
     /**
@@ -83,7 +108,7 @@ public class CanvasInteraction {
      */
     public void startDrawFree(Coord start, Color color , int lineStyle) {
         status.drawFree(start);
-        System.out.print("startDrawFree"+start+color+"|"+lineStyle+"\n");
+        //System.out.print("startDrawFree"+start+color+"|"+lineStyle+"\n");
     }
 
     /**
@@ -98,7 +123,7 @@ public class CanvasInteraction {
 
         draw.drawLine(status.start(), current, color, lineStyle, Draw.PERMANENT_LAYER);
         status.drawFree(current);
-        System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
+        //System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
     }
 
     /**
@@ -112,7 +137,7 @@ public class CanvasInteraction {
             return;
         draw.drawLine(status.start(), end, color, lineStyle, Draw.PERMANENT_LAYER);
         status.nothing();
-        System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
+        //System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
         updateLog();
     }
 

@@ -5,6 +5,9 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by zy on 28/09/2017.
  */
@@ -56,6 +59,27 @@ public class CanvasHelper {
                 pixelWriter.setColor(i, j, intToColor(matrix[i][j]));
 
         return canvas;
+    }
+
+    /**
+     * convert a 2d matrix of int into a list of Pixels
+     * @param matrix
+     * @return
+     */
+    public static ArrayList<Pixel> matrixToPixelList(int[][] matrix) {
+        ArrayList<Pixel> result = new ArrayList<>();
+
+        if (matrix == null || matrix.length < 1 || matrix[0] == null)
+            return null;
+
+        int width = matrix.length;
+        int height = matrix[0].length;
+
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                result.add(new Pixel(i, j, matrix[i][j]));
+
+        return result;
     }
 
     /**

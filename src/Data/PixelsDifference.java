@@ -1,5 +1,6 @@
 package Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,7 +13,7 @@ import me.lemire.integercompression.differential.*;
 /**
  * this class can be regarded as a compressed representation of a list of pixels
  */
-public class PixelsDifference {
+public class PixelsDifference implements Serializable {
 
     // compressed list of coordinates x, y and color
     private int[] x, y, color;
