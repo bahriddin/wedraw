@@ -36,9 +36,9 @@ public class WhiteBoardMenu extends MenuBar {
         Menu file = new Menu("File");
 
         // Create the screenshot menu item.
-        MenuItem save = new MenuItem("Save");
+        MenuItem export = new MenuItem("Export");
 
-        save.setOnAction(new EventHandler<ActionEvent>() {
+        export.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent t) {
@@ -67,7 +67,24 @@ public class WhiteBoardMenu extends MenuBar {
         });
 
 
+        // Create the save logfile menu item.
+
+
+        MenuItem save = new MenuItem("Save");
+
+        save.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+
+                /*******      put your code here */
+                    }
+
+        });
+
+
         // Fill the file Menu.
+        file.getItems().add(export);
         file.getItems().add(save);
 
         // Fill the MenuBar.
