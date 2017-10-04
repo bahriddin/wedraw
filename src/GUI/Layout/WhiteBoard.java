@@ -75,7 +75,7 @@ public class WhiteBoard extends BorderPane {
 //        topControls.getChildren().add(widthPanel);
 //        topControls.getChildren().add(colorPalette);
 
-        top.getChildren().add(new WhiteBoardMenu(canvasArea.permanentCanvas));
+        top.getChildren().add(new WhiteBoardMenu(canvasArea));
         top.getChildren().add(topControls);
     }
 
