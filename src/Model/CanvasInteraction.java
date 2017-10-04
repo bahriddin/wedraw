@@ -72,6 +72,7 @@ public class CanvasInteraction {
     public CanvasLog getLog() {
         return log;
     }
+    public void setLog(CanvasLog readLog) { log = readLog;}
 
     /**
      * draw some pixels without adding new log
@@ -636,5 +637,6 @@ public class CanvasInteraction {
         return new Coord(Math.max(start.x(), end.x()),
                 Math.max(start.y(), end.y()));
     }
+
 
 }

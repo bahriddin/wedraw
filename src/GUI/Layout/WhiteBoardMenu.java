@@ -2,6 +2,7 @@ package GUI.Layout;
 
 
 
+import Data.CanvasLog;
 import GUI.run.run;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -18,10 +19,7 @@ import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,7 +80,7 @@ public class WhiteBoardMenu extends MenuBar {
 
                 //Set extension filter
                 FileChooser.ExtensionFilter extFilter =
-                        new FileChooser.ExtensionFilter("png files (*.log)", "*.log");
+                        new FileChooser.ExtensionFilter("log files (*.log)", "*.log");
                 fileChooser.getExtensionFilters().add(extFilter);
 
                 //Show save file dialog
@@ -104,9 +102,47 @@ public class WhiteBoardMenu extends MenuBar {
         });
 
 
+
+        MenuItem load = new MenuItem("Load");
+
+        load.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+                FileChooser fileChooser = new FileChooser();
+
+                //Set extension filter
+                FileChooser.ExtensionFilter extFilter =
+                        new FileChooser.ExtensionFilter("png files (*.log)", "*.log");
+                fileChooser.getExtensionFilters().add(extFilter);
+
+                //Show save file dialog
+                File file = fileChooser.showOpenDialog(null);
+
+                if(file != null){
+                    try {
+                        FileInputStream fis = new FileInputStream(file);
+                        ObjectInputStream ois = new ObjectInputStream(fis);
+                        CanvasLog readLog = (CanvasLog) ois.readObject();
+                        canvasArea.model.setLog(readLog);
+                        ois.close();
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
+            }
+
+        });
+
+
         // Fill the file Menu.
         file.getItems().add(export);
         file.getItems().add(save);
+        file.getItems().add(load);
 
         // Fill the MenuBar.
         getMenus().add(file);
