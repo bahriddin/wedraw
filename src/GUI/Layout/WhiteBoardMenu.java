@@ -114,7 +114,7 @@ public class WhiteBoardMenu extends MenuBar {
 
                 //Set extension filter
                 FileChooser.ExtensionFilter extFilter =
-                        new FileChooser.ExtensionFilter("png files (*.log)", "*.log");
+                        new FileChooser.ExtensionFilter("log files (*.log)", "*.log");
                 fileChooser.getExtensionFilters().add(extFilter);
 
                 //Show save file dialog
@@ -125,7 +125,7 @@ public class WhiteBoardMenu extends MenuBar {
                         FileInputStream fis = new FileInputStream(file);
                         ObjectInputStream ois = new ObjectInputStream(fis);
                         CanvasLog readLog = (CanvasLog) ois.readObject();
-                        canvasArea.model = new CanvasInteraction(canvasArea.temporaryCanvas,canvasArea.permanentCanvas,readLog);
+                        canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,readLog);
                         ois.close();
 
                     } catch (IOException ex) {
