@@ -16,17 +16,17 @@ import javafx.scene.paint.Color;
 
 public class ToolsPanel extends VBox {
 
-    public static String PEN_ICON = "../images/pen.png";
-    public static String ERASER_ICON = "../images/eraser.png";
-    public static String RECT_ICON = "../images/rectangle.png";
-    public static String OVAL_ICON = "../images/oval.png";
-    public static String TEXT_ICON = "../images/text.png";
-    public static String CIRCLE_ICON = "../images/circle.png";
-    public static String LINE_ICON = "../images/line.png";
-    public static String UNDO_ICON = "../images/undo.png";
-    public static String FILLED_ICON = "../images/filled.png";
-    public static String UNFILLED_ICON = "../images/unfilled.png";
-    public static String RESIZE_ICON = "../images/resize.png";
+    public static String PEN_ICON = "/images/pen.png";
+    public static String ERASER_ICON = "/images/eraser.png";
+    public static String RECT_ICON = "/images/rectangle.png";
+    public static String OVAL_ICON = "/images/oval.png";
+    public static String TEXT_ICON = "/images/text.png";
+    public static String CIRCLE_ICON = "/images/circle.png";
+    public static String LINE_ICON = "/images/line.png";
+    public static String UNDO_ICON = "/images/undo.png";
+    public static String FILLED_ICON = "/images/filled.png";
+    public static String UNFILLED_ICON = "/images/unfilled.png";
+    public static String RESIZE_ICON = "/images/resize.png";
 
 
     public static int BTN_SIZE = 25;
