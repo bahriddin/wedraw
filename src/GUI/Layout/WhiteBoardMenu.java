@@ -139,11 +139,23 @@ public class WhiteBoardMenu extends MenuBar {
 
         });
 
+        MenuItem newCanvas = new MenuItem("new");
+
+        load.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+                canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas);
+            }
+
+        });
 
         // Fill the file Menu.
+        file.getItems().add(newCanvas);
         file.getItems().add(export);
         file.getItems().add(save);
         file.getItems().add(load);
+
 
         // Fill the MenuBar.
         getMenus().add(file);
