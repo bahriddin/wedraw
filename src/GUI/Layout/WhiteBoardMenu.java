@@ -141,10 +141,11 @@ public class WhiteBoardMenu extends MenuBar {
 
         MenuItem newCanvas = new MenuItem("new");
 
-        load.setOnAction(new EventHandler<ActionEvent>() {
+        newCanvas.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent t) {
+                System.out.print("new");
                 canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas);
             }
 
