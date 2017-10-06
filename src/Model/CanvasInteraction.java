@@ -37,8 +37,6 @@ public class CanvasInteraction {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
 
-        log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
-
         status = new CanvasStatus();
 
         Canvas[] tmpCanvas = new Canvas[2];
@@ -48,6 +46,8 @@ public class CanvasInteraction {
 
         draw.clearTemporaryLayer();
         draw.clearPermanentLayer();
+
+        log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
     }
 
     /**
