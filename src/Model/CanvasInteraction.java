@@ -45,6 +45,9 @@ public class CanvasInteraction {
         tmpCanvas[Draw.PERMANENT_LAYER] = permanentCanvas;
         tmpCanvas[Draw.TEMPORARY_LAYER] = temporaryCanvas;
         draw = new Draw(tmpCanvas);
+
+        draw.clearTemporaryLayer();
+        draw.clearPermanentLayer();
     }
 
     /**
@@ -57,9 +60,6 @@ public class CanvasInteraction {
         this(permanentCanvas, temporaryCanvas);
 
         this.log = log;
-
-        draw.clearTemporaryLayer();
-        draw.clearPermanentLayer();
 
         draw.drawFree(CanvasHelper.matrixToPixelList(log.getCurrentCanvas()), Draw.PERMANENT_LAYER);
     }
