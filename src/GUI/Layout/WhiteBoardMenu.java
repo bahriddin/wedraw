@@ -81,7 +81,7 @@ public class WhiteBoardMenu extends MenuBar {
 
                 //Set extension filter
                 FileChooser.ExtensionFilter extFilter =
-                        new FileChooser.ExtensionFilter("log files (*.log)", "*.log");
+                        new FileChooser.ExtensionFilter("wedraw files (*.wedraw)", "*.wedraw");
                 fileChooser.getExtensionFilters().add(extFilter);
 
                 //Show save file dialog
@@ -114,7 +114,7 @@ public class WhiteBoardMenu extends MenuBar {
 
                 //Set extension filter
                 FileChooser.ExtensionFilter extFilter =
-                        new FileChooser.ExtensionFilter("log files (*.log)", "*.log");
+                        new FileChooser.ExtensionFilter("wedraw files (*.wedraw)", "*.wedraw");
                 fileChooser.getExtensionFilters().add(extFilter);
 
                 //Show save file dialog
