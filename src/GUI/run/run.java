@@ -1,11 +1,13 @@
 package GUI.run;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import GUI.Layout.WhiteBoard;
+import javafx.stage.StageStyle;
 
 public class run extends Application {
 
@@ -13,12 +15,16 @@ public class run extends Application {
         launch(args);
     }
 
-    Parent root = new WhiteBoard();
-
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+//        Parent root = new WhiteBoard();
+
+        Parent root = FXMLLoader.load(getClass().getResource("LoadingPage.fxml"));
         primaryStage.setTitle("Whiteboard");
-        primaryStage.setScene(new Scene(root, 1000, 1000));
+//        primaryStage.setScene(new Scene(root, 1000, 1000));
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 }

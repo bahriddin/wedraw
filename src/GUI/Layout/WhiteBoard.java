@@ -22,8 +22,9 @@ public class WhiteBoard extends BorderPane {
     HBox bottom;
     Tool tools;
     CanvasArea canvasArea;
+    HBox topControls = new HBox();
 
-    public static final Color PANE_COLOR = Color.rgb(180, 200, 220);
+    public static final Color PANE_COLOR = Color.rgb(128,135,143,0.9);
 
 
     public WhiteBoard() {
@@ -46,11 +47,11 @@ public class WhiteBoard extends BorderPane {
         setCenter(canvasArea);
         setTop(top);
         setBottom(bottom);
+
     }
 
     private void setupToolBar() {
         top = new VBox();
-        HBox topControls = new HBox();
         ToolsPanel toolsPanel = new ToolsPanel(tools, canvasArea);
         TextPanel textPanel = new TextPanel();
         PenWidthPanel widthPanel = new PenWidthPanel();
