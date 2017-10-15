@@ -23,9 +23,12 @@ public class WhiteBoard extends BorderPane {
     Tool tools;
     CanvasArea canvasArea;
     HBox topControls = new HBox();
+    ToolsPanel toolsPanel;
+
 
     public static final Color PANE_COLOR = Color.rgb(128,135,143,0.9);
 
+    WhiteBoardMenu menu =  new WhiteBoardMenu(canvasArea);
 
     public WhiteBoard() {
         // Setup canvas
@@ -52,7 +55,7 @@ public class WhiteBoard extends BorderPane {
 
     private void setupToolBar() {
         top = new VBox();
-        ToolsPanel toolsPanel = new ToolsPanel(tools, canvasArea);
+        toolsPanel = new ToolsPanel(tools, canvasArea);
         TextPanel textPanel = new TextPanel();
         PenWidthPanel widthPanel = new PenWidthPanel();
         ColorPalette colorPalette = new ColorPalette();
@@ -76,7 +79,7 @@ public class WhiteBoard extends BorderPane {
 //        topControls.getChildren().add(widthPanel);
 //        topControls.getChildren().add(colorPalette);
 
-        top.getChildren().add(new WhiteBoardMenu(canvasArea));
+        top.getChildren().add(menu);
         top.getChildren().add(topControls);
     }
 

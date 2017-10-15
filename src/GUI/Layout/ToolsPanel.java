@@ -39,13 +39,14 @@ public class ToolsPanel extends VBox {
     private Button circleBtn;
     private Button lineBtn;
     private Button resizeBtn;
+    public static Button undoBtn ;
 
 
     private Tool tools;
     private CanvasArea canvasArea;
 
     HBox hbox1 = new HBox();
-    HBox hbox2 = new HBox();
+    static HBox hbox2 = new HBox();
 
 
 //    Create a ToolsPanel.
@@ -80,7 +81,7 @@ public class ToolsPanel extends VBox {
         resizeBtn.setMinSize(60, 30);
 
         Image undo_img = new Image(getClass().getResourceAsStream(UNDO_ICON),60, 30, true, true);
-        Button undoBtn = new Button("Undo", new ImageView(undo_img));
+        undoBtn = new Button("Undo", new ImageView(undo_img));
         undoBtn.setStyle(" -fx-base: #b6e7c9;");
 
         undoBtn.setOnAction(new EventHandler<ActionEvent>() {

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +23,7 @@ import java.net.ServerSocket;
 import java.net.UnknownHostException;
 
 import static GUI.DrawSettings.DrawSettings.color;
+import static GUI.Layout.ToolsPanel.undoBtn;
 
 public class Client extends WhiteBoard{
 
@@ -43,6 +45,7 @@ public class Client extends WhiteBoard{
 
 
     public Client(String user_name,String canvas_id) {
+
 
 
 
@@ -72,6 +75,13 @@ public class Client extends WhiteBoard{
 
 
         topControls.getChildren().add(label);
+
+        ToolsPanel.hbox2.getChildren().remove(undoBtn);
+
+        WhiteBoardMenu.file.getItems().remove(WhiteBoardMenu.load);
+        WhiteBoardMenu.file.getItems().remove(WhiteBoardMenu.newCanvas);
+
+
 
 
 //        getChildren().add(left_right);
@@ -103,16 +113,6 @@ public class Client extends WhiteBoard{
 
         Image kick = new Image(getClass().getResourceAsStream(KICK_ICON),30, 30, true, true);
 
-        btn1.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn1.setGraphic(new ImageView(kick));
-
-            }
-        });
 
         btn1.setOnMouseExited(new EventHandler<MouseEvent>
                 () {
@@ -122,16 +122,7 @@ public class Client extends WhiteBoard{
                 btn1.setGraphic(null);
             }
         });
-        btn2.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
 
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn2.setGraphic(new ImageView(kick));
-
-            }
-        });
 
         btn2.setOnMouseExited(new EventHandler<MouseEvent>
                 () {
@@ -141,16 +132,7 @@ public class Client extends WhiteBoard{
                 btn2.setGraphic(null);
             }
         });
-        btn3.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
 
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn3.setGraphic(new ImageView(kick));
-
-            }
-        });
 
         btn3.setOnMouseExited(new EventHandler<MouseEvent>
                 () {
@@ -163,16 +145,7 @@ public class Client extends WhiteBoard{
 
 
 
-        btn4.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
 
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn4.setGraphic(new ImageView(kick));
-
-            }
-        });
 
         btn4.setOnMouseExited(new EventHandler<MouseEvent>
                 () {
@@ -210,8 +183,6 @@ public class Client extends WhiteBoard{
                 btn4.setText("User4");
             }
         });
-
-
 
 
         Label chat_label = new Label("Chat Box");

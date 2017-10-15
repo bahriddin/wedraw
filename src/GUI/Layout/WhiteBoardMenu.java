@@ -29,12 +29,18 @@ public class WhiteBoardMenu extends MenuBar {
 
     private FileChooser fileChooser;
 
+    static Menu file;
+
+    static MenuItem newCanvas;
+
+    static MenuItem load;
+
 
     public WhiteBoardMenu(CanvasArea canvasArea) {
 
 
         // Setup the File Menu.
-        Menu file = new Menu("File");
+        file = new Menu("File");
 
         // Create the screenshot menu item.
         MenuItem export = new MenuItem("Export");
@@ -104,7 +110,8 @@ public class WhiteBoardMenu extends MenuBar {
 
 
 
-        MenuItem load = new MenuItem("Load");
+
+        load = new MenuItem("Load");
 
         load.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -139,7 +146,8 @@ public class WhiteBoardMenu extends MenuBar {
 
         });
 
-        MenuItem newCanvas = new MenuItem("new");
+
+        newCanvas = new MenuItem("new");
 
         newCanvas.setOnAction(new EventHandler<ActionEvent>() {
 

@@ -18,6 +18,8 @@ import java.util.List;
 public class TextPanel extends VBox{
 
 
+
+
     public TextPanel(){
 
         TextArea textField = new TextArea(DrawSettings.DEAFAULT_TEXT_CONTENT);
