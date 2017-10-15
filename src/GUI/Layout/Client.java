@@ -23,7 +23,7 @@ import java.net.UnknownHostException;
 
 import static GUI.DrawSettings.DrawSettings.color;
 
-public class Manager extends WhiteBoard{
+public class Client extends WhiteBoard{
 
     VBox V_list = new VBox();
 
@@ -39,10 +39,10 @@ public class Manager extends WhiteBoard{
 
     ServerSocket s;
 
-    public String manager_name = "Manager";
+    public String user_name = "UserName";
 
 
-    public Manager(String manager_name) {
+    public Client(String user_name,String canvas_id) {
 
 
 
@@ -50,7 +50,7 @@ public class Manager extends WhiteBoard{
         try {
             local_Host = InetAddress.getLocalHost().getHostAddress();
             try {
-                 s = new ServerSocket(0);
+                s = new ServerSocket(0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,7 +62,7 @@ public class Manager extends WhiteBoard{
         int port = s.getLocalPort();
 
 
-        Label label = new Label(" Canvas ID: #\n      Manager Name: "+manager_name+"\n@ " + local_Host +" : "+port);
+        Label label = new Label(" Canvas ID: "+canvas_id+"\n      User Name: "+user_name+"\n@ " + local_Host +" : "+port);
 
 
         V_list.getChildren().add(H_list);
@@ -245,7 +245,7 @@ public class Manager extends WhiteBoard{
 
         setRight(V_list);
 
-        chatBox.setText("Hello! "+manager_name);
+        chatBox.setText("Hello! "+user_name+". Welcome to Canvas #"+canvas_id);
 
 
 
@@ -255,7 +255,7 @@ public class Manager extends WhiteBoard{
 
 
 
-    }
+}
 
 //    ListView<String> list = new ListView<String>();
 //    ObservableList<String> items = FXCollections.observableArrayList(

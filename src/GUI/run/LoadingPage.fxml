@@ -25,8 +25,8 @@
             </Text>
             <Button layoutX="52.0" layoutY="244.0" mnemonicParsing="false" onAction="#create" prefHeight="66.0" prefWidth="144.0" text="Create New" />
             <Button layoutX="312.0" layoutY="244.0" mnemonicParsing="false" onAction="#join" prefHeight="66.0" prefWidth="144.0" text="Join others" />
-            <TextField layoutX="171.0" layoutY="128.0" promptText="User Name" />
-            <TextField layoutX="312.0" layoutY="200.0" prefHeight="27.0" prefWidth="144.0" promptText="Canvas ID" />
+            <TextField fx:id="username" layoutX="171.0" layoutY="128.0" promptText="User Name" />
+            <TextField fx:id="canvas_id" layoutX="312.0" layoutY="200.0" prefHeight="27.0" prefWidth="144.0" promptText="Canvas ID" />
          </children></Pane>
    </children>
 </StackPane>
