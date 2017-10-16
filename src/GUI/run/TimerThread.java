@@ -4,6 +4,7 @@ import Data.Message;
 import Data.PixelsDifference;
 import Model.CanvasInteraction;
 import Network.Network;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,30 +41,40 @@ public class TimerThread extends Thread{
         public void run() {
 //            System.out.println("timer");
 
-            int [][] newCanvas = model.getCurrentCanvas();
-            PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
-            CanvasMatrix = newCanvas;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    // Update UI here.
+                    int [][] newCanvas = model.getCurrentCanvas();
+                    PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
+                    CanvasMatrix = newCanvas;
 
+                    //if the whiteboard have been changed
+                    if (difference.size() > 0) {
+                        Message DrawMessage = new Message("user",Message.DRAW_OPERATION,difference);
+                        SendQueue.add(DrawMessage);
+                    }
 
-            if (difference.size() > 0) {
-                Message DrawMessage = new Message("user",Message.DRAW_OPERATION,difference);
-                SendQueue.add(DrawMessage);
-            }
+                    //get the ReceiveQueue form network model, and execute the operations in the Queue
+                    //and if any message in ReceiveQueue are also in SendQueue
+                    //execute it and delete it in SendQueue
+                    ReceiveQueue = net.getMessages();
+                    for (Message m:ReceiveQueue){
+                        handleMessage(m);
+                        if (SendQueue.contains(m)){
+                            SendQueue.remove(m);
+                        }
+                        net.sendMessage(m);
+                    }
 
-            ReceiveQueue = Network.getMessages();
-            for (Message m:ReceiveQueue){
-                handleMessage(m);
-                if (SendQueue.contains(m)){
-                    SendQueue.remove(m);
+                    if (SendQueue.isEmpty()) {
+                        model.clearPermanentCanvas();
+                    }
                 }
-                net.sendMessage(m);
-            }
-
-            if (SendQueue.isEmpty()) {
-                model.clearPermanentCanvas();
-            }
+            });
         }
 
+        //method to execute different types of message
         public void handleMessage(Message message){
             switch (message.type()){
                 case Message.DRAW_OPERATION: model.updateNetworkCanvas((PixelsDifference) message.content());break;
