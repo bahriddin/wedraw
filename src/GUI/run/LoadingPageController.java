@@ -48,13 +48,14 @@ public class LoadingPageController implements Initializable {
         }
 
         if(!username.getText().trim().isEmpty()){
-            Parent root = new Manager(username.getText());
+            WhiteBoard root = new Manager(username.getText());
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
-            stage.setScene(new Scene(root, 950, 1000));
+            stage.setScene(new Scene((Parent) root, 950, 1000));
             stage.show();
             rootPane.getScene().getWindow().hide();
 
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
             run.timerThread.start();
         }
 

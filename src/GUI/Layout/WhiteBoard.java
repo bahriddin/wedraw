@@ -53,6 +53,10 @@ public class WhiteBoard extends BorderPane {
 
     }
 
+    public CanvasArea getCanvasArea() {
+        return canvasArea;
+    }
+
     private void setupToolBar() {
         top = new VBox();
         toolsPanel = new ToolsPanel(tools, canvasArea);

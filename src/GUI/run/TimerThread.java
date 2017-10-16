@@ -33,16 +33,16 @@ public class TimerThread extends Thread{
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
-            int [][] newCanvas = model.getCurrentCanvas();
-            PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
-            CanvasMatrix = newCanvas;
-            if (difference.size() > 0) {
-                model.updateNetworkCanvas(difference);
-            }
-
-            if (Match) {
-                model.clearPermanentCanvas();
-            }
+            System.out.print("dsdasdasdas");
+//            int [][] newCanvas = model.getCurrentCanvas();
+//            PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
+//            CanvasMatrix = newCanvas;
+//            if (difference.size() > 0) {
+//                model.updateNetworkCanvas(difference);
+//            }
+//            if (Match) {
+//                model.clearPermanentCanvas();
+//            }
         }
     }
 }
