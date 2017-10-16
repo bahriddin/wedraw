@@ -26,9 +26,9 @@ public class Network {
             clintIn = client.getInputStream();
             clientOut = client.getOutputStream();
 
-            // Listen to the server always
+            // Always listen to the server
             listenerThread = new Thread(new Listener(clintIn));
-//            listenerThread.setPriority(Thread.MIN_PRIORITY);
+            listenerThread.setPriority(Thread.MIN_PRIORITY);
             listenerThread.start();
 
         } catch (UnknownHostException uhe) {

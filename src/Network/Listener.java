@@ -19,16 +19,16 @@ public class Listener implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            try {
-                ObjectInputStream in = new ObjectInputStream(clientIn);
-                Message message = (Message) in.readObject();
+        try {
+            Message message;
+            ObjectInputStream in = new ObjectInputStream(clientIn);
+            while ((message = (Message) in.readObject()) != null) {
                 Network.addMessage(message);
-            } catch (IOException io) {
-                System.out.println("IOException: " + io.getMessage());
-            } catch (ClassNotFoundException clnfe) {
-                System.out.println("Class not found: " + clnfe.getMessage());
             }
+        } catch (IOException io) {
+            System.out.println("IOException: " + io.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found: " + e.getMessage());
         }
     }
 }
