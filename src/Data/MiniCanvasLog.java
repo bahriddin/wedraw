@@ -18,12 +18,16 @@ public class MiniCanvasLog implements Serializable {
     private PixelsDifference pixels;
 
     /**
-     * Constructor
-     * Return a compressed canvas log given a normal canvas log
+     *
+     * @param initialLogs
+     * @param storeLogs when storeLogs is False, only the canvas is stored
      */
-    public MiniCanvasLog(CanvasLog initialLogs) {
+    public MiniCanvasLog(CanvasLog initialLogs, boolean storeLogs) {
 
-        logs = initialLogs.getLogs();
+        if (storeLogs)
+            logs = initialLogs.getLogs();
+        else
+            logs = null;
 
         int[][] canvas = initialLogs.getCurrentCanvas();
 
@@ -47,7 +51,10 @@ public class MiniCanvasLog implements Serializable {
         for (Pixel pixel : pixels.getPixels())
             canvas[pixel.x()][pixel.y()] = pixel.color();
 
-        return new CanvasLog(canvas, logs);
+        if (logs == null)
+            return new CanvasLog(canvas);
+        else
+            return new CanvasLog(canvas, logs);
     }
 
 }

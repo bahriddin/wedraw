@@ -20,6 +20,7 @@ public class CanvasInteraction {
     private Canvas temporaryCanvas;
     private Canvas networkCanvas;
 
+    // log used for permanent layer
     private CanvasLog log;
 
     private CanvasStatus status;
@@ -28,6 +29,8 @@ public class CanvasInteraction {
 
     // determine if a pixel is near the selected area
     private static final int MAXIMUM_CLOSE_DISTANCE = 10;
+
+    private static final Color FAKE_WHITE = Color.rgb(255, 255, 254);
 
     /**
      * initialize the model
@@ -52,7 +55,7 @@ public class CanvasInteraction {
         draw.clearPermanentLayer();
         draw.clearNetworkLayer();
 
-        log = new CanvasLog(CanvasHelper.canvasToMatrix(networkCanvas));
+        log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
     }
 
     /**
@@ -60,12 +63,27 @@ public class CanvasInteraction {
      * @param permanentCanvas
      * @param temporaryCanvas
      * @param log
-     */
+
     public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas, Canvas
             networkCanvas, CanvasLog log) {
         this(permanentCanvas, temporaryCanvas, networkCanvas);
         this.log = log;
-        draw.drawFree(CanvasHelper.matrixToPixelList(log.getCurrentCanvas()), Draw.PERMANENT_LAYER);
+        draw.drawFree(CanvasHelper.matrixToPixelList(log.getCurrentCanvas()), Draw.NETWORK_LAYER);
+    }
+     */
+
+    /**
+     * load new canvas from the server
+     * @param Log
+     */
+    public void loadFromCanvasLog(Canvas Log) {
+        draw.clearTemporaryLayer();
+        draw.clearPermanentLayer();
+        draw.clearNetworkLayer();
+
+        log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
+        draw.drawFree(CanvasHelper.matrixToPixelList(log.getCurrentCanvas()), Draw.NETWORK_LAYER);
+
     }
 
     /**
@@ -81,28 +99,30 @@ public class CanvasInteraction {
      * draw some pixels without adding new log
      * this method is used by undo
      * @param difference
-     */
+
     public void drawFreeWithoutLogging(PixelsDifference difference) {
         draw.drawFree(difference.getPixels(), Draw.PERMANENT_LAYER);
     }
+    */
 
     /**
      * draw some pixels based on PixelsDifference
      * @param difference
-     */
+
     public void drawFree(PixelsDifference difference) {
         drawFreeWithoutLogging(difference);
-        updateLog();
+        addToOperations();
     }
+    */
 
     /**
      * draw some pixels based on a Pixel list
      * @param pixels
-     */
     public void drawFree(ArrayList<Pixel> pixels) {
         draw.drawFree(pixels, Draw.PERMANENT_LAYER);
-        updateLog();
+        addToOperations();
     }
+    */
 
     /**
      * start drawing (press the LMB, Left Mouse Button)
@@ -112,11 +132,10 @@ public class CanvasInteraction {
      */
     public void startDrawFree(Coord start, Color color , int lineStyle) {
         status.drawFree(start);
-        //System.out.print("startDrawFree"+start+color+"|"+lineStyle+"\n");
     }
 
     /**
-     * continue drawing ( moving the mouse while the LMB is pressed)
+     * continue drawing (moving the mouse while the LMB is pressed)
      * @param current
      * @param color
      * @param lineStyle
@@ -124,10 +143,8 @@ public class CanvasInteraction {
     public void continueDrawFree(Coord current, Color color, int lineStyle) {
         if (status.status() != CanvasStatus.DRAW_FREE)
             return;
-
         draw.drawLine(status.start(), current, color, lineStyle, Draw.PERMANENT_LAYER);
         status.drawFree(current);
-        //System.out.print("continueDrawFree"+current+color+"|"+lineStyle+"\n");
     }
 
     /**
@@ -141,8 +158,7 @@ public class CanvasInteraction {
             return;
         draw.drawLine(status.start(), end, color, lineStyle, Draw.PERMANENT_LAYER);
         status.nothing();
-        //System.out.print("stopDrawFree"+end+color+"|"+lineStyle+"\n");
-        updateLog();
+        //addToOperations();
     }
 
     /**
@@ -181,7 +197,7 @@ public class CanvasInteraction {
         status.nothing();
         draw.clearTemporaryLayer();
         draw.drawLine(start, end, color, lineStyle, Draw.PERMANENT_LAYER);
-        updateLog();
+        //addToOperations();
     }
 
     /**
@@ -226,7 +242,7 @@ public class CanvasInteraction {
         status.nothing();
         draw.clearTemporaryLayer();
         draw.drawRectangle(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
-        updateLog();
+        //addToOperations();
     }
 
     /**
@@ -271,7 +287,7 @@ public class CanvasInteraction {
         status.nothing();
         draw.clearTemporaryLayer();
         draw.drawOval(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
-        updateLog();
+        //addToOperations();
     }
 
     /**
@@ -316,7 +332,7 @@ public class CanvasInteraction {
         status.nothing();
         draw.clearTemporaryLayer();
         draw.drawCircle(start, end, color, lineStyle, isFilled, Draw.PERMANENT_LAYER);
-        updateLog();
+        //addToOperations();
     }
 
     /**
@@ -352,9 +368,9 @@ public class CanvasInteraction {
     public void stopSelectArea(Coord start, Coord end) {
         draw.clearTemporaryLayer();
 
-
         // actually Select the area
         draw.selectArea(start, end);
+        draw.drawRectangle(start, end, FAKE_WHITE, 1, true, Draw.PERMANENT_LAYER);
         status.selectArea(start, end);
     }
 
@@ -366,7 +382,7 @@ public class CanvasInteraction {
             return;
 
         draw.unselectArea(status.start(), status.end());
-        updateLog();
+        //addToOperations();
         status.nothing();
     }
 
@@ -409,7 +425,7 @@ public class CanvasInteraction {
         status.selectArea(status.start(), status.end());
 
         // do not undate log atm, only update when unselect
-        // updateLog();
+        // addToOperations();
     }
 
     /**
@@ -602,7 +618,7 @@ public class CanvasInteraction {
      */
     public void drawText(Coord start, String content, String font, int size, Color color) {
         draw.drawText(start, content, font, size, color, Draw.PERMANENT_LAYER);
-        updateLog();
+        //addToOperations();
     }
 
     /**
@@ -615,8 +631,8 @@ public class CanvasInteraction {
 
         PixelsDifference lastOperation = log.popLastOperation();
 
-        if (lastOperation != null && lastOperation.size() > 0)
-            drawFreeWithoutLogging(lastOperation);
+        //if (lastOperation != null && lastOperation.size() > 0)
+            //drawFreeWithoutLogging(lastOperation);
     }
 
     /**
@@ -631,14 +647,19 @@ public class CanvasInteraction {
         return new PixelsDifference(oldCanvas, newCanvas);
     }
 
-    public void updateNetworkCanvas (PixelsDifference difference){
+    public void updateNetworkCanvas (PixelsDifference difference) {
 
+        draw.drawFree(difference.getPixels(), Draw.NETWORK_LAYER);
     }
-    public void clearPermanentCanvas(){}
+    public synchronized void clearPermanentCanvas() {
+        draw.clearPermanentLayer();
+    }
 
-    private void updateLog(){
+    /*
+    private void addToOperations(){
         log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
     }
+    */
 
     private Coord diffCoord(Coord last, Coord current) {
         return new Coord(current.x() - last.x(), current.y() - last.y());
