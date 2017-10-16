@@ -101,6 +101,12 @@ public class Manager extends WhiteBoard{
         V_list.getChildren().add(btn4);
         V_list.setPadding(new Insets(5));
 
+        Pane spacePane = new Pane();
+
+        V_list.setVgrow(spacePane, Priority.ALWAYS);
+
+        V_list.getChildren().add(spacePane);
+
         Image kick = new Image(getClass().getResourceAsStream(KICK_ICON),30, 30, true, true);
 
         btn1.setOnMouseEntered(new EventHandler<MouseEvent>
@@ -187,7 +193,7 @@ public class Manager extends WhiteBoard{
         btn1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                btn1.setText("User1");
+                V_list.getChildren().remove(btn1);
 
             }
         });
@@ -195,26 +201,28 @@ public class Manager extends WhiteBoard{
         btn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                btn2.setText("User2");
+                V_list.getChildren().remove(btn2);
             }
         });
         btn3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                btn3.setText("User3");
+                V_list.getChildren().remove(btn3);
             }
         });
         btn4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                btn4.setText("User4");
+                V_list.getChildren().remove(btn4);
             }
         });
 
 
-
+        
 
         Label chat_label = new Label("Chat Box");
+
+
 
 
         V_list.getChildren().add(chat_label);
