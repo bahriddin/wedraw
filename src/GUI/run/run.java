@@ -13,6 +13,8 @@ import javafx.stage.WindowEvent;
 
 public class run extends Application {
 
+    public static TimerThread timerThread;
+
     public static void main(String[] args) {
         launch(args);
     }
