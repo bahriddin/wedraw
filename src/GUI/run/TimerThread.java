@@ -32,12 +32,13 @@ public class TimerThread extends Thread{
         super.run();
         Timer timer = new Timer();
         long period = (long) (0.3*1000);
-        timer.schedule(new TimerTasks(), 0, period);
+        timer.schedule(new TimerTasks(), period, period);
     }
 
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
+//            System.out.println("timer");
 
             int [][] newCanvas = model.getCurrentCanvas();
             PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
@@ -66,6 +67,9 @@ public class TimerThread extends Thread{
         public void handleMessage(Message message){
             switch (message.type()){
                 case Message.DRAW_OPERATION: model.updateNetworkCanvas((PixelsDifference) message.content());break;
+                case Message.JOIN_OPERATION:break;
+                case Message.KICK_OPERATION:break;
+                case Message.CHAT_OPERATION:break;
             }
         }
     }

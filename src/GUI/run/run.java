@@ -36,12 +36,5 @@ public class run extends Application {
                 System.out.println("Stage is closing");
             }
         });
-
-
-
-
-
-
-
     }
 }
