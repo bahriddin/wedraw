@@ -11,7 +11,7 @@ import me.lemire.integercompression.differential.*;
  */
 
 /**
- * this class can be regarded as a compressed representation of a list of pixels
+ * this immutable class can be regarded as a compressed representation of a list of pixels
  */
 public class PixelsDifference implements Serializable {
 
@@ -45,6 +45,28 @@ public class PixelsDifference implements Serializable {
             for (int j = 0; j < oldPixels[i].length; j++)
                 if (oldPixels[i][j] != newPixels[i][j])
                     pixels.add(new Pixel(i, j, newPixels[i][j]));
+        }
+
+        constructFromPixelList(pixels);
+    }
+
+    /**
+     * store a pixel matrix (cavnas) as PixelDifference.
+     * it is basically to store the differences between a blank canvas and the given canvas
+     * @param pixels
+     */
+    public PixelsDifference(int[][] canvas) {
+
+        numberOfPixels = 0;
+
+        ArrayList<Pixel> pixels = new ArrayList<>();
+
+        int[][] blank = new int[canvas.length][];
+
+        for (int i = 0; i < canvas.length; i++) {
+            for (int j = 0; j < canvas[i].length; j++)
+                if (canvas[i][j] != 0)
+                    pixels.add(new Pixel(i, j, canvas[i][j]));
         }
 
         constructFromPixelList(pixels);
