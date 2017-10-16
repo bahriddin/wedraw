@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -168,6 +169,7 @@ public class Manager extends WhiteBoard{
             Button_list.getChildren().add(user_button_list.get(user_number));
 
             Button btn = user_button_list.get(user_number);
+            btn.setGraphic(new Circle(10,10,5, Color.GREEN));
 
             btn.setOnMouseEntered(new EventHandler<MouseEvent>
                         () {
@@ -182,7 +184,7 @@ public class Manager extends WhiteBoard{
                     () {
                 @Override
                 public void handle(MouseEvent t) {
-                    btn.setGraphic(null);
+                    btn.setGraphic(new Circle(10,10,5, Color.GREEN));
                 }
             });
 
