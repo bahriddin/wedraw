@@ -18,6 +18,7 @@ public class CanvasInteraction {
 
     private Canvas permanentCanvas;
     private Canvas temporaryCanvas;
+    private Canvas networkCanvas;
 
     private CanvasLog log;
 
@@ -32,22 +33,26 @@ public class CanvasInteraction {
      * initialize the model
      * @param permanentCanvas
      * @param temporaryCanvas
+     * @param networkCanvas
      */
-    public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas) {
+    public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas, Canvas networkCanvas) {
         this.permanentCanvas = permanentCanvas;
         this.temporaryCanvas = temporaryCanvas;
+        this.networkCanvas = networkCanvas;
 
         status = new CanvasStatus();
 
-        Canvas[] tmpCanvas = new Canvas[2];
+        Canvas[] tmpCanvas = new Canvas[3];
         tmpCanvas[Draw.PERMANENT_LAYER] = permanentCanvas;
         tmpCanvas[Draw.TEMPORARY_LAYER] = temporaryCanvas;
+        tmpCanvas[Draw.NETWORK_LAYER] = networkCanvas;
         draw = new Draw(tmpCanvas);
 
         draw.clearTemporaryLayer();
         draw.clearPermanentLayer();
+        draw.clearNetworkLayer();
 
-        log = new CanvasLog(CanvasHelper.canvasToMatrix(permanentCanvas));
+        log = new CanvasLog(CanvasHelper.canvasToMatrix(networkCanvas));
     }
 
     /**
@@ -56,11 +61,10 @@ public class CanvasInteraction {
      * @param temporaryCanvas
      * @param log
      */
-    public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas, CanvasLog log) {
-        this(permanentCanvas, temporaryCanvas);
-
+    public CanvasInteraction(Canvas permanentCanvas, Canvas temporaryCanvas, Canvas
+            networkCanvas, CanvasLog log) {
+        this(permanentCanvas, temporaryCanvas, networkCanvas);
         this.log = log;
-
         draw.drawFree(CanvasHelper.matrixToPixelList(log.getCurrentCanvas()), Draw.PERMANENT_LAYER);
     }
 
@@ -615,15 +619,32 @@ public class CanvasInteraction {
             drawFreeWithoutLogging(lastOperation);
     }
 
+    /**
+     * return the canvas matrix of permanent layer, called by the timer
+     * @return
+     */
+    public int[][] getCurrentCanvas() {
+        return CanvasHelper.canvasToMatrix(permanentCanvas);
+    }
+
+    public PixelsDifference getCanvasDifference(int[][] oldCanvas, int[][] newCanvas) {
+        return new PixelsDifference(oldCanvas, newCanvas);
+    }
+
+    public void updateNetworkCanvas (PixelsDifference difference){
+
+    }
+    public void clearPermanentCanvas(){}
+
     private void updateLog(){
         log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
     }
 
-    public Coord diffCoord(Coord last, Coord current) {
+    private Coord diffCoord(Coord last, Coord current) {
         return new Coord(current.x() - last.x(), current.y() - last.y());
     }
 
-    public Coord plusCoord(Coord old, Coord diff) {
+    private Coord plusCoord(Coord old, Coord diff) {
         return new Coord(old.x() + diff.x(), old.y() + diff.y());
     }
 
@@ -636,15 +657,4 @@ public class CanvasInteraction {
         return new Coord(Math.max(start.x(), end.x()),
                 Math.max(start.y(), end.y()));
     }
-
-    public int[][] getCurrentCanvas(){
-        return new int[0][];
-    }
-
-    public PixelsDifference getCanvasDifference(int[][] oldCanvas, int[][] newCanvas){
-        return null;
-    }
-
-    public void updateNetworkCanvas (PixelsDifference difference){}
-    public void clearPermanentCanvas(){}
 }
