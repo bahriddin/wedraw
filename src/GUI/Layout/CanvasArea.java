@@ -15,9 +15,9 @@ public class CanvasArea extends Pane  {
     double locationX = 0.0;
     double locationY = 0.0;
 
-    Canvas temporaryCanvas = new Canvas(1000,1000);
-    Canvas permanentCanvas = new Canvas(1000,1000);
-    Canvas networkCanvas = new Canvas(1000,1000);
+    Canvas temporaryCanvas = new Canvas(640,1000);
+    Canvas permanentCanvas = new Canvas(640,1000);
+    Canvas networkCanvas = new Canvas(640,1000);
 
     public Tool tools;
 

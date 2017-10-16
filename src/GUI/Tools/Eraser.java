@@ -12,17 +12,17 @@ public class Eraser extends FreeDraw {
 
     @Override
     void startDraw() {
-        this.model.startDrawFree(coord,Color.WHITE,lineStyle);
+        this.model.startDrawFree(coord,Color.rgb(255,255,254),lineStyle);
     }
 
     @Override
     void continueDraw() {
-        this.model.continueDrawFree(coord,Color.WHITE,lineStyle);
+        this.model.continueDrawFree(coord,Color.rgb(255,255,254),lineStyle);
     }
 
     @Override
     void endDraw() {
-        this.model.stopDrawFree(coord,Color.WHITE,lineStyle);
+        this.model.stopDrawFree(coord,Color.rgb(255,255,254),lineStyle);
     }
 
 }

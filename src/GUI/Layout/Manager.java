@@ -1,5 +1,6 @@
 package GUI.Layout;
 
+import Data.Users;
 import GUI.Tools.Tool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import static GUI.DrawSettings.DrawSettings.color;
 
@@ -31,9 +34,13 @@ public class Manager extends WhiteBoard{
 
     HBox H_list = new HBox();
 
+    VBox Button_list = new VBox();
+
     TextArea chatBox = new TextArea();
 
     public static String KICK_ICON = "/images/kickoff.png";
+
+    Image kick = new Image(getClass().getResourceAsStream(KICK_ICON),30, 30, true, true);
 
     String local_Host;
 
@@ -41,12 +48,17 @@ public class Manager extends WhiteBoard{
 
     ServerSocket s;
 
+    List<Users> user_list = new LinkedList<Users>();
+    List<Button> user_button_list = new LinkedList<Button>();
+
+    int user_number = 0;
+//    int max_user_number = 6;
+
+
     public String manager_name = "Manager";
 
 
-    public Manager(String manager_name) {
-
-
+    public Manager(Users user) {
 
 
         try {
@@ -78,6 +90,7 @@ public class Manager extends WhiteBoard{
 
 //        getChildren().add(left_right);
 
+
         Label label1 = new Label("Current Users: ");
         V_list.getChildren().add(label1);
 
@@ -89,26 +102,8 @@ public class Manager extends WhiteBoard{
 ////        BottonList.remove();
 
 
-        Button btn1 = new Button();
-        btn1.setText("User1");
-        btn1.setPrefSize(300,40);
-        V_list.getChildren().add(btn1);
 
-
-        Button btn2 = new Button();
-        btn2.setText("User2");
-        btn2.setPrefSize(300,40);
-        V_list.getChildren().add(btn2);
-
-        Button btn3 = new Button();
-        btn3.setText("User3");
-        btn3.setPrefSize(300,40);
-        V_list.getChildren().add(btn3);
-
-        Button btn4 = new Button();
-        btn4.setText("User4");
-        btn4.setPrefSize(300,40);
-        V_list.getChildren().add(btn4);
+        V_list.getChildren().add(Button_list);
         V_list.setPadding(new Insets(5));
 
         Pane spacePane = new Pane();
@@ -117,122 +112,9 @@ public class Manager extends WhiteBoard{
 
         V_list.getChildren().add(spacePane);
 
-        Image kick = new Image(getClass().getResourceAsStream(KICK_ICON),30, 30, true, true);
-
-        btn1.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn1.setGraphic(new ImageView(kick));
-
-            }
-        });
-
-        btn1.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn1.setGraphic(null);
-            }
-        });
-        btn2.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn2.setGraphic(new ImageView(kick));
-
-            }
-        });
-
-        btn2.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn2.setGraphic(null);
-            }
-        });
-        btn3.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn3.setGraphic(new ImageView(kick));
-
-            }
-        });
-
-        btn3.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn3.setGraphic(null);
-            }
-        });
-
-
-
-        btn4.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-//                btn4.setStyle("-fx-background-color:#dae7f3;");
-                btn4.setGraphic(new ImageView(kick));
-
-            }
-        });
-
-        btn4.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn4.setGraphic(null);
-            }
-        });
-
-
-        btn1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                V_list.getChildren().remove(btn1);
-
-            }
-        });
-
-        btn2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                V_list.getChildren().remove(btn2);
-            }
-        });
-        btn3.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                V_list.getChildren().remove(btn3);
-            }
-        });
-        btn4.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                V_list.getChildren().remove(btn4);
-            }
-        });
-
-
 
 
         Label chat_label = new Label("Chat Box");
-
-
 
 
         V_list.getChildren().add(chat_label);
@@ -246,6 +128,13 @@ public class Manager extends WhiteBoard{
 
         Button send_btn = new Button("Send");
         send_btn.setPrefSize(70,70);
+
+        send_btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                generate_user(user);
+            }
+        });
 
 
         V_list.getChildren().add(chatBox);
@@ -263,17 +152,72 @@ public class Manager extends WhiteBoard{
 
         setRight(V_list);
 
+        V_list.toFront();
+
         chatBox.setText("Hello! "+manager_name);
 
 
 
     }
 
+    public void generate_user(Users user){
+
+            user_button_list.add(new Button());
+            user_button_list.get(user_number).setText("User1");
+            user_button_list.get(user_number).setPrefSize(300,40);
+            Button_list.getChildren().add(user_button_list.get(user_number));
+
+            Button btn = user_button_list.get(user_number);
+
+            btn.setOnMouseEntered(new EventHandler<MouseEvent>
+                        () {
+                    @Override
+                    public void handle(MouseEvent t) {
+    //                btn4.setStyle("-fx-background-color:#dae7f3;");
+                        btn.setGraphic(new ImageView(kick));
+                    }
+                });
+
+                 btn.setOnMouseExited(new EventHandler<MouseEvent>
+                    () {
+                @Override
+                public void handle(MouseEvent t) {
+                    btn.setGraphic(null);
+                }
+            });
+
+            btn.setOnAction(new EventHandler<ActionEvent>() {
+
+                        public void handle(ActionEvent arg0) {
+                            Button_list.getChildren().remove(btn);
 
 
+                        }
+                    });
+
+            user_number+=1;
+
+    }
+
+
+
+//            user_button_list.get(user_number).setOnAction(new EventHandler<ActionEvent>() {
+//
+//                public void handle(ActionEvent arg0) {
+//                    V_list.getChildren().remove(user_button_list.get(user_number));
+//
+//
+//                }
+//            });
 
 
     }
+
+
+
+
+
+
 
 //    ListView<String> list = new ListView<String>();
 //    ObservableList<String> items = FXCollections.observableArrayList(
