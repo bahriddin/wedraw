@@ -25,9 +25,22 @@ public class CanvasLog implements Serializable {
                 currentCanvas[i] = initialCanvas[i].clone();
     }
 
+
+    /**
+     * a constructor only should be called by MiniCanvasLog
+     * @param initialCanvas
+     * @param logs
+     */
+    CanvasLog(int[][] initialCanvas, Stack<PixelsDifference> logs) {
+
+        this(initialCanvas);
+
+        this.logs = (Stack<PixelsDifference>)logs.clone();
+    }
+
     /**
      * getter
-     * @return currentCanvas
+     * @return a deep copy of currentCanvas
      */
     public int[][] getCurrentCanvas() {
 
@@ -40,6 +53,14 @@ public class CanvasLog implements Serializable {
             result[i] = currentCanvas[i].clone();
 
         return result;
+    }
+
+    /**
+     * getter
+     * @return a shallow copy of logs
+     */
+    public Stack<PixelsDifference> getLogs() {
+        return (Stack<PixelsDifference>)logs.clone();
     }
 
     /**
