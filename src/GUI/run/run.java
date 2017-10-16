@@ -9,7 +9,17 @@ import javafx.stage.Stage;
 import GUI.Layout.WhiteBoard;
 import javafx.stage.StageStyle;
 
+import java.util.Timer;
+
 public class run extends Application {
+
+
+    public static Thread timerThread = new Thread(() -> {
+        Timer timer = new Timer();
+        long delay = 1 * 1000;
+        long period = 1000;
+        timer.schedule(new wedrawTimer(), delay, period);
+    });
 
     public static void main(String[] args) {
         launch(args);
@@ -26,5 +36,8 @@ public class run extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+
+
     }
 }

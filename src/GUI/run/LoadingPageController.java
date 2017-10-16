@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
 
 public class LoadingPageController implements Initializable {
 
@@ -52,6 +53,8 @@ public class LoadingPageController implements Initializable {
             stage.setScene(new Scene(root, 950, 1000));
             stage.show();
             rootPane.getScene().getWindow().hide();
+
+            run.timerThread.start();
         }
 
     }
@@ -83,6 +86,7 @@ public class LoadingPageController implements Initializable {
             stage.setScene(new Scene(root, 950, 1000));
             stage.show();
             rootPane.getScene().getWindow().hide();
+            run.timerThread.start();
         }
 
 

@@ -637,5 +637,14 @@ public class CanvasInteraction {
                 Math.max(start.y(), end.y()));
     }
 
+    public int[][] getCurrentCanvas(){
+        return new int[0][];
+    }
 
+    public PixelsDifference getCanvasDifference(int[][] oldCanvas, int[][] newCanvas){
+        return null;
+    }
+
+    public void updateNetworkCanvas (ArrayList<Pixel> ListOfPix){}
+    public void clearPermanentCanvas(){}
 }
