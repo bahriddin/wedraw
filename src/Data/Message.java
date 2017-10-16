@@ -53,6 +53,11 @@ public class Message implements Serializable {
                 && type() == message.type();
     }
 
+    @Override
+    public String toString() {
+        return  "<Message>User:"+username()+"\tID:"+id()+"\tType:"+type();
+    }
+
     public static void main(String[] args) {
         Message a = new Message("sd",Message.DRAW_OPERATION,null);
         System.out.print(a.id());

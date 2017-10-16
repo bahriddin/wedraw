@@ -6,6 +6,7 @@ import Model.CanvasInteraction;
 import Network.Network;
 import javafx.application.Platform;
 
+import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
@@ -32,18 +33,18 @@ public class TimerThread extends Thread{
     public void run() {
         super.run();
         Timer timer = new Timer();
-        long period = (long) (0.3*1000);
+        long period = (long) (1*1000);
         timer.schedule(new TimerTasks(), period, period);
     }
 
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
-//            System.out.println("timer");
 
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    //System.out.println("timer");
                     // Update UI here.
                     int [][] newCanvas = model.getCurrentCanvas();
                     PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
@@ -55,10 +56,16 @@ public class TimerThread extends Thread{
                         SendQueue.add(DrawMessage);
                     }
 
+                    System.out.println("============current Sending Queue =============");
+                    for (Message m:SendQueue){
+                        System.out.println(m);
+                    }
+
+
                     //get the ReceiveQueue form network model, and execute the operations in the Queue
                     //and if any message in ReceiveQueue are also in SendQueue
                     //execute it and delete it in SendQueue
-                    ReceiveQueue = net.getMessages();
+                    ReceiveQueue = Network.getMessages();
                     for (Message m:ReceiveQueue){
                         handleMessage(m);
                         if (SendQueue.contains(m)){
@@ -67,11 +74,13 @@ public class TimerThread extends Thread{
                         net.sendMessage(m);
                     }
 
+
                     if (SendQueue.isEmpty()) {
                         model.clearPermanentCanvas();
                     }
                 }
             });
+
         }
 
         //method to execute different types of message
