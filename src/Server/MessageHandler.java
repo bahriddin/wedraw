@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class MessageHandler {
 
-    public ArrayList<Message> handleMessage(Message message) {
+    public synchronized ArrayList<Message> handleMessage(Message message) {
         return null;
     }
 }
