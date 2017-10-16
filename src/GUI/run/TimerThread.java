@@ -14,7 +14,9 @@ public class TimerThread extends Thread{
 
     CanvasInteraction model;
     int[][] CanvasMatrix;
-    boolean Match;
+    MessageQueue SendQueue = new MessageQueue();
+    MessageQueue ReceiveQueue = new MessageQueue();
+
 
     TimerThread(CanvasInteraction model){
         this.model = model;
@@ -33,16 +35,19 @@ public class TimerThread extends Thread{
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
-            System.out.print("dsdasdasdas");
-//            int [][] newCanvas = model.getCurrentCanvas();
-//            PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
-//            CanvasMatrix = newCanvas;
-//            if (difference.size() > 0) {
-//                model.updateNetworkCanvas(difference);
-//            }
-//            if (Match) {
-//                model.clearPermanentCanvas();
-//            }
+
+            int [][] newCanvas = model.getCurrentCanvas();
+            PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
+            CanvasMatrix = newCanvas;
+            if (difference.size() > 0) {
+                model.updateNetworkCanvas(difference);
+            }
+            //SendQueue.add(difference);
+            SendQueue.matchCancel(ReceiveQueue);
+
+            if (SendQueue.isEmpty) {
+                model.clearPermanentCanvas();
+            }
         }
     }
 }
