@@ -224,16 +224,21 @@ public class Draw {
         GraphicsContext gc = layers[TEMPORARY_LAYER];
         int[] xywh = initFigureData(start, end);
 
-        // Get permanent layer as image
-        updateImage(PERMANENT_LAYER);
-
-        // Clear selected area from permanent layer
-        layers[PERMANENT_LAYER].clearRect(xywh[0] + 1, xywh[1] + 1, xywh[2] - 1, xywh[3] - 1);
-
-
+        // copy image from the network layer first
+        updateImage(NETWORK_LAYER);
 
         gc.drawImage(image, xywh[0], xywh[1], xywh[2], xywh[3],
                 xywh[0], xywh[1], xywh[2], xywh[3]);
+
+        // then copy image from the permanent layer
+        updateImage(PERMANENT_LAYER);
+
+        gc.drawImage(image, xywh[0], xywh[1], xywh[2], xywh[3],
+                xywh[0], xywh[1], xywh[2], xywh[3]);
+
+        // no longer clear the selected area in the method
+        // Clear selected area from permanent layer
+        //layers[PERMANENT_LAYER].clearRect(xywh[0] + 1, xywh[1] + 1, xywh[2] - 1, xywh[3] - 1);
 
         // Draw selection border
         drawSelection(xywh[0], xywh[1], xywh[2], xywh[3]);

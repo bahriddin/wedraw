@@ -7,6 +7,8 @@ import java.util.Stack;
 /**
  * Created by zy on 20/09/2017.
  */
+
+// a log class consisting of logs and a canvas
 public class CanvasLog implements Serializable {
 
     private Stack<PixelsDifference> logs;
