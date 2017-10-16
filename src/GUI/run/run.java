@@ -14,12 +14,7 @@ import java.util.Timer;
 public class run extends Application {
 
 
-    public static Thread timerThread = new Thread(() -> {
-        Timer timer = new Timer();
-        long delay = 1 * 1000;
-        long period = 1000;
-        timer.schedule(new wedrawTimer(), delay, period);
-    });
+    public static TimerThread timerThread;
 
     public static void main(String[] args) {
         launch(args);

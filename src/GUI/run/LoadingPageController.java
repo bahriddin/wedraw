@@ -3,6 +3,7 @@ package GUI.run;
 import GUI.Layout.Client;
 import GUI.Layout.Manager;
 import GUI.Layout.WhiteBoard;
+import Model.CanvasInteraction;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -645,6 +645,6 @@ public class CanvasInteraction {
         return null;
     }
 
-    public void updateNetworkCanvas (ArrayList<Pixel> ListOfPix){}
+    public void updateNetworkCanvas (PixelsDifference difference){}
     public void clearPermanentCanvas(){}
 }
