@@ -19,6 +19,7 @@ public class Tool implements EventHandler<MouseEvent> {
         this.canvasArea = canvasArea;
         this.model = canvasArea.getModel();
     }
+
     public Tool(){};
 
     public CanvasArea getCanvas() {

@@ -132,7 +132,7 @@ public class WhiteBoardMenu extends MenuBar {
                         FileInputStream fis = new FileInputStream(file);
                         ObjectInputStream ois = new ObjectInputStream(fis);
                         CanvasLog readLog = (CanvasLog) ois.readObject();
-                        canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,readLog);
+                        canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,canvasArea.networkCanvas,readLog);
                         ois.close();
 
                     } catch (IOException ex) {
@@ -154,7 +154,7 @@ public class WhiteBoardMenu extends MenuBar {
             @Override
             public void handle(ActionEvent t) {
 //                System.out.print("new");
-                canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas);
+                canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,canvasArea.networkCanvas);
             }
 
         });

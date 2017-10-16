@@ -20,10 +20,12 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import static GUI.DrawSettings.DrawSettings.color;
 
 public class Manager extends WhiteBoard{
+
 
     VBox V_list = new VBox();
 
@@ -78,6 +80,14 @@ public class Manager extends WhiteBoard{
 
         Label label1 = new Label("Current Users: ");
         V_list.getChildren().add(label1);
+
+//        class BottomList extends ArrayList<Button>{
+//            public Button getfromName(String Name){}
+//        }
+//
+////        BottonList.add();
+////        BottonList.remove();
+
 
         Button btn1 = new Button();
         btn1.setText("User1");
@@ -218,7 +228,7 @@ public class Manager extends WhiteBoard{
         });
 
 
-        
+
 
         Label chat_label = new Label("Chat Box");
 

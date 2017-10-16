@@ -17,17 +17,17 @@ public class CanvasArea extends Pane  {
 
     Canvas temporaryCanvas = new Canvas(1000,1000);
     Canvas permanentCanvas = new Canvas(1000,1000);
+    Canvas networkCanvas = new Canvas(1000,1000);
 
     public Tool tools;
 
-    CanvasInteraction model = new CanvasInteraction(permanentCanvas, temporaryCanvas);
+    CanvasInteraction model = new CanvasInteraction(permanentCanvas, temporaryCanvas,networkCanvas);
 
 //      Create a Canvas object.
 
     public CanvasInteraction getModel(){
         return model;
     }
-
 
 
     public CanvasArea(Tool tools) {
@@ -37,6 +37,7 @@ public class CanvasArea extends Pane  {
 
         getChildren().add(permanentCanvas);
         getChildren().add(temporaryCanvas);
+        getChildren().add(networkCanvas);
 
 //        //////////test
 //        GraphicsContext gc1 = temporaryCanvas.getGraphicsContext2D();

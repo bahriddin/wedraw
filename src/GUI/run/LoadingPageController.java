@@ -34,6 +34,9 @@ public class LoadingPageController implements Initializable {
     @FXML
     private TextField canvas_id;
 
+    public LoadingPageController(){
+
+    }
 
 
     public void create() throws IOException {
@@ -55,8 +58,8 @@ public class LoadingPageController implements Initializable {
             stage.show();
             rootPane.getScene().getWindow().hide();
 
-            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
-            run.timerThread.start();
+//            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
+//            run.timerThread.start();
         }
 
     }
@@ -88,7 +91,7 @@ public class LoadingPageController implements Initializable {
             stage.setScene(new Scene(root, 950, 1000));
             stage.show();
             rootPane.getScene().getWindow().hide();
-            run.timerThread.start();
+//            run.TimerThread.start();
         }
 
 
@@ -105,6 +108,10 @@ public class LoadingPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        new LoadingPag().start();
+
+
+
+
 
     }
 
