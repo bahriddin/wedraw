@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class Draw {
     public final static int PERMANENT_LAYER = 0;
     public final static int TEMPORARY_LAYER = 1;
+    public final static int NETWORK_LAYER = 2;
 
     private Image image;
     private GraphicsContext[] layers;
@@ -175,6 +176,11 @@ public class Draw {
 
     public void clearPermanentLayer() {
         GraphicsContext gc = layers[PERMANENT_LAYER];
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
+
+    public void clearNetworkLayer() {
+        GraphicsContext gc = layers[NETWORK_LAYER];
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 
