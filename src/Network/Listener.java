@@ -13,7 +13,7 @@ import java.io.ObjectInputStream;
 public class Listener implements Runnable {
     private InputStream clientIn;
 
-    private Listener(InputStream dataIn) {
+    Listener(InputStream dataIn) {
         this.clientIn = dataIn;
     }
 
