@@ -68,6 +68,7 @@ public class LoadingPageController implements Initializable {
 
 
             while (admModel==null){System.out.print(" ");}
+
             admModel.Send_CREATE_CANVAS(canvas_id.getText());
 
             Stage stage = new Stage();
@@ -117,8 +118,6 @@ public class LoadingPageController implements Initializable {
             run.timerThread.start();
 
             while (admModel==null){System.out.print(" ");}
-            admModel.Send_CREATE_CANVAS(canvas_id.getText());
-
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
