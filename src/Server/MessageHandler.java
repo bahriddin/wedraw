@@ -25,39 +25,76 @@ public class MessageHandler {
 
         String canvasName;
 
+        String username;
+
         ServerCanvas canvas;
 
-        switch (message.type()) {
+        Boolean answer;
 
-            case Message.CREATE_CANVAS:
+        try {
 
-                canvasName = (String)message.content();
-                if (findCanvasByCanvasName(canvasName) == null) {
-                    canvases.add(new ServerCanvas(canvasName, message.username()));
-                    responses.add(new Message(message.username(),
-                            message.id(), message.type(), " Canvas successfully created."));
-                } else {
-                    responses.add(new Message(message.username(),
-                            message.id(), message.type(), " Cannot create canvas, as a canvas " +
-                            "with the same name is being used."));
-                }
-                break;
+            switch (message.type()) {
 
-            case Message.JOIN_REQUEST:
+                case Message.CREATE_CANVAS:
 
-                canvasName = (String)message.content();
+                    canvasName = (String) message.content();
+                    if (findCanvasByCanvasName(canvasName) == null) {
+                        canvases.add(new ServerCanvas(canvasName, message.username()));
+                        responses.add(new Message(message.username(),
+                                message.id(), message.type(), " Canvas successfully created."));
+                    } else {
+                        responses.add(new Message(message.username(),
+                                message.id(), message.type(), " Cannot create canvas, as a canvas " +
+                                "with the same name is being used."));
+                    }
+                    break;
 
-                canvas = findCanvasByCanvasName(canvasName);
+                case Message.JOIN_REQUEST:
 
-                if (canvas == null) {
-                    responses.add(new Message(message.username(), message.id(), Message
-                            .JOIN_RESPONSE, false));
-                } else {
-                    responses.add(new Message(canvas.getManager(), message.id(), Message
-                            .JOIN_REQUEST, message.username()));
-                }
+                    canvasName = (String) message.content();
+
+                    canvas = findCanvasByCanvasName(canvasName);
+
+                    boolean isUserExisted = findCanvasByUsername(message.username()) != null;
+
+                    if (canvas == null || isUserExisted) {
+                        responses.add(new Message(message.username(), message.id(), Message
+                                .JOIN_RESPONSE, false));
+                    } else {
+                        responses.add(new Message(canvas.getManager(), message.id(), Message
+                                .JOIN_REQUEST, message.username()));
+                    }
+
+                    break;
+
+                case Message.JOIN_RESPONSE:
+
+                    canvas = findCanvasByManager(message.username());
+
+                    String[] response_answers = (String[]) message.content();
+
+                    if (canvas == null) {
+                        // do nothing
+                    } else {
+
+                        // unapproved
+                        if (response_answers[1] == "F")
+                            responses.add(new Message(response_answers[0], message.id(), Message
+                                    .JOIN_RESPONSE, false));
+                        // approved
+                        else {
+                            responses.add(new Message(response_answers[0], message.id(), Message
+                                    .JOIN_RESPONSE, true));
+                            canvas.addUser(response_answers[0]);
+                        }
+
+                    }
+                    break;
 
 
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid Message Received.");
         }
 
         return responses;
