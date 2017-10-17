@@ -19,6 +19,8 @@ public class MessageHandler {
 
     public synchronized ArrayList<Message> handleMessage(Message message) {
 
+        System.out.println(message);
+
         if (message == null)
             return null;
 
@@ -79,7 +81,6 @@ public class MessageHandler {
                     if (canvas == null) {
                         // do nothing
                     } else {
-
                         // unapproved
                         if (response_answers[1] == "F")
                             responses.add(new Message(response_answers[0], message.id(), Message
@@ -87,7 +88,7 @@ public class MessageHandler {
                         // approved
                         else {
                             responses.add(new Message(response_answers[0], message.id(), Message
-                                    .JOIN_RESPONSE, true));
+                                    .JOIN_RESPONSE, canvas.getCanvasAsPixelDifference()));
                             canvas.addUser(response_answers[0]);
                         }
 
