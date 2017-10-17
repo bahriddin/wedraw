@@ -20,6 +20,13 @@ public class AdminInteraction {
     //and some method that allow join request
 
 
+    public AdminInteraction(Network net){
+        this.net =net;
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
+    }
 
     public void handleMessage(Message m){
         switch (m.type()){
@@ -69,7 +76,7 @@ public class AdminInteraction {
     }
 
     public void handle_KICK_USER(Message m){
-        Send_CHAT_MESSAGE("user \""+m.username()+"\" has been kicked out");
+        Send_CHAT_MESSAGE("user \""+m.content()+"\" has been kicked out");
     }
 
     public void handle_USER_GOT_KICKED(Message m){
