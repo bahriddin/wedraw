@@ -26,7 +26,12 @@ public class NetworkThread implements Runnable{
             InputStream socketIn = this.socket.getInputStream();
             ObjectInputStream in = new ObjectInputStream(socketIn);
             Message clientMessage;
+
+
             while ((clientMessage = (Message) in.readObject()) != null) {
+
+//                System.out.println(clientMessage);
+//                System.out.println(clientsDict==null);
 
                 if (!clientsDict.containsKey(clientMessage.username())) {
                     clientsDict.put(clientMessage.username(), socket);
