@@ -31,6 +31,8 @@ public class Client extends WhiteBoard{
 
     HBox H_list = new HBox();
 
+    HBox H_Print = new HBox();
+
     public static TextArea chatBox = new TextArea();
 
     public static String KICK_ICON = "/images/kickoff.png";
@@ -72,7 +74,9 @@ public class Client extends WhiteBoard{
         H_list.setAlignment(Pos.CENTER);
 
 
-        topControls.getChildren().add(label);
+        H_Print.getChildren().add(label);
+        topControls.getChildren().add(H_Print);
+
 
         ToolsPanel.hbox2.getChildren().remove(undoBtn);
 

@@ -25,8 +25,10 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static GUI.DrawSettings.DrawSettings.color;
+import static GUI.run.TimerThread.admModel;
 
 public class Manager extends WhiteBoard{
 
@@ -37,6 +39,7 @@ public class Manager extends WhiteBoard{
 
     VBox Button_list = new VBox();
 
+    HBox H_Print = new HBox();
     TextArea chatBox = new TextArea();
 
     public static String KICK_ICON = "/images/kickoff.png";
@@ -57,6 +60,11 @@ public class Manager extends WhiteBoard{
 
 
     public String manager_name = "Manager";
+
+    Button test1 = new Button("test 1 ");
+
+
+
 
 
     public Manager(Users user) {
@@ -85,8 +93,10 @@ public class Manager extends WhiteBoard{
 
         H_list.setAlignment(Pos.CENTER);
 
+        H_Print.getChildren().add(label);
+        H_Print.getChildren().add(test1);
+        topControls.getChildren().add(H_Print);
 
-        topControls.getChildren().add(label);
 
 
 //        getChildren().add(left_right);
@@ -130,7 +140,7 @@ public class Manager extends WhiteBoard{
         Button send_btn = new Button("Send");
         send_btn.setPrefSize(70,70);
 
-        send_btn.setOnAction(new EventHandler<ActionEvent>() {
+        test1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
                 generate_user(user);
@@ -161,10 +171,39 @@ public class Manager extends WhiteBoard{
 
     }
 
+
+    public void kick_user(Button btn){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("warning");
+//        alert.setHeaderText("This is a test.");
+        alert.setResizable(false);
+        alert.setContentText("Are u sure to kick it out?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        ButtonType button = result.orElse(ButtonType.CANCEL);
+
+        if (button == ButtonType.OK) {
+            Button_list.getChildren().remove(btn);
+            admModel.Send_KICK_USER(btn.getText());
+            System.out.println(btn.getText());
+        } else {
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
     public void generate_user(Users user){
 
             user_button_list.add(new Button());
-            user_button_list.get(user_number).setText("User1");
+            user_button_list.get(user_number).setText("User");
             user_button_list.get(user_number).setPrefSize(300,40);
             Button_list.getChildren().add(user_button_list.get(user_number));
 
@@ -191,9 +230,7 @@ public class Manager extends WhiteBoard{
             btn.setOnAction(new EventHandler<ActionEvent>() {
 
                         public void handle(ActionEvent arg0) {
-                            Button_list.getChildren().remove(btn);
-
-
+                            kick_user(btn);
                         }
                     });
 

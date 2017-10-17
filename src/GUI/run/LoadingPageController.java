@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -23,6 +24,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 
@@ -39,12 +41,15 @@ public class LoadingPageController implements Initializable {
     @FXML
     private TextField canvas_id;
 
+    public  static Boolean is_connected = false;
+
+    private int alert_once = 0;
+
     public LoadingPageController(){
 
     }
 
     Users this_manager ;
-
 
 
     public void create() throws IOException {
@@ -71,20 +76,44 @@ public class LoadingPageController implements Initializable {
 
             admModel.Send_CREATE_CANVAS(canvas_id.getText());
 
-            Stage stage = new Stage();
-            stage.setTitle("Whiteboard");
-            stage.setScene(new Scene((Parent) root, 950, 1000));
-            stage.show();
-            rootPane.getScene().getWindow().hide();
+            if(!is_connected){
 
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-                    System.out.println("asda");
-                    Platform.exit();
-                    System.exit(0);
-                }
-            });
+                    dialog_fail();
+
+
+            }
+            else
+
+            {
+                dialog_success();
+                Stage stage = new Stage();
+                stage.setTitle("Whiteboard");
+                stage.setScene(new Scene((Parent) root, 950, 1000));
+                stage.show();
+                rootPane.getScene().getWindow().hide();
+
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent t) {
+
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("warning");
+                        alert.setResizable(false);
+                        alert.setContentText("Are you sure to Exit?");
+
+                        Optional<ButtonType> result = alert.showAndWait();
+                        ButtonType button = result.orElse(ButtonType.CANCEL);
+
+                        if (button == ButtonType.OK) {
+                            System.out.println("bye bye");
+                            Platform.exit();
+                            System.exit(0);
+                        } else {
+
+                        }
+                    }
+                });
+            }
 
 
         }
@@ -119,20 +148,50 @@ public class LoadingPageController implements Initializable {
 
             while (admModel==null){System.out.print(" ");}
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
-            Stage stage = new Stage();
-            stage.setTitle("Whiteboard");
-            stage.setScene(new Scene((Parent) root, 950, 1000));
-            stage.show();
-            rootPane.getScene().getWindow().hide();
 
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-                    System.out.println("bye bye");
-                    Platform.exit();
-                    System.exit(0);
-                }
-            });
+            if(!is_connected){
+
+                dialog_fail();
+
+
+            }
+            else
+
+            {
+                dialog_success();
+                Stage stage = new Stage();
+                stage.setTitle("Whiteboard");
+                stage.setScene(new Scene((Parent) root, 950, 1000));
+                stage.show();
+                rootPane.getScene().getWindow().hide();
+
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent t) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("warning");
+//        alert.setHeaderText("This is a test.");
+                        alert.setResizable(false);
+                        alert.setContentText("Are you sure to Exit?");
+
+                        Optional<ButtonType> result = alert.showAndWait();
+                        ButtonType button = result.orElse(ButtonType.CANCEL);
+
+                        if (button == ButtonType.OK) {
+                            System.out.println("bye bye");
+                            Platform.exit();
+                            System.exit(0);
+                        } else {
+
+                        }
+
+                    }
+                });
+
+            }
+
+
+
 
 
 
@@ -142,13 +201,31 @@ public class LoadingPageController implements Initializable {
 
     }
 
+    public void dialog_fail(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+//        alert.setHeaderText("Look, an Error Dialog");
+        alert.setContentText("Connection Error! Try again later");
+
+        alert.showAndWait();
+    }
+
+    public void dialog_success(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle("Error");
+//        alert.setHeaderText("Look, an Error Dialog");
+        alert.setContentText("connected TO Canvas "+canvas_id.getText());
+
+        alert.showAndWait();
+
+    }
+
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        new LoadingPag().start();
-
-
 
 
 

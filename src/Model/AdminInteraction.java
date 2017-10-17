@@ -80,9 +80,12 @@ public class AdminInteraction {
 
     public void handle_JOIN_RESPONSE(Message m){
         if (m.content().equals(null)){
+
+
             //弹窗，你被拒绝
             //炸裂，退出程序
         }
+
 
     }
 
@@ -140,4 +143,5 @@ public class AdminInteraction {
         Message message =  new Message(userName,Message.JOIN_RESPONSE,response);
         net.sendMessage(message);
     }
+
 }

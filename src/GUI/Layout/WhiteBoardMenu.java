@@ -14,6 +14,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 
@@ -21,8 +22,11 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.*;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static GUI.run.TimerThread.admModel;
 
 
 public class WhiteBoardMenu extends MenuBar {
@@ -34,6 +38,8 @@ public class WhiteBoardMenu extends MenuBar {
     static MenuItem newCanvas;
 
     static MenuItem load;
+
+    static MenuItem save_as;
 
 
     public WhiteBoardMenu(CanvasArea canvasArea) {
@@ -109,8 +115,6 @@ public class WhiteBoardMenu extends MenuBar {
         });
 
 
-
-
         load = new MenuItem("Load");
 
         load.setOnAction(new EventHandler<ActionEvent>() {
@@ -159,11 +163,42 @@ public class WhiteBoardMenu extends MenuBar {
 
         });
 
+        save_as = new MenuItem("Save As");
+
+        save_as.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+//                System.out.print("new");
+                TextInputDialog dialog = new TextInputDialog("New Canvas name");
+                dialog.setTitle("Save As");
+//                dialog.setHeaderText("Look, a Text Input Dialog");
+                dialog.setContentText("Please enter New Canvas name:");
+
+// Traditional way to get the response value.
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()){
+                    admModel.Send_SAVE_CANVAS(result.get());
+                    System.out.println("Rename Canvas name: " + result.get());
+                }
+
+// The Java 8 way to get the response value (with lambda expression).
+            }
+
+        });
+
+
+
+
         // Fill the file Menu.
         file.getItems().add(newCanvas);
-        file.getItems().add(export);
-        file.getItems().add(save);
         file.getItems().add(load);
+
+        file.getItems().add(save);
+        file.getItems().add(save_as);
+
+        file.getItems().add(export);
+
 
 
         // Fill the MenuBar.
