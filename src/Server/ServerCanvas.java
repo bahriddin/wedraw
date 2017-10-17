@@ -1,6 +1,8 @@
 package Server;
 
+import Data.CanvasHelper;
 import Data.CanvasLog;
+import Data.PixelsDifference;
 
 import java.util.ArrayList;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  */
 public class ServerCanvas {
 
-    private CanvasLog canvasLog;
+    private CanvasLog canvas;
 
     private String manager;
 
@@ -25,7 +27,27 @@ public class ServerCanvas {
         users = new ArrayList<>();
         users.add(manager);
 
-        //canvasLog = new CanvasLog();
+        int[][] blankCanvas = new int[CanvasHelper.DEFAULT_CANVAS_WIDTH][];
+
+        for (int x = 0; x < CanvasHelper.DEFAULT_CANVAS_WIDTH; x++) {
+            blankCanvas[x] = new int[CanvasHelper.DEFAULT_CANVAS_HEIGHT];
+            for (int y = 0; y < CanvasHelper.DEFAULT_CANVAS_HEIGHT; y++)
+                blankCanvas[x][y] = 0;
+        }
+
+        canvas = new CanvasLog(blankCanvas);
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public ArrayList<String> getUsers() {
+        return users;
+    }
+
+    public String getCanvasName() {
+        return canvasName;
     }
 
     public boolean loadCanvas(String canvasName) {
@@ -34,16 +56,37 @@ public class ServerCanvas {
         return true;
     }
 
+    /*
     public boolean saveCanvas() {
         return saveAsCanvas(this.canvasName);
     }
+    */
 
     public boolean saveAsCanvas(String canvasName) {
         return true;
     }
 
-    public void updateCanvas() {
+    public void updateCanvas(PixelsDifference operation) {
+        canvas.updateCanvas(operation);
+    }
 
+    public PixelsDifference undoCanvas() {
+
+        PixelsDifference lastOperation = canvas.popLastOperation();
+
+        return lastOperation;
+    }
+
+    public void addUser(String username) {
+        users.add(username);
+    }
+
+    public void removeUser(String username) {
+
+        users.remove(username);
+
+        if (username.equals(manager))
+            manager = "";
     }
 
 }

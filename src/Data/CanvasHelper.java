@@ -13,6 +13,9 @@ import java.util.Arrays;
  */
 public class CanvasHelper {
 
+    public static final int DEFAULT_CANVAS_WIDTH = 640;
+    public static final int DEFAULT_CANVAS_HEIGHT = 1000;
+
     /**
      * convert a canvas into a 2d matrix of int
      * @param canvas
