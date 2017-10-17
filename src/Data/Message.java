@@ -28,7 +28,6 @@ public class Message implements Serializable {
     public static final int USER_GOT_KICKED = 10;
 
 
-
     // contentValue should be immutable
     private Serializable contentValue;
 
@@ -46,6 +45,13 @@ public class Message implements Serializable {
 
     public Serializable content() {
         return contentValue;
+    }
+
+    public Message(String user, int idValue, int typeValue, Serializable contentValue){
+        this.usernameValue = user;
+        this.typeValue = typeValue;
+        this.idValue = idValue;
+        this.contentValue = contentValue;
     }
 
     public Message(String user, int typeValue, Serializable contentValue){

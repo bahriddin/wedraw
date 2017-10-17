@@ -26,7 +26,20 @@ public class ServerCanvas {
         users = new ArrayList<>();
         users.add(manager);
 
+
         //canvasLog = new CanvasLog();
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public ArrayList<String> getUsers() {
+        return users;
+    }
+
+    public String getCanvasName() {
+        return canvasName;
     }
 
     public boolean loadCanvas(String canvasName) {
@@ -35,9 +48,11 @@ public class ServerCanvas {
         return true;
     }
 
+    /*
     public boolean saveCanvas() {
         return saveAsCanvas(this.canvasName);
     }
+    */
 
     public boolean saveAsCanvas(String canvasName) {
         return true;
