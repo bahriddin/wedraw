@@ -23,17 +23,20 @@ public class MessageHandler {
 
         ArrayList<Message> responses = new ArrayList<>();
 
+        String canvasName;
+
+        ServerCanvas canvas;
+
         switch (message.type()) {
 
             case Message.CREATE_CANVAS:
 
-                String canvasName = (String)message.content();
+                canvasName = (String)message.content();
                 if (findCanvasByCanvasName(canvasName) == null) {
                     canvases.add(new ServerCanvas(canvasName, message.username()));
                     responses.add(new Message(message.username(),
                             message.id(), message.type(), " Canvas successfully created."));
-                }
-                else {
+                } else {
                     responses.add(new Message(message.username(),
                             message.id(), message.type(), " Cannot create canvas, as a canvas " +
                             "with the same name is being used."));
@@ -41,9 +44,23 @@ public class MessageHandler {
                 break;
 
             case Message.JOIN_REQUEST:
+
                 canvasName = (String)message.content();
 
+                canvas = findCanvasByCanvasName(canvasName);
+
+                if (canvas == null) {
+                    responses.add(new Message(message.username(), message.id(), Message
+                            .JOIN_RESPONSE, false));
+                } else {
+                    responses.add(new Message(canvas.getManager(), message.id(), Message
+                            .JOIN_REQUEST, message.username()));
+                }
+
+
         }
+
+        return responses;
 
     }
 

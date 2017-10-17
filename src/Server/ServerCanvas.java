@@ -4,7 +4,6 @@ import Data.CanvasHelper;
 import Data.CanvasLog;
 import Data.PixelsDifference;
 
-import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +27,7 @@ public class ServerCanvas {
         users = new ArrayList<>();
         users.add(manager);
 
-        int[][] blankCanvas = new int[CanvasHelper.DEFAULT_CANVAS_WIDTH][]
+        int[][] blankCanvas = new int[CanvasHelper.DEFAULT_CANVAS_WIDTH][];
 
         for (int x = 0; x < CanvasHelper.DEFAULT_CANVAS_WIDTH; x++) {
             blankCanvas[x] = new int[CanvasHelper.DEFAULT_CANVAS_HEIGHT];
@@ -36,7 +35,7 @@ public class ServerCanvas {
                 blankCanvas[x][y] = 0;
         }
 
-        canvasLog = new CanvasLog(blankCanvas);
+        canvas = new CanvasLog(blankCanvas);
     }
 
     public String getManager() {
