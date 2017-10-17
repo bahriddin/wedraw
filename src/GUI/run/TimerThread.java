@@ -31,13 +31,14 @@ public class TimerThread extends Thread{
         this.model = model;
         this.CanvasMatrix = model.getCurrentCanvas();
         this.username = username;
+        net = new Network("localhost", 3000);
     }
 
     @Override
     public void run() {
         super.run();
         try {
-            net = new Network("localhost", 3000);
+            //net = new Network("localhost", 3000);
         }catch (Exception e){
             //
         }

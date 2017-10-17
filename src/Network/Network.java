@@ -14,6 +14,7 @@ public class Network {
     private Socket client;
     private InputStream clintIn;
     private OutputStream clientOut;
+    private ObjectOutputStream out;
 
     private static Thread listenerThread;
 
@@ -26,6 +27,7 @@ public class Network {
             client = new Socket(host, port);
             clintIn = client.getInputStream();
             clientOut = client.getOutputStream();
+            out = new ObjectOutputStream(clientOut);
 
             // Always listen to the server
             listenerThread = new Thread(new Listener(clintIn));
@@ -47,19 +49,21 @@ public class Network {
     }
 
 
-//    public void sendMessage(Message message) {
-//        System.out.println("sent:"+message);
-//
-//        try {
-//            ObjectOutputStream out = new ObjectOutputStream(clientOut);
-//            out.writeObject(message);
-//        } catch (IOException io) {
-//            System.out.println("IOException: " + io.getMessage());
-//        }
-//    }
     public void sendMessage(Message message) {
+        System.out.println("sent:"+message);
+
+        try {
+            out.writeObject(message);
+        } catch (IOException io) {
+            System.out.println("IOException: " + io.getMessage());
+        }
+    }
+    /*
+    public void sendMessage(Message message) {
+
         TimerThread.ReceiveQueue.add(message);
     }
+    */
 
 
     public static ArrayList<Message> getMessages() {
