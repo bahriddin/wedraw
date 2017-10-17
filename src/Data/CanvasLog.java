@@ -149,6 +149,7 @@ public class CanvasLog implements Serializable {
             return null;
         }
 
+        return result;
     }
 
     /**

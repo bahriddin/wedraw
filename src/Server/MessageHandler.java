@@ -43,8 +43,6 @@ public class MessageHandler {
             case Message.JOIN_REQUEST:
                 canvasName = (String)message.content();
 
-
-
         }
 
     }
