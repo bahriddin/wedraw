@@ -11,13 +11,11 @@ import java.util.Map;
 public class NetworkThread implements Runnable{
 
     private Socket socket;
-    private static MessageHandler messageHandler;
-    private static Map<String, ObjectOutputStream> clientsDict;
+    private static MessageHandler messageHandler = new MessageHandler();
+    private static Map<String, ObjectOutputStream> clientsDict = new HashMap<>();
 
     public NetworkThread(Socket socket) {
         this.socket = socket;
-        messageHandler = new MessageHandler();
-        clientsDict = new HashMap<>();
     }
 
     @Override
@@ -42,18 +40,17 @@ public class NetworkThread implements Runnable{
                 if (!clientsDict.containsKey(clientMessage.username())) {
 
                     clientsDict.put(clientMessage.username(), out);
+                } else if (clientsDict.get(clientMessage.username()) != out) {
+                    throw new Exception("There is another client with the same name");
                 }
 
                 ArrayList<Message> messages = messageHandler.handleMessage(clientMessage);
 
                 for (Message serverMessage : messages) {
                     ObjectOutputStream ooo = clientsDict.get(serverMessage.username());
-                    ooo.reset();
                     ooo.writeObject(serverMessage);
-//                    socketOut.close();
                 }
             }
-//            socketIn.close();
 
         } catch (IOException e) {
             System.out.println("IOException1: " + e.getMessage());
