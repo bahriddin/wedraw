@@ -89,6 +89,22 @@ public class CanvasLog implements Serializable {
     }
 
     /**
+     * update the canvas based on pixel difference (operation) and update log
+     * @param operation
+     */
+    public void updateCanvas(PixelsDifference operation) {
+
+        int[][] oldCanvas = new int[currentCanvas.length][];
+
+        for (int i = 0; i < currentCanvas.length; i++)
+            oldCanvas = currentCanvas.clone();
+
+        undo(operation);
+
+
+    }
+
+    /**
      * pop and return the last operation
      * @return last operation, null if failed
      */

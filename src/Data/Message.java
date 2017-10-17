@@ -14,14 +14,16 @@ public class Message implements Serializable {
 
     private int typeValue;
     public static final int DRAW_OPERATION = 1;
-    public static final int CREATE_CANVAS = 2;
-    public static final int JOIN_REQUEST = 3;
-    public static final int JOIN_RESPONSE = 3; // the same as request
-    public static final int SAVE_CANVAS = 4;
-    public static final int LOAD_CANVAS = 5;
-    public static final int CHAT_MESSAGE = 6;
-    public static final int KICK_USER = 7;
-    public static final int USER_GOT_KICKED = 8;
+    public static final int UNDO = 2;
+    public static final int CREATE_CANVAS = 3;
+    public static final int JOIN_REQUEST = 4;
+    public static final int JOIN_RESPONSE = 5; // the same as request
+    public static final int SAVE_CANVAS = 6;
+    public static final int LOAD_CANVAS = 7;
+    public static final int CHAT_MESSAGE = 8;
+    public static final int KICK_USER = 9;
+    public static final int USER_GOT_KICKED = 10;
+
 
 
     // contentValue should be immutable
