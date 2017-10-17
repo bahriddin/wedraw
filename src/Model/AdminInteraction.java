@@ -101,19 +101,19 @@ public class AdminInteraction {
     }
 
     public void Send_CREATE_CANVAS(String canvasName){
-        Message message =  new Message(userName,Message.UNDO,canvasName);
+        Message message =  new Message(userName,Message.CREATE_CANVAS,canvasName);
         net.sendMessage(message);
     }
 
     public void Send_SAVE_CANVAS(String canvasName){
         //canvasName 是本地保存的 canvasName
-        Message message =  new Message(userName,Message.UNDO,canvasName);
+        Message message =  new Message(userName,Message.SAVE_CANVAS,canvasName);
         net.sendMessage(message);
     }
 
     public void Send_LOAD_CANVAS(String canvasName){
         //canvasName 是本地保存的 canvasName
-        Message message =  new Message(userName,Message.UNDO,canvasName);
+        Message message =  new Message(userName,Message.LOAD_CANVAS,canvasName);
         net.sendMessage(message);
     }
 
