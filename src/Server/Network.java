@@ -29,7 +29,7 @@ public class Network {
         } catch (SecurityException se) {
             System.out.println("Security issue: " + se.getMessage());
         } catch (IOException io) {
-            System.out.println("IOException: " + io.getMessage());
+            System.out.println("IOException2: " + io.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

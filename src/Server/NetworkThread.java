@@ -12,7 +12,7 @@ public class NetworkThread implements Runnable{
 
     private Socket socket;
     private static MessageHandler messageHandler;
-    private static Map<String, Socket> clientsDict;
+    private static Map<String, ObjectOutputStream> clientsDict;
 
     public NetworkThread(Socket socket) {
         this.socket = socket;
@@ -25,32 +25,38 @@ public class NetworkThread implements Runnable{
         try {
             InputStream socketIn = this.socket.getInputStream();
             ObjectInputStream in = new ObjectInputStream(socketIn);
+
+            OutputStream socketOut = socket.getOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(socketOut);
+
+            Object obj;
             Message clientMessage;
 
 
-            while ((clientMessage = (Message) in.readObject()) != null) {
-
+            while ((obj = in.readObject()) != null) {
+//                System.out.println("obj = " + obj);
+                clientMessage = (Message) obj;
 //                System.out.println(clientMessage);
 //                System.out.println(clientsDict==null);
 
                 if (!clientsDict.containsKey(clientMessage.username())) {
-                    clientsDict.put(clientMessage.username(), socket);
+
+                    clientsDict.put(clientMessage.username(), out);
                 }
 
                 ArrayList<Message> messages = messageHandler.handleMessage(clientMessage);
 
                 for (Message serverMessage : messages) {
-                    Socket socket = clientsDict.get(serverMessage.username());
-                    OutputStream socketOut = socket.getOutputStream();
-                    ObjectOutputStream out = new ObjectOutputStream(socketOut);
-                    out.writeObject(serverMessage);
-                    socketOut.close();
+                    ObjectOutputStream ooo = clientsDict.get(serverMessage.username());
+                    ooo.reset();
+                    ooo.writeObject(serverMessage);
+//                    socketOut.close();
                 }
             }
-            socketIn.close();
+//            socketIn.close();
 
         } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());
+            System.out.println("IOException1: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Unexpected exception: " + e.getMessage());
         }
