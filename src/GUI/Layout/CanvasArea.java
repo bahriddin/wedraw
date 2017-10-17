@@ -34,10 +34,9 @@ public class CanvasArea extends Pane  {
 
         this.tools= tools;
 
-
+        getChildren().add(networkCanvas);
         getChildren().add(permanentCanvas);
         getChildren().add(temporaryCanvas);
-        getChildren().add(networkCanvas);
 
 //        //////////test
 //        GraphicsContext gc1 = temporaryCanvas.getGraphicsContext2D();

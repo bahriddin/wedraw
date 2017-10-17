@@ -659,13 +659,11 @@ public class CanvasInteraction {
     }
 
     public void updateNetworkCanvas (PixelsDifference difference) {
-
         draw.drawFree(difference.getPixels(), Draw.NETWORK_LAYER);
     }
     public synchronized void clearPermanentCanvas() {
         draw.clearPermanentLayer();
     }
-
 
     /*
     private void addToOperations(){
