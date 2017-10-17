@@ -87,9 +87,6 @@ public class TimerThread extends Thread{
         public void handleMessage(Message message){
             switch (message.type()){
                 case Message.DRAW_OPERATION: model.updateNetworkCanvas((PixelsDifference) message.content());break;
-                case Message.JOIN_OPERATION:break;
-                case Message.KICK_OPERATION:break;
-                case Message.CHAT_OPERATION:break;
             }
         }
     }
