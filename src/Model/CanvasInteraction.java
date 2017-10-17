@@ -87,6 +87,15 @@ public class CanvasInteraction {
     }
 
     /**
+     * clear all the canvases
+     */
+    public void clearAllCanvases() {
+        draw.clearTemporaryLayer();
+        draw.clearPermanentLayer();
+        draw.clearNetworkLayer();
+    }
+
+    /**
      * get current Log
      * NOTICE: this is NOT a deep copy, do not call any method of this log object
      * @return current Log
@@ -99,11 +108,13 @@ public class CanvasInteraction {
      * draw some pixels without adding new log
      * this method is used by undo
      * @param difference
+     *
 
     public void drawFreeWithoutLogging(PixelsDifference difference) {
         draw.drawFree(difference.getPixels(), Draw.PERMANENT_LAYER);
     }
     */
+
 
     /**
      * draw some pixels based on PixelsDifference
@@ -654,6 +665,7 @@ public class CanvasInteraction {
     public synchronized void clearPermanentCanvas() {
         draw.clearPermanentLayer();
     }
+
 
     /*
     private void addToOperations(){

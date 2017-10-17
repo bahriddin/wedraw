@@ -83,7 +83,7 @@ public class MessageHandler {
                         // unapproved
                         if (response_answers[1] == "F")
                             responses.add(new Message(response_answers[0], message.id(), Message
-                                    .JOIN_RESPONSE, false));
+                                    .JOIN_RESPONSE, null));
                         // approved
                         else {
                             responses.add(new Message(response_answers[0], message.id(), Message
