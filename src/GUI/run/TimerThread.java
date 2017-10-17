@@ -2,6 +2,7 @@ package GUI.run;
 
 import Data.Message;
 import Data.PixelsDifference;
+import Model.AdminInteraction;
 import Model.CanvasInteraction;
 import Network.Network;
 import javafx.application.Platform;
@@ -18,7 +19,8 @@ import java.util.TimerTask;
 public class TimerThread extends Thread{
 
     CanvasInteraction model;
-    Network net = new Network("localhost",3000);
+    public static AdminInteraction admModel;
+    Network net;
     int[][] CanvasMatrix;
     public static ArrayList<Message>SendQueue = new ArrayList<Message>();
     ArrayList<Message> ReceiveQueue;
@@ -32,6 +34,8 @@ public class TimerThread extends Thread{
     @Override
     public void run() {
         super.run();
+        net = new Network("localhost",3000);
+        admModel = new AdminInteraction(net);
         Timer timer = new Timer();
         long period = (long) (1*1000);
         timer.schedule(new TimerTasks(), period, period);
@@ -66,6 +70,12 @@ public class TimerThread extends Thread{
                     //and if any message in ReceiveQueue are also in SendQueue
                     //execute it and delete it in SendQueue
                     ReceiveQueue = Network.getMessages();
+
+                    System.out.println("============current Received Queue =============");
+                    for (Message m:ReceiveQueue){
+                        System.out.println(m);
+                    }
+
                     for (Message m:ReceiveQueue){
                         handleMessage(m);
                         if (SendQueue.contains(m)){
@@ -87,6 +97,7 @@ public class TimerThread extends Thread{
         public void handleMessage(Message message){
             switch (message.type()){
                 case Message.DRAW_OPERATION: model.updateNetworkCanvas((PixelsDifference) message.content());break;
+                default:admModel.handleMessage(message);
             }
         }
     }
