@@ -73,7 +73,13 @@ public class LoadingPageController implements Initializable {
 
 
 
-            while (admModel==null){System.out.print(" ");}
+            while (admModel==null){
+                try {
+                    Thread.currentThread().sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
 
 

@@ -222,6 +222,7 @@ public class MessageHandler {
     }
 
     private ServerCanvas findCanvasByCanvasName(String canvasName) {
+
         for (ServerCanvas canvas : canvases)
             if (canvas.getCanvasName().equals(canvasName))
                 return canvas;

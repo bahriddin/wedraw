@@ -24,7 +24,7 @@ public class TimerThread extends Thread{
     Network net;
     int[][] CanvasMatrix;
     public static ArrayList<Message>SendQueue = new ArrayList<Message>();
-    ArrayList<Message> ReceiveQueue;
+    public static ArrayList<Message> ReceiveQueue = new ArrayList<Message>();
 
 
     TimerThread(CanvasInteraction model,String username){
@@ -70,9 +70,9 @@ public class TimerThread extends Thread{
                         net.sendMessage(DrawMessage);
                     }
 
-
+                    if (!SendQueue.isEmpty())
+                    System.out.println("============current Sending Queue =============");
                     for (Message m:SendQueue){
-                        System.out.println("============current Sending Queue =============");
                         System.out.println(m);
                     }
 
@@ -80,10 +80,10 @@ public class TimerThread extends Thread{
                     //get the ReceiveQueue form network model, and execute the operations in the Queue
                     //and if any message in ReceiveQueue are also in SendQueue
                     //execute it and delete it in SendQueue
-                    ReceiveQueue = Network.getMessages();
-
+                    //ReceiveQueue = Network.getMessages();
+                    if (!ReceiveQueue.isEmpty())
+                    System.out.println("============current Received Queue ===========");
                     for (Message m:ReceiveQueue){
-                        System.out.println("============current Received Queue ===========");
                         System.out.println(m);
                         handleMessage(m);
                         if (SendQueue.contains(m)){
@@ -92,10 +92,14 @@ public class TimerThread extends Thread{
                         System.out.println("-----------------------------------------------");
                     }
 
+                    ReceiveQueue = new ArrayList<Message>();
+
 
                     if (SendQueue.isEmpty()) {
                         model.clearPermanentCanvas();
+                        CanvasMatrix =model.getCurrentCanvas();
                     }
+
                 }
             });
 
