@@ -13,14 +13,14 @@ public class Message implements Serializable {
     static Random randomGenerator = new Random();
 
     private int typeValue;
-    //handle by canvas interaction
+
     public static final int DRAW_OPERATION = 1;
     public static final int UNDO = 2;
     public static final int CREATE_CANVAS = 3;
     public static final int SAVE_CANVAS = 4;
     public static final int LOAD_CANVAS = 5;
 
-    //handle by chatbox interaction
+
     public static final int CHAT_MESSAGE = 6;
     public static final int JOIN_REQUEST = 7;
     public static final int JOIN_RESPONSE = 8;
