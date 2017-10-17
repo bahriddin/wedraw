@@ -22,13 +22,11 @@ public class AdminInteraction {
     //and some method that allow join request
 
 
-    public AdminInteraction(Network net){
+    public AdminInteraction(Network net, String userName){
         this.net =net;
-    }
-
-    public void setUserName(String userName){
         this.userName = userName;
     }
+
 
     public void handleMessage(Message m){
         switch (m.type()){
@@ -74,11 +72,11 @@ public class AdminInteraction {
     }
 
     public void handle_JOIN_RESPONSE(Message m){
-        boolean response = (boolean) m.content();
-        if (!response){
+        if (m.content().equals(null)){
             //弹窗，你被拒绝
             //炸裂，退出程序
         }
+
     }
 
     public void handle_KICK_USER(Message m){

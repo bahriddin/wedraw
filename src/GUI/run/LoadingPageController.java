@@ -63,10 +63,11 @@ public class LoadingPageController implements Initializable {
             this_manager = new Users(username.getText());
             WhiteBoard root = new Manager(this_manager);
 
-            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel(),username.getText());
             run.timerThread.start();
 
-            admModel.setUserName(username.getText());
+
+            while (admModel==null){System.out.print(" ");}
             admModel.Send_CREATE_CANVAS(canvas_id.getText());
 
             Stage stage = new Stage();
@@ -112,10 +113,12 @@ public class LoadingPageController implements Initializable {
         if(!canvas_id.getText().trim().isEmpty() && !username.getText().trim().isEmpty()){
 
             WhiteBoard root = new Client(username.getText(),canvas_id.getText());
-            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel(),username.getText());
             run.timerThread.start();
 
-            admModel.setUserName(username.getText());
+            while (admModel==null){System.out.print(" ");}
+            admModel.Send_CREATE_CANVAS(canvas_id.getText());
+
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
