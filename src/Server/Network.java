@@ -1,13 +1,27 @@
 package Server;
 
+import Data.Message;
+
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Network {
+
+    /**
+     * This is for keeping all threads in one place and give them tasks to do from different threads
+     */
+    static Map<String, ArrayList<Message>> senderDict = new HashMap<>();
+
     public static void main(String[] args) {
         // write your code here
         int port;
+
 
         try {
             port = Integer.valueOf(args[0]);
@@ -18,9 +32,18 @@ public class Network {
 
             while (true) {
                 Socket socket = serverSocket.accept();
-                NetworkThread threadObj = new NetworkThread(socket);
-                Thread networkThread = new Thread(threadObj);
-                networkThread.start();
+
+//                OutputStream socketOut = socket.getOutputStream();
+//                ObjectOutputStream out = new ObjectOutputStream(socketOut);
+
+                Receiver receiver = new Receiver(socket);
+                Thread receiverThread = new Thread(receiver);
+
+//                Sender sender = new Sender(socket);
+//                senderDict.put(sender, new ArrayList<>());
+//                Thread senderThread = new Thread(sender);
+
+                receiverThread.start();
             }
 
         } catch (IndexOutOfBoundsException e) {
