@@ -5,6 +5,7 @@ import Data.Message;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkThread implements Runnable{
@@ -16,6 +17,7 @@ public class NetworkThread implements Runnable{
     public NetworkThread(Socket socket) {
         this.socket = socket;
         messageHandler = new MessageHandler();
+        clientsDict = new HashMap<>();
     }
 
     @Override
