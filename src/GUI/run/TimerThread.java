@@ -97,7 +97,9 @@ public class TimerThread extends Thread{
 
                     if (SendQueue.isEmpty()) {
                         model.clearPermanentCanvas();
+                        CanvasMatrix =model.getCurrentCanvas();
                     }
+
                 }
             });
 
