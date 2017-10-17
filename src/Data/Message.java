@@ -17,7 +17,7 @@ public class Message implements Serializable {
     public static final int UNDO = 2;
     public static final int CREATE_CANVAS = 3;
     public static final int JOIN_REQUEST = 4;
-    public static final int JOIN_RESPONSE = 5; // the same as request
+    public static final int JOIN_RESPONSE = 5;
     public static final int SAVE_CANVAS = 6;
     public static final int LOAD_CANVAS = 7;
     public static final int CHAT_MESSAGE = 8;

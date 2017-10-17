@@ -1,6 +1,7 @@
 package Server;
 
 import Data.CanvasLog;
+import Data.PixelsDifference;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 public class ServerCanvas {
 
-    private CanvasLog canvasLog;
+    private CanvasLog canvas;
 
     private String manager;
 
@@ -42,8 +43,15 @@ public class ServerCanvas {
         return true;
     }
 
-    public void updateCanvas() {
+    public void updateCanvas(PixelsDifference operation) {
+        canvas.updateCanvas(operation);
+    }
 
+    public PixelsDifference undoCanvas() {
+
+        PixelsDifference lastOperation = canvas.popLastOperation();
+
+        return lastOperation;
     }
 
 }
