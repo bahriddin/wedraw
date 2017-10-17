@@ -24,7 +24,7 @@ public class TimerThread extends Thread{
     Network net;
     int[][] CanvasMatrix;
     public static ArrayList<Message>SendQueue = new ArrayList<Message>();
-    public static ArrayList<Message> ReceiveQueue = new ArrayList<Message>();;
+    public static ArrayList<Message> ReceiveQueue = new ArrayList<Message>();
 
 
     TimerThread(CanvasInteraction model,String username){
@@ -91,6 +91,8 @@ public class TimerThread extends Thread{
                         }
                         System.out.println("-----------------------------------------------");
                     }
+
+                    ReceiveQueue = new ArrayList<Message>();
 
 
                     if (SendQueue.isEmpty()) {
