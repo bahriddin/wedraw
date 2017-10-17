@@ -27,6 +27,8 @@ public class Message implements Serializable {
     public static final int KICK_USER = 9;
     public static final int USER_GOT_KICKED = 10;
 
+    public static final int EXIT = 11;
+
 
     // contentValue should be immutable
     private Serializable contentValue;

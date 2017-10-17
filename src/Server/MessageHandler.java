@@ -2,6 +2,7 @@ package Server;
 
 import Data.CanvasLog;
 import Data.Message;
+import Data.PixelsDifference;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,8 @@ public class MessageHandler {
         String username;
 
         ServerCanvas canvas;
+
+        PixelsDifference operation;
 
         Boolean answer;
 
@@ -91,12 +94,67 @@ public class MessageHandler {
                     }
                     break;
 
+                case Message.DRAW_OPERATION:
+
+                    canvas = findCanvasByUsername(message.username());
+
+                    operation = (PixelsDifference)message.content();
+
+                    if (canvas != null && operation.size() > 0) {
+                        canvas.updateCanvas(operation);
+                        for (String user : canvas.getUsers())
+                            responses.add(new Message(user, message.id(), message.type(),
+                                    operation));
+                    }
+                    break;
+
+                case Message.UNDO:
+
+                    canvas = findCanvasByManager(message.username());
+
+                    if (canvas != null) {
+                        operation = canvas.undoCanvas();
+
+                        for (String user : canvas.getUsers())
+                            responses.add(new Message(user, message.id(), message.type(),
+                                    operation));
+                    }
+                    break;
+
+                case Message.CHAT_MESSAGE:
+
+                    canvas = findCanvasByUsername(message.username());
+
+                    if (canvas != null) {
+                        for (String user : canvas.getUsers())
+                            responses.add(new Message(user, message.id(), message.type(),
+                                    message.content()));
+                    }
+                    break;
+
+                case Message.KICK_USER:
+
+                    canvas = findCanvasByManager(message.username());
+
+                    if (canvas != null) {
+                        String userGotKicked = (String)message.content();
+                        canvas.removeUser(userGotKicked);
+                        responses.add(message);
+                        responses.add(new Message(userGotKicked, message.id(), Message
+                                .USER_GOT_KICKED, null));
+                    }
+                    break;
+
+                default:
+                    responses.clear();
+
 
             }
         } catch (Exception e) {
             System.out.println("Invalid Message Received.");
         }
 
+        responses.add(message);
         return responses;
 
     }
