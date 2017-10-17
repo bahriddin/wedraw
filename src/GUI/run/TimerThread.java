@@ -2,6 +2,7 @@ package GUI.run;
 
 import Data.Message;
 import Data.PixelsDifference;
+import Model.AdminInteraction;
 import Model.CanvasInteraction;
 import Network.Network;
 import javafx.application.Platform;
@@ -18,6 +19,7 @@ import java.util.TimerTask;
 public class TimerThread extends Thread{
 
     CanvasInteraction model;
+    AdminInteraction admModel;
     Network net = new Network("localhost",3000);
     int[][] CanvasMatrix;
     public static ArrayList<Message>SendQueue = new ArrayList<Message>();
@@ -87,6 +89,7 @@ public class TimerThread extends Thread{
         public void handleMessage(Message message){
             switch (message.type()){
                 case Message.DRAW_OPERATION: model.updateNetworkCanvas((PixelsDifference) message.content());break;
+                default:admModel.handleMessage(message);
             }
         }
     }
