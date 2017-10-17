@@ -24,28 +24,27 @@ public class TimerThread extends Thread{
     Network net;
     int[][] CanvasMatrix;
     public static ArrayList<Message>SendQueue = new ArrayList<Message>();
-    public static ArrayList<Message> ReceiveQueue = new ArrayList<Message>();
+    ArrayList<Message> ReceiveQueue;
+    public static Timer timer = new Timer();
 
 
     TimerThread(CanvasInteraction model,String username){
         this.model = model;
         this.CanvasMatrix = model.getCurrentCanvas();
         this.username = username;
-        net = new Network("localhost", 3000);
     }
 
     @Override
     public void run() {
         super.run();
         try {
-            //net = new Network("localhost", 3000);
+            net = new Network("localhost", 3000);
         }catch (Exception e){
             //
         }
 
         System.out.println(username);
         admModel = new AdminInteraction(net,username);
-        Timer timer = new Timer();
         long period = (long) (1*1000);
         timer.schedule(new TimerTasks(), period, period);
     }
@@ -71,9 +70,9 @@ public class TimerThread extends Thread{
                         net.sendMessage(DrawMessage);
                     }
 
-                    if (!SendQueue.isEmpty())
-                    System.out.println("============current Sending Queue =============");
+
                     for (Message m:SendQueue){
+                        System.out.println("============current Sending Queue =============");
                         System.out.println(m);
                     }
 
@@ -81,10 +80,10 @@ public class TimerThread extends Thread{
                     //get the ReceiveQueue form network model, and execute the operations in the Queue
                     //and if any message in ReceiveQueue are also in SendQueue
                     //execute it and delete it in SendQueue
-                    //ReceiveQueue = Network.getMessages();
-                    if (!ReceiveQueue.isEmpty())
-                    System.out.println("============current Received Queue ===========");
+                    ReceiveQueue = Network.getMessages();
+
                     for (Message m:ReceiveQueue){
+                        System.out.println("============current Received Queue ===========");
                         System.out.println(m);
                         handleMessage(m);
                         if (SendQueue.contains(m)){
@@ -93,14 +92,10 @@ public class TimerThread extends Thread{
                         System.out.println("-----------------------------------------------");
                     }
 
-                    ReceiveQueue = new ArrayList<Message>();
-
 
                     if (SendQueue.isEmpty()) {
                         model.clearPermanentCanvas();
-                        CanvasMatrix =model.getCurrentCanvas();
                     }
-
                 }
             });
 

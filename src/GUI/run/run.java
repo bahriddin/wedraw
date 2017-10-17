@@ -15,6 +15,9 @@ public class run extends Application {
 
     public static TimerThread timerThread;
 
+    public static LoadingPageController c;
+
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -24,9 +27,15 @@ public class run extends Application {
 
 //        Parent root = new WhiteBoard();
 
-        Parent root = FXMLLoader.load(getClass().getResource("LoadingPage.fxml"));
-        primaryStage.setTitle("Whiteboard");
+//        Parent root = FXMLLoader.load(getClass().getResource("LoadingPage.fxml"));
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoadingPage.fxml"));
+        Parent root = loader.load();
+        c = loader.getController();
+        System.out.println(c);
 //        primaryStage.setScene(new Scene(root, 1000, 1000));
+        primaryStage.setTitle("Whiteboard");
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

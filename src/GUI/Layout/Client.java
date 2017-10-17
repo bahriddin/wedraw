@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class Client extends WhiteBoard{
 
     HBox H_list = new HBox();
 
-    HBox H_Print = new HBox();
+    VBox V_Print = new VBox();
 
     public static TextArea chatBox = new TextArea();
 
@@ -39,9 +40,6 @@ public class Client extends WhiteBoard{
 
     String local_Host;
 
-    int port;
-
-    ServerSocket s;
 
     public String user_name = "UserName";
 
@@ -49,33 +47,22 @@ public class Client extends WhiteBoard{
     public Client(String user_name,String canvas_id) {
 
 
-
-        try {
-            local_Host = InetAddress.getLocalHost().getHostAddress();
-            try {
-                s = new ServerSocket(0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-
-        int port = s.getLocalPort();
-
-
-        Label label = new Label(" Canvas ID: "+canvas_id+"\n      User Name: "+user_name+"\n@ " + local_Host +" : "+port);
+        Label label2 = new Label("       Canvas name: "+canvas_id);
+        label2.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        Label label3 = new Label("       Your Name: " +user_name);
+        label3.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 
 
         V_list.getChildren().add(H_list);
+        V_Print.getChildren().add(label3);
+        V_Print.getChildren().add(label2);
+        V_Print.setAlignment(Pos.CENTER);
 
 
         H_list.setAlignment(Pos.CENTER);
 
 
-        H_Print.getChildren().add(label);
-        topControls.getChildren().add(H_Print);
+        topControls.getChildren().add(V_Print);
 
 
         ToolsPanel.hbox2.getChildren().remove(undoBtn);
@@ -91,100 +78,13 @@ public class Client extends WhiteBoard{
         Label label1 = new Label("Current Users: ");
         V_list.getChildren().add(label1);
 
-        Button btn1 = new Button();
-        btn1.setText("User1");
-        btn1.setPrefSize(300,40);
-        V_list.getChildren().add(btn1);
-
-
-        Button btn2 = new Button();
-        btn2.setText("User2");
-        btn2.setPrefSize(300,40);
-        V_list.getChildren().add(btn2);
-
-        Button btn3 = new Button();
-        btn3.setText("User3");
-        btn3.setPrefSize(300,40);
-        V_list.getChildren().add(btn3);
-
-        Button btn4 = new Button();
-        btn4.setText("User4");
-        btn4.setPrefSize(300,40);
-        V_list.getChildren().add(btn4);
         V_list.setPadding(new Insets(5));
+        Pane spacePane = new Pane();
 
-        Image kick = new Image(getClass().getResourceAsStream(KICK_ICON),30, 30, true, true);
+        V_list.setVgrow(spacePane, Priority.ALWAYS);
 
+        V_list.getChildren().add(spacePane);
 
-        btn1.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn1.setGraphic(null);
-            }
-        });
-
-
-        btn2.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn2.setGraphic(null);
-            }
-        });
-
-
-        btn3.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn3.setGraphic(null);
-            }
-        });
-
-
-
-
-
-        btn4.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                btn4.setGraphic(null);
-            }
-        });
-
-
-        btn1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                btn1.setText("User1");
-
-            }
-        });
-
-        btn2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                btn2.setText("User2");
-            }
-        });
-        btn3.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                btn3.setText("User3");
-            }
-        });
-        btn4.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                btn4.setText("User4");
-            }
-        });
 
 
         Label chat_label = new Label("Chat Box");
@@ -218,14 +118,9 @@ public class Client extends WhiteBoard{
 
         setRight(V_list);
 
-        chatBox.setText("Hello! "+user_name+". Welcome to Canvas #"+canvas_id);
-
-
+        chatBox.setText("Hello! "+user_name+". Welcome to Canvas "+canvas_id);
 
     }
-
-
-
 
 
 }

@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import static GUI.run.TimerThread.admModel;
+
 
 public class ToolsPanel extends VBox {
 
@@ -87,6 +89,7 @@ public class ToolsPanel extends VBox {
         undoBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
+                admModel.Send_UNDO();
                 canvasArea.getModel().undo();
             }
         });

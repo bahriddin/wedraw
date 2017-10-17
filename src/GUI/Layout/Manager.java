@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class Manager extends WhiteBoard{
 
     VBox Button_list = new VBox();
 
-    HBox H_Print = new HBox();
+    VBox V_Print = new VBox();
     TextArea chatBox = new TextArea();
 
     public static String KICK_ICON = "/images/kickoff.png";
@@ -67,25 +68,17 @@ public class Manager extends WhiteBoard{
 
 
 
-    public Manager(Users user) {
+    public Manager(Users user,String canvas_name) {
 
 
-        try {
-            local_Host = InetAddress.getLocalHost().getHostAddress();
-            try {
-                 s = new ServerSocket(0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        manager_name = user.getUser_name();
 
 
-        int port = s.getLocalPort();
+        Label label2 = new Label("       Canvas name: "+canvas_name);
+        label2.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        Label label3 = new Label("       Manager Name: " +manager_name);
+        label3.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 
-
-        Label label = new Label(" Canvas ID: #\n      Manager Name: "+manager_name+"\n@ " + local_Host +" : "+port);
 
 
         V_list.getChildren().add(H_list);
@@ -93,9 +86,12 @@ public class Manager extends WhiteBoard{
 
         H_list.setAlignment(Pos.CENTER);
 
-        H_Print.getChildren().add(label);
-        H_Print.getChildren().add(test1);
-        topControls.getChildren().add(H_Print);
+        V_Print.getChildren().add(label2);
+        V_Print.getChildren().add(label3);
+        V_Print.setAlignment(Pos.CENTER);
+
+        V_Print.getChildren().add(test1);
+        topControls.getChildren().add(V_Print);
 
 
 
@@ -177,7 +173,7 @@ public class Manager extends WhiteBoard{
         alert.setTitle("warning");
 //        alert.setHeaderText("This is a test.");
         alert.setResizable(false);
-        alert.setContentText("Are u sure to kick it out?");
+        alert.setContentText("Are you sure to kick this client out?");
 
         Optional<ButtonType> result = alert.showAndWait();
         ButtonType button = result.orElse(ButtonType.CANCEL);

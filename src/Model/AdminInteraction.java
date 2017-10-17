@@ -1,7 +1,10 @@
 package Model;
 
 import Data.Message;
+import GUI.Layout.WhiteBoard;
+import GUI.run.LoadingPageController;
 import GUI.run.TimerThread;
+import GUI.run.run;
 import Network.Network;
 
 import java.time.LocalDateTime;
@@ -56,12 +59,21 @@ public class AdminInteraction {
         String stringMessage = LocalDateTime.now()+":\n"+m.content();
         //弹窗，显示 stringMessages
         System.out.println(stringMessage);
+        LoadingPageController controllerL = run.c;
+        if (stringMessage.contains("success")){
+            run.c.show_whiteboard(run.c.manager_whiteboard);
+
+        }else{
+            run.c.dialog_fail();
+        }
+
     }
+
 
     public void handle_SAVE_CANVAS(Message m){
         String stringMessage = LocalDateTime.now()+":\n"+m.content();
         //弹窗，显示 stringMessage
-        System.out.println(stringMessage);
+        run.c.save_success();
 
     }
 
@@ -76,13 +88,11 @@ public class AdminInteraction {
         String response = "T"; //"T/F"
         Send_JOIN_RESPONSE(m.username(), response);
         Send_CHAT_MESSAGE("user \""+m.username()+"\" join the canvas");
+
     }
 
     public void handle_JOIN_RESPONSE(Message m){
         if (m.content().equals(null)){
-
-
-
 
         }
 
@@ -96,6 +106,8 @@ public class AdminInteraction {
     public void handle_USER_GOT_KICKED(Message m){
         //弹窗，你被踢了
         //炸裂，退出程序
+        run.c.kicked();
+
     }
 
     public void Send_UNDO(){
@@ -103,9 +115,22 @@ public class AdminInteraction {
         net.sendMessage(message);
     }
 
-    public void Send_CREATE_CANVAS(String canvasName){
+
+    public void Send_CREATE_CANVAS(String canvasName) {
         Message message =  new Message(userName,Message.CREATE_CANVAS,canvasName);
-        net.sendMessage(message);
+        try {
+
+            net.sendMessage(message);
+        }catch (Exception e){
+
+            run.timerThread.stop();
+            TimerThread.timer.cancel();
+            run.c.logs.setText("  ");
+
+            run.c.dialog_fail();
+
+
+        }
     }
 
     public void Send_SAVE_CANVAS(String canvasName){
