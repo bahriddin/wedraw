@@ -19,7 +19,8 @@ public class MessageHandler {
 
     public synchronized ArrayList<Message> handleMessage(Message message) {
 
-        System.out.println(message);
+        System.out.println("----------------------------");
+        System.out.println("Recived message:" + message);
 
         if (message == null)
             return null;
@@ -213,7 +214,9 @@ public class MessageHandler {
             System.out.println("Invalid Message Received.");
         }
 
-        responses.add(message);
+        System.out.println("Response to the message:" + responses);
+        System.out.println("---------------------------");
+
         return responses;
 
     }
