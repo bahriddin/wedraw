@@ -26,6 +26,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 
+import static GUI.run.TimerThread.admModel;
+
 public class LoadingPageController implements Initializable {
 
     @FXML
@@ -42,6 +44,7 @@ public class LoadingPageController implements Initializable {
     }
 
     Users this_manager ;
+
 
 
     public void create() throws IOException {
@@ -101,7 +104,13 @@ public class LoadingPageController implements Initializable {
 
 
         if(!canvas_id.getText().trim().isEmpty() && !username.getText().trim().isEmpty()){
+
             WhiteBoard root = new Client(username.getText(),canvas_id.getText());
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
+            run.timerThread.start();
+
+            admModel.setUserName(username.getText());
+            admModel.Send_JOIN_REQUEST(canvas_id.getText());
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
             stage.setScene(new Scene((Parent) root, 950, 1000));
@@ -118,8 +127,7 @@ public class LoadingPageController implements Initializable {
             });
 
 
-            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
-            run.timerThread.start();
+
 
         }
 

@@ -31,7 +31,7 @@ public class Client extends WhiteBoard{
 
     HBox H_list = new HBox();
 
-    TextArea chatBox = new TextArea();
+    public static TextArea chatBox = new TextArea();
 
     public static String KICK_ICON = "/images/kickoff.png";
 
@@ -45,8 +45,6 @@ public class Client extends WhiteBoard{
 
 
     public Client(String user_name,String canvas_id) {
-
-
 
 
 

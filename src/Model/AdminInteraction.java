@@ -6,6 +6,8 @@ import Network.Network;
 
 import java.time.LocalDateTime;
 
+import static GUI.Layout.Client.chatBox;
+
 /**
  * Created by luanboheng on 17/10/2017.
  */
@@ -57,7 +59,8 @@ public class AdminInteraction {
 
     public void handle_CHAT_MESSAGE(Message m){
         String stringMessage = LocalDateTime.now()+"\t"+m.username()+":\n"+m.content();
-        System.out.print(stringMessage);
+
+        chatBox.appendText(stringMessage);
     }
 
     public void handle_JOIN_REQUEST(Message m){
