@@ -36,7 +36,12 @@ public class TimerThread extends Thread{
     @Override
     public void run() {
         super.run();
-        net = new Network("localhost",3000);
+        try {
+            net = new Network("localhost", 3000);
+        }catch (Exception e){
+            //
+        }
+
         System.out.println(username);
         admModel = new AdminInteraction(net,username);
         Timer timer = new Timer();
@@ -47,7 +52,7 @@ public class TimerThread extends Thread{
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
-            System.out.println(admModel);
+            //System.out.println(admModel);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -65,8 +70,9 @@ public class TimerThread extends Thread{
                         net.sendMessage(DrawMessage);
                     }
 
-                    System.out.println("============current Sending Queue =============");
+
                     for (Message m:SendQueue){
+                        System.out.println("============current Sending Queue =============");
                         System.out.println(m);
                     }
 
@@ -76,16 +82,14 @@ public class TimerThread extends Thread{
                     //execute it and delete it in SendQueue
                     ReceiveQueue = Network.getMessages();
 
-                    System.out.println("============current Received Queue =============");
                     for (Message m:ReceiveQueue){
+                        System.out.println("============current Received Queue ===========");
                         System.out.println(m);
-                    }
-
-                    for (Message m:ReceiveQueue){
                         handleMessage(m);
                         if (SendQueue.contains(m)){
                             SendQueue.remove(m);
                         }
+                        System.out.println("-----------------------------------------------");
                     }
 
 
@@ -99,9 +103,11 @@ public class TimerThread extends Thread{
 
         //method to execute different types of message
         public void handleMessage(Message message){
-            switch (message.type()){
-                case Message.DRAW_OPERATION: model.updateNetworkCanvas((PixelsDifference) message.content());break;
-                default:admModel.handleMessage(message);
+
+            if (message.type()==Message.DRAW_OPERATION){
+                model.updateNetworkCanvas((PixelsDifference) message.content());
+            }else {
+                admModel.handleMessage(message);
             }
         }
     }
