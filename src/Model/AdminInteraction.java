@@ -49,12 +49,15 @@ public class AdminInteraction {
 
     public void handle_CREATE_CANVAS(Message m){
         String stringMessage = LocalDateTime.now()+":\n"+m.content();
-        //弹窗，显示 stringMessage
+        //弹窗，显示 stringMessages
+        System.out.println(stringMessage);
     }
 
     public void handle_SAVE_CANVAS(Message m){
         String stringMessage = LocalDateTime.now()+":\n"+m.content();
         //弹窗，显示 stringMessage
+        System.out.println(stringMessage);
+
     }
 
     public void handle_CHAT_MESSAGE(Message m){
