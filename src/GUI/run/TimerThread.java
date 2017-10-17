@@ -18,6 +18,7 @@ import java.util.TimerTask;
  */
 public class TimerThread extends Thread{
 
+    String username;
     CanvasInteraction model;
     public static AdminInteraction admModel;
     Network net;
@@ -26,7 +27,7 @@ public class TimerThread extends Thread{
     ArrayList<Message> ReceiveQueue;
 
 
-    TimerThread(CanvasInteraction model){
+    TimerThread(CanvasInteraction model,String username){
         this.model = model;
         CanvasMatrix = model.getCurrentCanvas();
     }
@@ -35,7 +36,7 @@ public class TimerThread extends Thread{
     public void run() {
         super.run();
         net = new Network("localhost",3000);
-        admModel = new AdminInteraction(net);
+        admModel = new AdminInteraction(net,username);
         Timer timer = new Timer();
         long period = (long) (1*1000);
         timer.schedule(new TimerTasks(), period, period);

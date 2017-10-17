@@ -62,6 +62,14 @@ public class LoadingPageController implements Initializable {
         if(!username.getText().trim().isEmpty()){
             this_manager = new Users(username.getText());
             WhiteBoard root = new Manager(this_manager);
+
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel(),username.getText());
+            run.timerThread.start();
+
+
+            while (admModel==null){System.out.print(" ");}
+            admModel.Send_CREATE_CANVAS(canvas_id.getText());
+
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
             stage.setScene(new Scene((Parent) root, 950, 1000));
@@ -77,8 +85,7 @@ public class LoadingPageController implements Initializable {
                 }
             });
 
-            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
-            run.timerThread.start();
+
         }
 
     }
@@ -106,10 +113,12 @@ public class LoadingPageController implements Initializable {
         if(!canvas_id.getText().trim().isEmpty() && !username.getText().trim().isEmpty()){
 
             WhiteBoard root = new Client(username.getText(),canvas_id.getText());
-            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel(),username.getText());
             run.timerThread.start();
 
-            admModel.setUserName(username.getText());
+            while (admModel==null){System.out.print(" ");}
+            admModel.Send_CREATE_CANVAS(canvas_id.getText());
+
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
@@ -120,7 +129,7 @@ public class LoadingPageController implements Initializable {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent t) {
-                    System.out.println("asda");
+                    System.out.println("bye bye");
                     Platform.exit();
                     System.exit(0);
                 }
@@ -133,12 +142,6 @@ public class LoadingPageController implements Initializable {
 
 
     }
-
-
-
-
-
-
 
 
 
