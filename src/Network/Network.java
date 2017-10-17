@@ -47,6 +47,8 @@ public class Network {
 
 
     public void sendMessage(Message message) {
+        System.out.println("sent:"+message);
+
         try {
             ObjectOutputStream out = new ObjectOutputStream(clientOut);
             out.writeObject(message);

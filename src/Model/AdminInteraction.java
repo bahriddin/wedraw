@@ -15,6 +15,12 @@ public class AdminInteraction {
     String userName;
     Network net;
 
+
+    @Override
+    public String toString() {
+        return "<Admin>"+userName+",\t"+net;
+    }
+
     //Chatbox chatbox;
     //where Chatbox is a type that have methods that include add new lines on the Chat display field
     //and get text form the textfield
@@ -25,6 +31,7 @@ public class AdminInteraction {
     public AdminInteraction(Network net, String userName){
         this.net =net;
         this.userName = userName;
+
     }
 
 

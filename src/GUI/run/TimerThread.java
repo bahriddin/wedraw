@@ -18,7 +18,7 @@ import java.util.TimerTask;
  */
 public class TimerThread extends Thread{
 
-    String username;
+    public String username;
     CanvasInteraction model;
     public static AdminInteraction admModel;
     Network net;
@@ -29,13 +29,15 @@ public class TimerThread extends Thread{
 
     TimerThread(CanvasInteraction model,String username){
         this.model = model;
-        CanvasMatrix = model.getCurrentCanvas();
+        this.CanvasMatrix = model.getCurrentCanvas();
+        this.username = username;
     }
 
     @Override
     public void run() {
         super.run();
         net = new Network("localhost",3000);
+        System.out.println(username);
         admModel = new AdminInteraction(net,username);
         Timer timer = new Timer();
         long period = (long) (1*1000);
@@ -45,12 +47,13 @@ public class TimerThread extends Thread{
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
-
+            System.out.println(admModel);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     //System.out.println("timer");
                     // Update UI here.
+
                     int [][] newCanvas = model.getCurrentCanvas();
                     PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
                     CanvasMatrix = newCanvas;
@@ -59,6 +62,7 @@ public class TimerThread extends Thread{
                     if (difference.size() > 0) {
                         Message DrawMessage = new Message("user",Message.DRAW_OPERATION,difference);
                         SendQueue.add(DrawMessage);
+                        net.sendMessage(DrawMessage);
                     }
 
                     System.out.println("============current Sending Queue =============");
@@ -82,7 +86,6 @@ public class TimerThread extends Thread{
                         if (SendQueue.contains(m)){
                             SendQueue.remove(m);
                         }
-                        net.sendMessage(m);
                     }
 
 
