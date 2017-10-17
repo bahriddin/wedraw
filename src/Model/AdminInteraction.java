@@ -37,14 +37,14 @@ public class AdminInteraction {
 
     public void handleMessage(Message m){
         switch (m.type()){
-            case Message.CREATE_CANVAS:handle_CREATE_CANVAS(m);
-            case Message.SAVE_CANVAS:handle_SAVE_CANVAS(m);
-            case Message.LOAD_CANVAS:handle_LOAD_CANVAS(m);
-            case Message.CHAT_MESSAGE:handle_CHAT_MESSAGE(m);
-            case Message.JOIN_REQUEST:handle_JOIN_REQUEST(m);
-            case Message.JOIN_RESPONSE:handle_JOIN_RESPONSE(m);
-            case Message.KICK_USER:handle_KICK_USER(m);
-            case Message.USER_GOT_KICKED:handle_USER_GOT_KICKED(m);
+            case Message.CREATE_CANVAS:handle_CREATE_CANVAS(m);break;
+            case Message.SAVE_CANVAS:handle_SAVE_CANVAS(m);break;
+            case Message.LOAD_CANVAS:handle_LOAD_CANVAS(m);break;
+            case Message.CHAT_MESSAGE:handle_CHAT_MESSAGE(m);break;
+            case Message.JOIN_REQUEST:handle_JOIN_REQUEST(m);break;
+            case Message.JOIN_RESPONSE:handle_JOIN_RESPONSE(m);break;
+            case Message.KICK_USER:handle_KICK_USER(m);break;
+            case Message.USER_GOT_KICKED:handle_USER_GOT_KICKED(m);break;
         }
     }
 
