@@ -72,48 +72,79 @@ public class LoadingPageController implements Initializable {
             run.timerThread.start();
 
 
+
             while (admModel==null){System.out.print(" ");}
+
+
 
             admModel.Send_CREATE_CANVAS(canvas_id.getText());
 
-            if(!is_connected){
+            Stage stage = new Stage();
+            stage.setTitle("Whiteboard");
+            stage.setScene(new Scene((Parent) root, 950, 1000));
+            stage.show();
+            rootPane.getScene().getWindow().hide();
 
-                    dialog_fail();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
 
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("warning");
+                    alert.setResizable(false);
+                    alert.setContentText("Are you sure to Exit?");
 
-            }
-            else
+                    Optional<ButtonType> result = alert.showAndWait();
+                    ButtonType button = result.orElse(ButtonType.CANCEL);
 
-            {
-                dialog_success();
-                Stage stage = new Stage();
-                stage.setTitle("Whiteboard");
-                stage.setScene(new Scene((Parent) root, 950, 1000));
-                stage.show();
-                rootPane.getScene().getWindow().hide();
+                    if (button == ButtonType.OK) {
+                        System.out.println("bye bye");
+                        Platform.exit();
+                        System.exit(0);
+                    } else {
 
-                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent t) {
-
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("warning");
-                        alert.setResizable(false);
-                        alert.setContentText("Are you sure to Exit?");
-
-                        Optional<ButtonType> result = alert.showAndWait();
-                        ButtonType button = result.orElse(ButtonType.CANCEL);
-
-                        if (button == ButtonType.OK) {
-                            System.out.println("bye bye");
-                            Platform.exit();
-                            System.exit(0);
-                        } else {
-
-                        }
                     }
-                });
-            }
+                }
+            });
+
+
+
+//            if(!is_connected){
+//
+//                    dialog_fail();
+//            }
+//            else
+//
+//            {
+//                dialog_success();
+//                Stage stage = new Stage();
+//                stage.setTitle("Whiteboard");
+//                stage.setScene(new Scene((Parent) root, 950, 1000));
+//                stage.show();
+//                rootPane.getScene().getWindow().hide();
+//
+//                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//                    @Override
+//                    public void handle(WindowEvent t) {
+//
+//                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                        alert.setTitle("warning");
+//                        alert.setResizable(false);
+//                        alert.setContentText("Are you sure to Exit?");
+//
+//                        Optional<ButtonType> result = alert.showAndWait();
+//                        ButtonType button = result.orElse(ButtonType.CANCEL);
+//
+//                        if (button == ButtonType.OK) {
+//                            System.out.println("bye bye");
+//                            Platform.exit();
+//                            System.exit(0);
+//                        } else {
+//
+//                        }
+//                    }
+//                });
+//            }
 
 
         }
@@ -149,50 +180,74 @@ public class LoadingPageController implements Initializable {
             while (admModel==null){System.out.print(" ");}
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
 
-            if(!is_connected){
+            Stage stage = new Stage();
+            stage.setTitle("Whiteboard");
+            stage.setScene(new Scene((Parent) root, 950, 1000));
+            stage.show();
+            rootPane.getScene().getWindow().hide();
 
-                dialog_fail();
-
-
-            }
-            else
-
-            {
-                dialog_success();
-                Stage stage = new Stage();
-                stage.setTitle("Whiteboard");
-                stage.setScene(new Scene((Parent) root, 950, 1000));
-                stage.show();
-                rootPane.getScene().getWindow().hide();
-
-                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent t) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("warning");
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("warning");
 //        alert.setHeaderText("This is a test.");
-                        alert.setResizable(false);
-                        alert.setContentText("Are you sure to Exit?");
+                    alert.setResizable(false);
+                    alert.setContentText("Are you sure to Exit?");
 
-                        Optional<ButtonType> result = alert.showAndWait();
-                        ButtonType button = result.orElse(ButtonType.CANCEL);
+                    Optional<ButtonType> result = alert.showAndWait();
+                    ButtonType button = result.orElse(ButtonType.CANCEL);
 
-                        if (button == ButtonType.OK) {
-                            System.out.println("bye bye");
-                            Platform.exit();
-                            System.exit(0);
-                        } else {
-
-                        }
+                    if (button == ButtonType.OK) {
+                        System.out.println("bye bye");
+                        Platform.exit();
+                        System.exit(0);
+                    } else {
 
                     }
-                });
 
-            }
-
-
+                }
+            });
 
 
+
+//            if(!is_connected){
+//
+//                dialog_fail();
+//
+//            }
+//            else
+//
+//            {
+//                dialog_success();
+//                Stage stage = new Stage();
+//                stage.setTitle("Whiteboard");
+//                stage.setScene(new Scene((Parent) root, 950, 1000));
+//                stage.show();
+//                rootPane.getScene().getWindow().hide();
+//
+//                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//                    @Override
+//                    public void handle(WindowEvent t) {
+//                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                        alert.setTitle("warning");
+////        alert.setHeaderText("This is a test.");
+//                        alert.setResizable(false);
+//                        alert.setContentText("Are you sure to Exit?");
+//
+//                        Optional<ButtonType> result = alert.showAndWait();
+//                        ButtonType button = result.orElse(ButtonType.CANCEL);
+//
+//                        if (button == ButtonType.OK) {
+//                            System.out.println("bye bye");
+//                            Platform.exit();
+//                            System.exit(0);
+//                        } else {
+//
+//                        }
+//
+//                    }
+//                });
 
 
 

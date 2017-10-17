@@ -81,7 +81,6 @@ public class AdminInteraction {
     public void handle_JOIN_RESPONSE(Message m){
         if (m.content().equals(null)){
 
-
             //弹窗，你被拒绝
             //炸裂，退出程序
         }
