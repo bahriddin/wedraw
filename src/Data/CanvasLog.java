@@ -89,6 +89,23 @@ public class CanvasLog implements Serializable {
     }
 
     /**
+     * update the canvas based on pixel difference (operation) and update log
+     * @param operation
+     */
+    public void updateCanvas(PixelsDifference operation) {
+
+        /*int[][] oldCanvas = new int[currentCanvas.length][];
+
+        for (int i = 0; i < currentCanvas.length; i++)
+            oldCanvas = currentCanvas.clone();
+            */
+        int[][] newCanvas = getNewCanvasGivenOperation(operation);
+
+        if (newCanvas != null)
+            updateCanvas(newCanvas);
+    }
+
+    /**
      * pop and return the last operation
      * @return last operation, null if failed
      */
@@ -112,13 +129,7 @@ public class CanvasLog implements Serializable {
         return undo(logs.pop());
     }
 
-    /**
-     * return the restored canvas
-     * this method is used to update currentCanvas
-     * @param operation
-     * @return restored canvas, null if failed
-     */
-    private int[][] undo(PixelsDifference operation) {
+    private int[][] getNewCanvasGivenOperation(PixelsDifference operation) {
 
         if (operation == null || operation.size() == 0 ||
                 currentCanvas == null || currentCanvas.length < 1)
@@ -138,8 +149,21 @@ public class CanvasLog implements Serializable {
             return null;
         }
 
-        for (int i = 0; i < result.length; i++)
-            currentCanvas[i] = result[i].clone();
+    }
+
+    /**
+     * return the restored canvas
+     * this method is used to update currentCanvas
+     * @param operation
+     * @return restored canvas, null if failed
+     */
+    private int[][] undo(PixelsDifference operation) {
+
+        int[][] result = getNewCanvasGivenOperation(operation);
+
+        if (result != null)
+            for (int i = 0; i < result.length; i++)
+                currentCanvas[i] = result[i].clone();
 
         return result;
     }

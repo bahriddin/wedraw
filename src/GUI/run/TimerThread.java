@@ -1,8 +1,13 @@
 package GUI.run;
 
+import Data.Message;
 import Data.PixelsDifference;
 import Model.CanvasInteraction;
+import Network.Network;
+import javafx.application.Platform;
 
+import java.awt.print.Printable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,9 +18,10 @@ import java.util.TimerTask;
 public class TimerThread extends Thread{
 
     CanvasInteraction model;
+    Network net = new Network("localhost",3000);
     int[][] CanvasMatrix;
-    MessageQueue SendQueue = new MessageQueue();
-    MessageQueue ReceiveQueue = new MessageQueue();
+    public static ArrayList<Message>SendQueue = new ArrayList<Message>();
+    ArrayList<Message> ReceiveQueue;
 
 
     TimerThread(CanvasInteraction model){
@@ -27,27 +33,62 @@ public class TimerThread extends Thread{
     public void run() {
         super.run();
         Timer timer = new Timer();
-        long delay = 1 * 1000;
-        long period = 1000;
-        timer.schedule(new TimerTasks(), delay, period);
+        long period = (long) (1*1000);
+        timer.schedule(new TimerTasks(), period, period);
     }
 
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
 
-            int [][] newCanvas = model.getCurrentCanvas();
-            PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
-            CanvasMatrix = newCanvas;
-            if (difference.size() > 0) {
-                model.updateNetworkCanvas(difference);
-            }
-            //SendQueue.add(difference);
-            SendQueue.matchCancel(ReceiveQueue);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    //System.out.println("timer");
+                    // Update UI here.
+                    int [][] newCanvas = model.getCurrentCanvas();
+                    PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
+                    CanvasMatrix = newCanvas;
 
-            if (SendQueue.isEmpty) {
-                model.clearPermanentCanvas();
+                    //if the whiteboard have been changed
+                    if (difference.size() > 0) {
+                        Message DrawMessage = new Message("user",Message.DRAW_OPERATION,difference);
+                        SendQueue.add(DrawMessage);
+                    }
+
+                    System.out.println("============current Sending Queue =============");
+                    for (Message m:SendQueue){
+                        System.out.println(m);
+                    }
+
+
+                    //get the ReceiveQueue form network model, and execute the operations in the Queue
+                    //and if any message in ReceiveQueue are also in SendQueue
+                    //execute it and delete it in SendQueue
+                    ReceiveQueue = Network.getMessages();
+                    for (Message m:ReceiveQueue){
+                        handleMessage(m);
+                        if (SendQueue.contains(m)){
+                            SendQueue.remove(m);
+                        }
+                        net.sendMessage(m);
+                    }
+
+
+                    if (SendQueue.isEmpty()) {
+                        model.clearPermanentCanvas();
+                    }
+                }
+            });
+
+        }
+
+        //method to execute different types of message
+        public void handleMessage(Message message){
+            switch (message.type()){
+                case Message.DRAW_OPERATION: model.updateNetworkCanvas((PixelsDifference) message.content());break;
             }
         }
     }
+
 }

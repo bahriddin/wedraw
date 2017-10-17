@@ -1,10 +1,12 @@
 package GUI.run;
 
+import Data.Users;
 import GUI.Layout.Client;
 import GUI.Layout.Manager;
 import GUI.Layout.WhiteBoard;
 import Model.CanvasInteraction;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -38,11 +41,14 @@ public class LoadingPageController implements Initializable {
 
     }
 
+    Users this_manager ;
+
 
     public void create() throws IOException {
 
 
         if (username.getText() == null || username.getText().trim().isEmpty()) {
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
@@ -51,15 +57,25 @@ public class LoadingPageController implements Initializable {
         }
 
         if(!username.getText().trim().isEmpty()){
-            WhiteBoard root = new Manager(username.getText());
+            this_manager = new Users(username.getText());
+            WhiteBoard root = new Manager(this_manager);
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
             stage.setScene(new Scene((Parent) root, 950, 1000));
             stage.show();
             rootPane.getScene().getWindow().hide();
 
-//            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
-//            run.timerThread.start();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    System.out.println("asda");
+                    Platform.exit();
+                    System.exit(0);
+                }
+            });
+
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
+            run.timerThread.start();
         }
 
     }
@@ -85,13 +101,26 @@ public class LoadingPageController implements Initializable {
 
 
         if(!canvas_id.getText().trim().isEmpty() && !username.getText().trim().isEmpty()){
-            Parent root = new Client(username.getText(),canvas_id.getText());
+            WhiteBoard root = new Client(username.getText(),canvas_id.getText());
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
-            stage.setScene(new Scene(root, 950, 1000));
+            stage.setScene(new Scene((Parent) root, 950, 1000));
             stage.show();
             rootPane.getScene().getWindow().hide();
-//            run.TimerThread.start();
+
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    System.out.println("asda");
+                    Platform.exit();
+                    System.exit(0);
+                }
+            });
+
+
+            run.timerThread = new TimerThread(root.getCanvasArea().getModel());
+            run.timerThread.start();
+
         }
 
 
