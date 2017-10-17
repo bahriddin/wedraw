@@ -381,7 +381,7 @@ public class CanvasInteraction {
 
         // actually Select the area
         draw.selectArea(start, end);
-        draw.drawRectangle(start, end, FAKE_WHITE, 1, true, Draw.PERMANENT_LAYER);
+        draw.drawSmallerRectangle(start, end, FAKE_WHITE, 1, true, Draw.PERMANENT_LAYER);
         status.selectArea(start, end);
     }
 

@@ -121,6 +121,17 @@ public class Draw {
         gc.strokeRect(xywh[0], xywh[1], xywh[2], xywh[3]);
     }
 
+    public void drawSmallerRectangle(Coord start, Coord end, Color color, int lineStyle, boolean isFilled, int layerType) {
+        GraphicsContext gc = initGC(layerType, color);
+        initLineStyle(gc, lineStyle);
+        int[] xywh = initFigureData(start, end);
+
+        if (isFilled)
+            gc.fillRect(xywh[0] + 1, xywh[1] + 1, xywh[2] - 1, xywh[3] - 1);
+
+        //gc.strokeRect(xywh[0], xywh[1], xywh[2], xywh[3]);
+    }
+
     /**
      * Draw oval
      *
@@ -224,6 +235,8 @@ public class Draw {
         GraphicsContext gc = layers[TEMPORARY_LAYER];
         int[] xywh = initFigureData(start, end);
 
+        clearTemporaryLayer();
+
         // copy image from the network layer first
         updateImage(NETWORK_LAYER);
 
@@ -235,6 +248,9 @@ public class Draw {
 
         gc.drawImage(image, xywh[0], xywh[1], xywh[2], xywh[3],
                 xywh[0], xywh[1], xywh[2], xywh[3]);
+
+        // store the image in temporary layer
+        updateImage(TEMPORARY_LAYER);
 
         // no longer clear the selected area in the method
         // Clear selected area from permanent layer
@@ -345,7 +361,7 @@ public class Draw {
      * @param end       Ending coordinate
      */
     public void unselectArea(Coord start, Coord end) {
-        GraphicsContext gc = layers[PERMANENT_LAYER];
+        GraphicsContext gc = layers[NETWORK_LAYER];
         int[] xywh = initFigureData(start, end);
 
         clearTemporaryLayer();
