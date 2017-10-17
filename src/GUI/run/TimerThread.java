@@ -36,7 +36,12 @@ public class TimerThread extends Thread{
     @Override
     public void run() {
         super.run();
-        net = new Network("localhost",3000);
+        try {
+            net = new Network("localhost", 3000);
+        }catch (Exception e){
+            //
+        }
+
         System.out.println(username);
         admModel = new AdminInteraction(net,username);
         Timer timer = new Timer();
@@ -47,7 +52,7 @@ public class TimerThread extends Thread{
     class TimerTasks extends TimerTask{
         @Override
         public void run() {
-            System.out.println(admModel);
+            //System.out.println(admModel);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
