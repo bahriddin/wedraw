@@ -77,7 +77,7 @@ public class LoadingPageController implements Initializable {
 
 
 
-            //admModel.Send_CREATE_CANVAS(canvas_id.getText());
+            admModel.Send_CREATE_CANVAS(canvas_id.getText());
 
             Stage stage = new Stage();
             stage.setTitle("Whiteboard");
