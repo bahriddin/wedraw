@@ -54,6 +54,64 @@ public class MessageHandler {
                     }
                     break;
 
+                case Message.SAVE_CANVAS:
+
+                    canvas = findCanvasByManager(message.username());
+                    canvasName = (String) message.content();
+
+                    if (canvas != null) {
+                        canvas.saveAs(canvasName);
+                        responses.add(new Message(message.username(), message.id(), message.type
+                                (), " Successfully saved"));
+                    }
+                        else {
+                        responses.add(new Message(message.username(), message.id(), message.type
+                                (), " Failed to save the canvas"));
+                    }
+                    break;
+
+                case Message.LOAD_CANVAS:
+
+                    canvas = findCanvasByManager(message.username());
+                    canvasName = (String) message.content();
+
+                    if (canvas != null) {
+                        boolean isLoaded = canvas.loadCanvas(canvasName);
+                        if (isLoaded)
+                            responses.add(new Message(message.username(), message.id(), message.type
+                                (), canvas.getCanvasAsPixelDifference()));
+                        else
+                            responses.add(new Message(message.username(), message.id(), message.type
+                                    (), " Failed to load the canvas"));
+                    }
+                    else {
+                        responses.add(new Message(message.username(), message.id(), message.type
+                                (), " Failed to load the canvas"));
+                    }
+                    break;
+
+                case Message.EXIT:
+
+                    canvas = findCanvasByUsername(message.username());
+
+                    if (canvas != null) {
+                        // manager exit
+                        if (canvas.getManager().equals(message.username()))  {
+
+                            for (String user : canvas.getUsers())
+                                if (!user.equals(message.username()))
+                                    responses.add(new Message(user, message.id(), Message
+                                            .SHUTDOWN, " The manager has exited."));
+                        } else {
+                            // a normal user exits, tell the manager
+                            responses.add(new Message(canvas.getManager(), message.id(), message.type
+                                    (), message.username()));
+                        }
+
+                    }
+                    break;
+
+
                 case Message.JOIN_REQUEST:
 
                     canvasName = (String) message.content();
