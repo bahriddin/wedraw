@@ -70,8 +70,6 @@ public class LoadingPageController implements Initializable {
 
 
 
-
-
     public void create() throws IOException {
 
 
@@ -262,6 +260,27 @@ public class LoadingPageController implements Initializable {
 
     }
 
+
+    public String join_request(String client_name){
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert.setTitle("Warning Dialog");
+//        alert.setHeaderText("Look, a Warning Dialog");
+        alert.setContentText(client_name +" want to join");
+        alert.showAndWait();
+        Optional<ButtonType> result = alert.showAndWait();
+        ButtonType button = result.orElse(ButtonType.CANCEL);
+        if (button == ButtonType.OK) {
+            return "T";
+
+        } else {
+            return "F";
+
+        }
+
+
+    }
+
     public void kicked(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
 //        alert.setTitle("Warning Dialog");
@@ -288,6 +307,16 @@ public class LoadingPageController implements Initializable {
 
     }
 
+    public void client_join_response(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+//        alert.setHeaderText("Look, an Error Dialog");
+        alert.setContentText("You're not allowed to join");
+
+        alert.showAndWait();
+
+    }
 
 
 

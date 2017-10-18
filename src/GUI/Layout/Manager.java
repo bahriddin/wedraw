@@ -199,7 +199,7 @@ public class Manager extends WhiteBoard{
     public void generate_user(Users user){
 
             user_button_list.add(new Button());
-            user_button_list.get(user_number).setText("User");
+            user_button_list.get(user_number).setText(user.getUser_name());
             user_button_list.get(user_number).setPrefSize(300,40);
             Button_list.getChildren().add(user_button_list.get(user_number));
 

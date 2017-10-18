@@ -1,6 +1,7 @@
 package GUI.Layout;
 
 import GUI.Tools.Tool;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
+import java.util.Optional;
 
 import static GUI.DrawSettings.DrawSettings.color;
 import static GUI.Layout.ToolsPanel.undoBtn;
@@ -121,6 +123,25 @@ public class Client extends WhiteBoard{
         chatBox.setText("Hello! "+user_name+". Welcome to Canvas "+canvas_id);
 
     }
+
+    public void kicked(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+//        alert.setTitle("Warning Dialog");
+//        alert.setHeaderText("Look, a Warning Dialog");
+        alert.setContentText("Sorry, you've been kicked out by the manager");
+        alert.showAndWait();
+        Optional<ButtonType> result = alert.showAndWait();
+        ButtonType button = result.orElse(ButtonType.CANCEL);
+        if (button == ButtonType.OK) {
+            System.out.println("bye bye");
+            Platform.exit();
+            System.exit(0);
+        } else {
+
+        }
+    }
+
+
 
 
 }

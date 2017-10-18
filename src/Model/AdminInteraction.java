@@ -85,16 +85,26 @@ public class AdminInteraction {
 
     public void handle_JOIN_REQUEST(Message m){
         //弹出弹窗一个true 或者 false 到 response 里面去
-        String response = "T"; //"T/F"
+        String response= run.c.join_request(m.username());
+
         Send_JOIN_RESPONSE(m.username(), response);
+
         Send_CHAT_MESSAGE("user \""+m.username()+"\" join the canvas");
 
     }
 
     public void handle_JOIN_RESPONSE(Message m){
-        if (m.content().equals(null)){
+        if (m.content()==null){
+
+           run.c.client_join_response();
 
         }
+        else{
+
+            run.c.show_whiteboard(run.c.manager_whiteboard);
+
+        }
+
 
 
     }
