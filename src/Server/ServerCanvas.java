@@ -60,12 +60,9 @@ public class ServerCanvas {
     }
 
     public PixelsDifference getCanvasAsPixelDifference() {
+
         PixelsDifference result =  new PixelsDifference(blankCanvas, canvas.getCurrentCanvas());
-
-        for (Pixel pixel : result.getPixels())
-            System.out.print(pixel);
-
-        System.out.println();
+        
         return result;
     }
 

@@ -136,6 +136,7 @@ public class MessageHandler {
                     canvas = findCanvasByManager(message.username());
 
                     String[] response_answers = (String[]) message.content();
+                    //System.out.println(response_answers[0] + " " + response_answers[1]);
 
                     if (canvas == null) {
                         // do nothing
@@ -146,9 +147,12 @@ public class MessageHandler {
                                     .JOIN_RESPONSE, null));
                         // approved
                         else {
+                            System.out.println("work now");
                             responses.add(new Message(response_answers[0], message.id(), Message
                                     .JOIN_RESPONSE, canvas.getCanvasAsPixelDifference()));
+                            System.out.println(" still working");
                             canvas.addUser(response_answers[0]);
+                            System.out.println(" out~");
                         }
 
                     }
