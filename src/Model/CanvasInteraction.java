@@ -659,7 +659,7 @@ public class CanvasInteraction {
     }
 
     public void updateNetworkCanvas (PixelsDifference difference) {
-        draw.drawFree(difference.getPixels(), Draw.NETWORK_LAYER);
+        draw.drawFree(turnFakeWhiteIntoRealWhite(difference).getPixels(), Draw.NETWORK_LAYER);
     }
     public synchronized void clearPermanentCanvas() {
         draw.clearPermanentLayer();
@@ -670,6 +670,21 @@ public class CanvasInteraction {
         log.updateCanvas(CanvasHelper.canvasToMatrix(permanentCanvas));
     }
     */
+
+    private PixelsDifference turnFakeWhiteIntoRealWhite(PixelsDifference oldP) {
+        ArrayList<Pixel> pixels = new ArrayList<>();
+
+        int fakeWhite = CanvasHelper.colorToInt(FAKE_WHITE);
+        int realWhite = CanvasHelper.colorToInt(Color.WHITE);
+
+        for (Pixel pixel : oldP.getPixels())
+            if (pixel.color() == fakeWhite)
+                pixels.add(new Pixel(pixel.x(), pixel.y(), realWhite));
+            else
+                pixels.add(pixel);
+
+        return new PixelsDifference(pixels);
+    }
 
     private Coord diffCoord(Coord last, Coord current) {
         return new Coord(current.x() - last.x(), current.y() - last.y());
