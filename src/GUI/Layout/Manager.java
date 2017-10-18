@@ -177,7 +177,7 @@ public class Manager extends WhiteBoard{
 
         V_list.toFront();
 
-        chatBox.setText("Hello! "+manager_name+"\n");
+        chatBox.setText("Hello! "+manager_name+"\nYour are the manager of canvas"+canvas_name);
 
 
 
