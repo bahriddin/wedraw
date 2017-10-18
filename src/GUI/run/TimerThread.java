@@ -72,7 +72,7 @@ public class TimerThread extends Thread{
 
             //if the whiteboard have been changed
             if (difference!=null && difference.size() > 0) {
-                Message DrawMessage = new Message("user",Message.DRAW_OPERATION,difference);
+                Message DrawMessage = new Message(username,Message.DRAW_OPERATION,difference);
                 SendQueue.add(DrawMessage);
                 net.sendMessage(DrawMessage);
             }
