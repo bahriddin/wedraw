@@ -5,6 +5,7 @@ import GUI.Layout.Client;
 import GUI.Layout.Manager;
 import GUI.Layout.WhiteBoard;
 import Model.CanvasInteraction;
+import Network.Network;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -89,7 +90,9 @@ public class LoadingPageController implements Initializable {
             System.out.println(this_manager);
 
 
-            run.timerThread = new TimerThread(manager_whiteboard.getCanvasArea().getModel(),username.getText());
+
+            Network net = new Network("localhost", 3000);
+            run.timerThread = new TimerThread(manager_whiteboard.getCanvasArea().getModel(),username.getText(),net);
             run.timerThread.start();
 
             while (admModel==null){
@@ -103,6 +106,7 @@ public class LoadingPageController implements Initializable {
 
 
             admModel.Send_CREATE_CANVAS(canvas_id.getText());
+            admModel.setChatbox(manager_whiteboard.chatBox);
 
             logs.setFont(new Font(20));
             logs.setTextFill(Color.rgb(255,255,255));
@@ -142,8 +146,10 @@ public class LoadingPageController implements Initializable {
 
         if(!canvas_id.getText().trim().isEmpty() && !username.getText().trim().isEmpty()){
 
+
+            Network net = new Network("localhost", 3000);
             client_whiteboard = new Client(username.getText(),canvas_id.getText());
-            run.timerThread = new TimerThread(client_whiteboard.getCanvasArea().getModel(),username.getText());
+            run.timerThread = new TimerThread(client_whiteboard.getCanvasArea().getModel(),username.getText(),net);
             run.timerThread.start();
 
             while (admModel==null){
@@ -155,6 +161,7 @@ public class LoadingPageController implements Initializable {
             }
 
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
+            admModel.setChatbox(client_whiteboard.chatBox);
 
             logs.setText("Waiting for manager response...");
             logs.setFont(new Font(15));
@@ -244,8 +251,9 @@ public class LoadingPageController implements Initializable {
         alert.setTitle("Error");
 //        alert.setHeaderText("Look, an Error Dialog");
         alert.setContentText("Connection Error! Try again later");
-
         alert.showAndWait();
+
+
     }
 
     public void dialog_success(){

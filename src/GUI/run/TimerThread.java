@@ -34,20 +34,15 @@ public class TimerThread extends Thread{
     public static Timer timer = new Timer();
 
 
-    TimerThread(CanvasInteraction model,String username){
+    TimerThread(CanvasInteraction model,String username,Network net){
         this.model = model;
         this.CanvasMatrix = model.getCurrentCanvas();
         this.username = username;
+        this.net = net;
     }
 
     @Override
     public void run() {
-        super.run();
-        try {
-            net = new Network("localhost", 3000);
-        }catch (Exception e){
-            //
-        }
 
         System.out.println(username);
         admModel = new AdminInteraction(net,username, model);

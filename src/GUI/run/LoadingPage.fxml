@@ -26,9 +26,11 @@
             </Text>
             <Button layoutX="52.0" layoutY="244.0" mnemonicParsing="false" onAction="#create" prefHeight="66.0" prefWidth="144.0" text="Create New" />
             <Button layoutX="312.0" layoutY="244.0" mnemonicParsing="false" onAction="#join" prefHeight="66.0" prefWidth="144.0" text="Join others" />
-            <TextField fx:id="username" layoutX="171.0" layoutY="128.0" promptText="User Name" />
+            <TextField fx:id="username" layoutX="171.0" layoutY="140.0" promptText="User Name" />
             <TextField fx:id="canvas_id" layoutX="171.0" layoutY="180.0" prefHeight="27.0" prefWidth="167.0" promptText="Canvas ID" />
             <Label fx:id="logs" layoutX="132.0" layoutY="216.0" prefHeight="20.0" prefWidth="276.0" />
+            <TextField layoutX="171.0" layoutY="95.0" promptText="Server IP" />
+            <TextField layoutX="352.0" layoutY="95.0" prefHeight="27.0" prefWidth="79.0" text="Port" />
          </children></Pane>
    </children>
 </StackPane>

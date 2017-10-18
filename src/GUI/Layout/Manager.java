@@ -41,7 +41,9 @@ public class Manager extends WhiteBoard{
     VBox Button_list = new VBox();
 
     VBox V_Print = new VBox();
-    TextArea chatBox = new TextArea();
+    public TextArea chatBox = new TextArea();
+
+
 
     public static String KICK_ICON = "/images/kickoff.png";
 
@@ -69,6 +71,8 @@ public class Manager extends WhiteBoard{
 
 
     public Manager(Users user,String canvas_name) {
+
+        chatBox.setWrapText(true);
 
 
         manager_name = user.getUser_name();
@@ -136,14 +140,15 @@ public class Manager extends WhiteBoard{
         Button send_btn = new Button("Send");
         send_btn.setPrefSize(70,70);
 
-        send_btn.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
-            @Override
-            public void handle(MouseEvent t) {
-                admModel.Send_CHAT_MESSAGE(inputTxt.getText());
+        send_btn.setOnAction(new EventHandler<ActionEvent>() {
 
+            public void handle(ActionEvent arg0) {
+                admModel.Send_CHAT_MESSAGE(inputTxt.getText());
+//                chatBox.appendText(inputTxt.getText());
+                inputTxt.setText(null);
             }
         });
+
 
 
 

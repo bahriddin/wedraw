@@ -7,11 +7,13 @@ import GUI.run.LoadingPageController;
 import GUI.run.TimerThread;
 import GUI.run.run;
 import Network.Network;
+import javafx.scene.control.TextArea;
 
 import java.awt.*;
 import java.time.LocalDateTime;
 
-import static GUI.Layout.Client.chatBox;
+//import static GUI.Layout.Client.chatBox;
+
 
 /**
  * Created by luanboheng on 17/10/2017.
@@ -20,6 +22,11 @@ public class AdminInteraction {
     String userName;
     Network net;
     CanvasInteraction model;
+    TextArea chatbox;
+
+    public void setChatbox(TextArea chatbox){
+        this.chatbox = chatbox;
+    }
 
 
     @Override
@@ -82,9 +89,9 @@ public class AdminInteraction {
     }
 
     public void handle_CHAT_MESSAGE(Message m){
-        String stringMessage = LocalDateTime.now()+"\t"+m.username()+":\n"+m.content();
+        String stringMessage = (String) m.content();
 
-        chatBox.appendText(stringMessage+"\n");
+        chatbox.appendText(stringMessage+"\n");
     }
 
     public void handle_JOIN_REQUEST(Message m){
@@ -94,12 +101,12 @@ public class AdminInteraction {
 
         Send_JOIN_RESPONSE(otheruser, response);
 
-        Send_CHAT_MESSAGE("user \""+m.username()+"\" join the canvas");
+        Send_CHAT_MESSAGE("user \""+m.content()+"\" join the canvas");
 
     }
 
     public void handle_JOIN_RESPONSE(Message m){
-        System.out.println("test respond"+ m.content());
+        //System.out.println("test respond"+ m.content());
         if (m.content()==null){
 
            run.c.client_join_rejected();
@@ -107,6 +114,7 @@ public class AdminInteraction {
 
         }
         else{
+
 
             run.c.show_whiteboard(run.c.client_whiteboard);
             model.updateNetworkCanvas((PixelsDifference)m.content());
@@ -162,7 +170,7 @@ public class AdminInteraction {
     }
 
     public void Send_CHAT_MESSAGE  (String text){
-        text = ""+LocalDateTime.now() +"\n"+text;
+        text = "["+userName+"]: "+text+"\n"+LocalDateTime.now() +"\n";
         Message message =  new Message(userName,Message.CHAT_MESSAGE,text);
         net.sendMessage(message);
     }

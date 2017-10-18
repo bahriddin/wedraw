@@ -27,6 +27,7 @@ import java.util.Optional;
 
 import static GUI.DrawSettings.DrawSettings.color;
 import static GUI.Layout.ToolsPanel.undoBtn;
+import static GUI.run.TimerThread.admModel;
 
 public class Client extends WhiteBoard{
 
@@ -38,7 +39,6 @@ public class Client extends WhiteBoard{
 
     public static TextArea chatBox = new TextArea();
 
-    public static String KICK_ICON = "/images/kickoff.png";
 
     String local_Host;
 
@@ -47,6 +47,8 @@ public class Client extends WhiteBoard{
 
 
     public Client(String user_name,String canvas_id) {
+
+        chatBox.setWrapText(true);
 
 
         Label label2 = new Label("       Canvas name: "+canvas_id);
@@ -103,6 +105,16 @@ public class Client extends WhiteBoard{
 
         Button send_btn = new Button("Send");
         send_btn.setPrefSize(70,70);
+
+        send_btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                admModel.Send_CHAT_MESSAGE(inputTxt.getText());
+//                chatBox.appendText(inputTxt.getText());
+                inputTxt.setText(null);
+            }
+        });
+
 
 
         V_list.getChildren().add(chatBox);
