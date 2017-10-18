@@ -75,7 +75,7 @@ public class ServerCanvas {
             return result;
         }
 
-        CanvasLog canvasFromFile = loadFile(canvasName);
+        CanvasLog canvasFromFile = loadFile(canvasName + ".wedraw");
 
         if (canvasFromFile != null) {
             this.canvasName = canvasName;

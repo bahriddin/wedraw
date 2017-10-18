@@ -79,15 +79,16 @@ public class MessageHandler {
                     if (canvas != null) {
                         PixelsDifference loaded = canvas.loadCanvas(canvasName);
                         if (loaded != null)
-                            responses.add(new Message(message.username(), message.id(), message.type
+                            for (String user : canvas.getUsers())
+                                responses.add(new Message(user, message.id(), message.type
                                 (), loaded));
                         else
                             responses.add(new Message(message.username(), message.id(), message.type
-                                    (), " Failed to load the canvas"));
+                                    (), null));
                     }
                     else {
                         responses.add(new Message(message.username(), message.id(), message.type
-                                (), " Only the manager can load the canvas"));
+                                (), null));
                     }
                     break;
 
