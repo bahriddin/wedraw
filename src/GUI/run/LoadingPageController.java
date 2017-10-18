@@ -90,7 +90,6 @@ public class LoadingPageController implements Initializable {
             System.out.println(this_manager);
 
 
-
             Network net = new Network("localhost", 3000);
             run.timerThread = new TimerThread(manager_whiteboard.getCanvasArea().getModel(),username.getText(),net);
             run.timerThread.start();
@@ -110,6 +109,8 @@ public class LoadingPageController implements Initializable {
 
             logs.setFont(new Font(20));
             logs.setTextFill(Color.rgb(255,255,255));
+
+
 
 //            if(!is_connected){
 //
@@ -251,10 +252,24 @@ public class LoadingPageController implements Initializable {
         alert.setTitle("Error");
 //        alert.setHeaderText("Look, an Error Dialog");
         alert.setContentText("Connection Error! Try again later");
-        alert.showAndWait();
+
+        ButtonType buttonTypeOne = new ButtonType("OK");
+
+        alert.getButtonTypes().setAll(buttonTypeOne);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            Platform.exit();
+            System.exit(0);
+        }
+
+        else  {
+            // ... uPlatform.exit();
+            Platform.exit();
+            System.exit(0);
 
 
-    }
+    }}
 
     public void dialog_success(){
         Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -7,6 +7,7 @@ import GUI.run.LoadingPageController;
 import GUI.run.TimerThread;
 import GUI.run.run;
 import Network.Network;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 import java.awt.*;
@@ -59,8 +60,8 @@ public class AdminInteraction {
             case Message.JOIN_RESPONSE:handle_JOIN_RESPONSE(m);break;
             case Message.KICK_USER:handle_KICK_USER(m);break;
             case Message.USER_GOT_KICKED:handle_USER_GOT_KICKED(m);break;
-            case Message.EXIT:handleMessage(m);break;
-            case Message.SHUTDOWN:handleMessage(m);break;
+            case Message.EXIT:handle_EXIT(m);break;
+            case Message.SHUTDOWN:handle_SHUTDOWN(m);break;
         }
     }
 
@@ -69,11 +70,19 @@ public class AdminInteraction {
         String quitUser = (String) m.content();
         //消失掉对应user的button
         Send_CHAT_MESSAGE("user \""+quitUser+"\" has quit");
-    }
+        for(Button btn:run.c.manager_whiteboard.user_button_list) {
+            if(btn.getText().equals(quitUser))
+            {
+                run.c.manager_whiteboard.Button_list.getChildren().remove(btn);
+
+        }
+
+    }}
 
     public void handle_SHUTDOWN (Message m){
-        String printMessage = (String) m.content();
-        //弹窗显示printMessage
+        //Shut down
+        run.c.client_whiteboard.manager_shut_down();
+
         //退出系统
     }
 

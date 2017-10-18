@@ -49,7 +49,11 @@ public class Receiver implements Runnable {
                 //System.out.println("User left the board: ");
                 Message userLeftMessage = new Message(myName, Message.EXIT, null);
                 for (Message serverMessage: messageHandler.handleMessage(userLeftMessage))
-                    Network.senderDict.get(serverMessage.username()).add(serverMessage);
+                    try{
+                        Network.senderDict.get(serverMessage.username()).add(serverMessage);
+                    } catch (Exception eeee) {
+
+                    }
             }
             else
                 System.out.println("IOException1: " + e.getMessage() + " " + socket);

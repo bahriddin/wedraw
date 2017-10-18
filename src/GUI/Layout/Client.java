@@ -154,6 +154,33 @@ public class Client extends WhiteBoard{
         }
     }
 
+    public void manager_shut_down(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+//        alert.setHeaderText("Look, an Error Dialog");
+        alert.setContentText("Manager shut down, program terminated");
+
+        ButtonType buttonTypeOne = new ButtonType("OK");
+
+        alert.getButtonTypes().setAll(buttonTypeOne);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            Platform.exit();
+            System.exit(0);
+        }
+
+        else  {
+            // ... uPlatform.exit();
+            Platform.exit();
+            System.exit(0);
+
+
+        }}
+
+
+
 
 
 

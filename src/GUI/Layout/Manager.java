@@ -38,7 +38,7 @@ public class Manager extends WhiteBoard{
 
     HBox H_list = new HBox();
 
-    VBox Button_list = new VBox();
+    public VBox Button_list = new VBox();
 
     VBox V_Print = new VBox();
     public TextArea chatBox = new TextArea();
@@ -56,7 +56,7 @@ public class Manager extends WhiteBoard{
     ServerSocket s;
 
     List<Users> user_list = new LinkedList<Users>();
-    List<Button> user_button_list = new LinkedList<Button>();
+    public List<Button> user_button_list = new LinkedList<Button>();
 
     int user_number = 0;
 //    int max_user_number = 6;
@@ -197,7 +197,7 @@ public class Manager extends WhiteBoard{
         if (button == ButtonType.OK) {
             Button_list.getChildren().remove(btn);
             admModel.Send_KICK_USER(btn.getText());
-            System.out.println(btn.getText());
+//            System.out.println(btn.getText());
         } else {
 
         }
