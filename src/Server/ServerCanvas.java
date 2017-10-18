@@ -2,7 +2,9 @@ package Server;
 
 import Data.CanvasHelper;
 import Data.CanvasLog;
+import Data.Pixel;
 import Data.PixelsDifference;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.io.*;
@@ -37,7 +39,7 @@ public class ServerCanvas {
             for (int x = 0; x < CanvasHelper.DEFAULT_CANVAS_WIDTH; x++) {
                 blankCanvas[x] = new int[CanvasHelper.DEFAULT_CANVAS_HEIGHT];
                 for (int y = 0; y < CanvasHelper.DEFAULT_CANVAS_HEIGHT; y++)
-                    blankCanvas[x][y] = 0;
+                    blankCanvas[x][y] = CanvasHelper.colorToInt(Color.WHITE);
             }
 
         }
@@ -58,7 +60,13 @@ public class ServerCanvas {
     }
 
     public PixelsDifference getCanvasAsPixelDifference() {
-        return new PixelsDifference(blankCanvas, canvas.getCurrentCanvas());
+        PixelsDifference result =  new PixelsDifference(blankCanvas, canvas.getCurrentCanvas());
+
+        for (Pixel pixel : result.getPixels())
+            System.out.print(pixel);
+
+        System.out.println();
+        return result;
     }
 
     public boolean loadCanvas(String canvasName) {
