@@ -342,6 +342,7 @@ public class LoadingPageController implements Initializable {
         alert.setContentText("You're not allowed to join");
 
         alert.showAndWait();
+        System.exit(0);
 
     }
 

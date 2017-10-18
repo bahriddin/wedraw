@@ -161,13 +161,13 @@ public class AdminInteraction {
     }
 
     public void handle_JOIN_REQUEST(Message m){
-        //弹出弹窗一个true 或者 false 到 response 里面去
         String otheruser =(String)  m.content();
         String response= run.c.manager_whiteboard.join_request_dialog(otheruser);
 
         Send_JOIN_RESPONSE(otheruser, response);
-
-        Send_CHAT_MESSAGE("user \""+m.content()+"\" join the canvas");
+        if (response.equals("T")) {
+            Send_CHAT_MESSAGE("user \"" + m.content() + "\" join the canvas");
+        }
 
     }
 
@@ -194,8 +194,7 @@ public class AdminInteraction {
     }
 
     public void handle_USER_GOT_KICKED(Message m){
-        //弹窗，你被踢了
-        //炸裂，退出程序
+
         run.c.client_whiteboard.kicked();
 
     }

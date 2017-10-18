@@ -21,7 +21,7 @@ public class WhiteBoard extends BorderPane {
     VBox top;
     HBox bottom;
     Tool tools;
-    CanvasArea canvasArea;
+    static CanvasArea canvasArea;
     HBox topControls = new HBox();
     ToolsPanel toolsPanel;
 
