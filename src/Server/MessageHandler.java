@@ -141,7 +141,7 @@ public class MessageHandler {
                         // do nothing
                     } else {
                         // unapproved
-                        if (response_answers[1] == "F")
+                        if (response_answers[1].equals("F"))
                             responses.add(new Message(response_answers[0], message.id(), Message
                                     .JOIN_RESPONSE, null));
                         // approved

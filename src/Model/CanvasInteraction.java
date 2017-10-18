@@ -73,7 +73,7 @@ public class CanvasInteraction {
      */
 
     /**
-     * load new canvas from the server
+     * load new canvas from the server, deprecated
      * @param Log
      */
     public void loadFromCanvasLog(Canvas Log) {
