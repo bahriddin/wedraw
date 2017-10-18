@@ -66,15 +66,23 @@ public class ServerCanvas {
         return result;
     }
 
-    public boolean loadCanvas(String canvasName) {
+    public PixelsDifference loadCanvas(String canvasName) {
+
+        // special ! it is not load but new!
+        if (canvasName == null) {
+            PixelsDifference result = new PixelsDifference(canvas.getCurrentCanvas(), blankCanvas);
+            this.canvas = new CanvasLog(blankCanvas);
+            return result;
+        }
+
         CanvasLog canvasFromFile = loadFile(canvasName);
 
         if (canvasFromFile != null) {
             this.canvasName = canvasName;
             this.canvas = canvasFromFile;
-            return true;
+            return getCanvasAsPixelDifference();
         } else
-            return false;
+            return null;
     }
 
     /*

@@ -77,17 +77,17 @@ public class MessageHandler {
                     canvasName = (String) message.content();
 
                     if (canvas != null) {
-                        boolean isLoaded = canvas.loadCanvas(canvasName);
-                        if (isLoaded)
+                        PixelsDifference loaded = canvas.loadCanvas(canvasName);
+                        if (loaded != null)
                             responses.add(new Message(message.username(), message.id(), message.type
-                                (), canvas.getCanvasAsPixelDifference()));
+                                (), loaded));
                         else
                             responses.add(new Message(message.username(), message.id(), message.type
                                     (), " Failed to load the canvas"));
                     }
                     else {
                         responses.add(new Message(message.username(), message.id(), message.type
-                                (), " Failed to load the canvas"));
+                                (), " Only the manager can load the canvas"));
                     }
                     break;
 
