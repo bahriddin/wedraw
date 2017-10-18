@@ -179,8 +179,6 @@ public class Manager extends WhiteBoard{
 
         chatBox.setText("Hello! "+manager_name+"\nYour are the manager of canvas"+canvas_name);
 
-
-
     }
 
 
