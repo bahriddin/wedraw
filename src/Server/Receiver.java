@@ -48,6 +48,7 @@ public class Receiver implements Runnable {
             if (e.getMessage() == null) {
                 //System.out.println("User left the board: ");
                 Message userLeftMessage = new Message(myName, Message.EXIT, null);
+                Network.senderDict.remove(myName);
                 for (Message serverMessage: messageHandler.handleMessage(userLeftMessage))
                     try{
                         Network.senderDict.get(serverMessage.username()).add(serverMessage);
