@@ -51,6 +51,7 @@ public class Receiver implements Runnable {
                 //System.out.println("User left the board: ");
                 Message userLeftMessage = new Message(myName, Message.EXIT, null);
                 Network.senderDict.remove(myName);
+                System.out.println("Removed from senderDict");
                 for (Message serverMessage: messageHandler.handleMessage(userLeftMessage))
                     try{
                         Network.senderDict.get(serverMessage.username()).add(serverMessage);
@@ -61,7 +62,7 @@ public class Receiver implements Runnable {
             else
                 System.out.println("IOException1: " + e.getMessage() + " " + socket);
         } catch (Exception e) {
-            System.out.println("Unexpected exception: " + e.getMessage());
+            System.out.println("Unexpected exception1: " + e.getMessage());
         }
 
     }

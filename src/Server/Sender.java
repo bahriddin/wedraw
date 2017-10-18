@@ -28,7 +28,13 @@ public class Sender implements Runnable{
         } catch (IOException e) {
             System.out.println("IOException2: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Unexpected exception: " + e.getMessage());
+            if (e.getMessage() == null) {
+                Network.senderDict.remove(username);
+            }
+            else
+                System.out.println("IOException2: " + e.getMessage());
+            System.out.println("Unexpected exception2: " + e.getMessage());
+
         }
     }
 }
