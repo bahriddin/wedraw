@@ -176,7 +176,7 @@ public class MessageHandler {
                         operation = canvas.undoCanvas();
 
                         for (String user : canvas.getUsers())
-                            responses.add(new Message(user, message.id(), message.type(),
+                            responses.add(new Message(user, message.id(), Message.DRAW_OPERATION,
                                     operation));
                     }
                     break;
