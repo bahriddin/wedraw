@@ -107,8 +107,6 @@ public class ServerCanvas {
 
         users.remove(username);
 
-        if (username.equals(manager))
-            manager = "";
     }
 
 

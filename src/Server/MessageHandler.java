@@ -101,10 +101,11 @@ public class MessageHandler {
                         // manager exit
                         if (canvas.getManager().equals(message.username()))  {
 
-                            for (String user : canvas.getUsers())
+                            for (String user : canvas.getUsers()) {
                                 if (!user.equals(message.username()))
                                     responses.add(new Message(user, message.id(), Message
                                             .SHUTDOWN, " The manager has exited."));
+                            }
                         } else {
                             // a normal user exits, tell the manager
                             responses.add(new Message(canvas.getManager(), message.id(), message.type
