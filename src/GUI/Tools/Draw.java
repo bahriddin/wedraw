@@ -361,7 +361,7 @@ public class Draw {
      * @param end       Ending coordinate
      */
     public void unselectArea(Coord start, Coord end) {
-        GraphicsContext gc = layers[NETWORK_LAYER];
+        GraphicsContext gc = layers[PERMANENT_LAYER];
         int[] xywh = initFigureData(start, end);
 
         clearTemporaryLayer();
