@@ -14,7 +14,7 @@ import java.util.Map;
 public class Network {
 
     /**
-     * This is for keeping all threads in one place and give them tasks to do from different threads
+     * This is for keeping all threads in one place and ive them tasks to do from different threads
      */
     static Map<String, ArrayList<Message>> senderDict = new HashMap<>();
 
