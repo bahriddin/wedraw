@@ -26,6 +26,9 @@ public class Listener implements Runnable {
                 Network.addMessage(message);
             }
         } catch (IOException io) {
+            if (io.getMessage() == null) {
+                Network.addMessage(new Message("", Message.SHUTDOWN, null));
+            }
             System.out.println("IOException: " + io.getMessage());
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found: " + e.getMessage());
