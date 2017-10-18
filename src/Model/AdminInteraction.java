@@ -59,6 +59,8 @@ public class AdminInteraction {
             case Message.JOIN_RESPONSE:handle_JOIN_RESPONSE(m);break;
             case Message.KICK_USER:handle_KICK_USER(m);break;
             case Message.USER_GOT_KICKED:handle_USER_GOT_KICKED(m);break;
+            case Message.EXIT:handleMessage(m);break;
+            case Message.SHUTDOWN:handleMessage(m);break;
         }
     }
 
