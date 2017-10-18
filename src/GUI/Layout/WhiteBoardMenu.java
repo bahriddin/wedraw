@@ -68,8 +68,8 @@ public class WhiteBoardMenu extends MenuBar {
 
                 if(file != null){
                     try {
-                        WritableImage writableImage = new WritableImage(650, 1000);
-                        canvasArea.networkCanvas.snapshot(null, writableImage);
+                        WritableImage writableImage = new WritableImage(640, 690);
+                        WhiteBoard.canvasArea.networkCanvas.snapshot(null, writableImage);
                         RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                         ImageIO.write(renderedImage, "png", file);
                     } catch (IOException ex) {
