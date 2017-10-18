@@ -162,7 +162,9 @@ public class LoadingPageController implements Initializable {
 
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
 
-            show_whiteboard(client_whiteboard);
+            logs.setText("Waiting for manager response");
+            logs.setFont(new Font(20));
+            logs.setTextFill(Color.rgb(255,255,255));
 
 
 
@@ -218,7 +220,6 @@ public class LoadingPageController implements Initializable {
     }
 
     public void show_whiteboard(WhiteBoard root){
-        System.out.println("sad1111111111");
         Stage stage = new Stage();
         stage.setTitle("Whiteboard");
         stage.setScene(new Scene((Parent) root, 950, 1000));
@@ -274,23 +275,26 @@ public class LoadingPageController implements Initializable {
     }
 
 
-    public String join_request(String client_name){
+    public String join_request_dialog(String client_name){
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Warning Dialog");
-//        alert.setHeaderText("Look, a Warning Dialog");
-        alert.setContentText(client_name +" want to join");
-        alert.showAndWait();
-        Optional<ButtonType> result = alert.showAndWait();
-        ButtonType button = result.orElse(ButtonType.CANCEL);
-        if (button == ButtonType.OK) {
-            return "T";
 
-        } else {
+        alert.setContentText(client_name +" want to join");
+
+        ButtonType buttonTypeOne = new ButtonType("Allow");
+        ButtonType buttonTypeTwo = new ButtonType("Reject");
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne) {
+            return "T";
+        }
+        else if (result.get() == buttonTypeTwo) {
             return "F";
 
         }
-
+        else
+            return "F";
 
     }
 
@@ -299,7 +303,6 @@ public class LoadingPageController implements Initializable {
 //        alert.setTitle("Warning Dialog");
 //        alert.setHeaderText("Look, a Warning Dialog");
         alert.setContentText("Sorry, you've been kicked out by the manager");
-        alert.showAndWait();
         Optional<ButtonType> result = alert.showAndWait();
         ButtonType button = result.orElse(ButtonType.CANCEL);
         if (button == ButtonType.OK) {

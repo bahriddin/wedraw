@@ -7,6 +7,7 @@ import GUI.run.TimerThread;
 import GUI.run.run;
 import Network.Network;
 
+import java.awt.*;
 import java.time.LocalDateTime;
 
 import static GUI.Layout.Client.chatBox;
@@ -80,32 +81,33 @@ public class AdminInteraction {
     public void handle_CHAT_MESSAGE(Message m){
         String stringMessage = LocalDateTime.now()+"\t"+m.username()+":\n"+m.content();
 
-        chatBox.appendText(stringMessage);
+        chatBox.appendText(stringMessage+"\n");
     }
 
     public void handle_JOIN_REQUEST(Message m){
         //弹出弹窗一个true 或者 false 到 response 里面去
-        String response= run.c.join_request(m.username());
+        String otheruser =(String)  m.content();
+        String response= run.c.join_request_dialog(otheruser);
 
-        Send_JOIN_RESPONSE(m.username(), response);
+        Send_JOIN_RESPONSE(otheruser, response);
 
         Send_CHAT_MESSAGE("user \""+m.username()+"\" join the canvas");
 
     }
 
     public void handle_JOIN_RESPONSE(Message m){
+        System.out.println("test respond"+ m.content());
         if (m.content()==null){
 
            run.c.client_join_response();
 
+
         }
         else{
 
-            run.c.show_whiteboard(run.c.manager_whiteboard);
+            run.c.show_whiteboard(run.c.client_whiteboard);
 
         }
-
-
 
     }
 
@@ -175,7 +177,7 @@ public class AdminInteraction {
         String[] name_response = new String[2];
         name_response[0] = name;
         name_response[1] = response;
-        Message message =  new Message(userName,Message.JOIN_RESPONSE,response);
+        Message message =  new Message(userName,Message.JOIN_RESPONSE,name_response);
         net.sendMessage(message);
     }
 
