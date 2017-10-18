@@ -7,20 +7,17 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Sender implements Runnable{
-    private Socket socket;
+    private ObjectOutputStream out;
     private String username;
 
-    public Sender(Socket socket, String username) {
-        this.socket = socket;
+    public Sender(ObjectOutputStream out, String username) {
+        this.out = out;
         this.username = username;
     }
 
     @Override
     public void run() {
         try {
-            OutputStream socketOut = socket.getOutputStream();
-            ObjectOutputStream out = new ObjectOutputStream(socketOut);
-
             while (true) {
                 for (Message serverMessage: Network.senderDict.get(username))
                     out.writeObject(serverMessage);

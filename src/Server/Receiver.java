@@ -3,9 +3,7 @@ package Server;
 import Data.Message;
 import sun.nio.ch.Net;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -23,7 +21,10 @@ public class Receiver implements Runnable {
         try {
             InputStream socketIn = this.socket.getInputStream();
             ObjectInputStream in = new ObjectInputStream(socketIn);
-            System.out.println(socket);
+//            System.out.println(socket);
+
+            OutputStream socketOut = socket.getOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(socketOut);
 
             Message clientMessage = (Message) in.readObject();
             String username = clientMessage.username();
@@ -31,9 +32,10 @@ public class Receiver implements Runnable {
                 myName = username;
 
             if (Network.senderDict.containsKey(username)) {
+                out.writeObject(new Message(username, Message.JOIN_RESPONSE, null));
                 throw new Exception("There is a user with this username.");
             } else {
-                Sender sender = new Sender(socket, username);
+                Sender sender = new Sender(out, username);
                 Network.senderDict.put(username, new ArrayList<>());
                 Thread senderThread = new Thread(sender);
                 senderThread.start();
