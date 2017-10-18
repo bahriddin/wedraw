@@ -80,8 +80,9 @@ public class Client extends WhiteBoard{
 
 
 //        getChildren().add(left_right);
-
-        Label label1 = new Label("Current Users: ");
+//
+        Label label1 = new Label("You're joinig canvas  "+canvas_id);
+        label1.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         V_list.getChildren().add(label1);
 
         V_list.setPadding(new Insets(5));

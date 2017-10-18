@@ -64,7 +64,7 @@ public class Manager extends WhiteBoard{
 
     public String manager_name = "Manager";
 
-    Button test1 = new Button("test 1 ");
+//    Button test1 = new Button("test 1 ");
 
 
 
@@ -94,7 +94,7 @@ public class Manager extends WhiteBoard{
         V_Print.getChildren().add(label3);
         V_Print.setAlignment(Pos.CENTER);
 
-        V_Print.getChildren().add(test1);
+//        V_Print.getChildren().add(test1);
         topControls.getChildren().add(V_Print);
 
 
@@ -151,13 +151,13 @@ public class Manager extends WhiteBoard{
 
 
 
-
-        test1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-//                generate_user(user);
-            }
-        });
+//
+//        test1.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent arg0) {
+////                generate_user(user);
+//            }
+//        });
 
 
         V_list.getChildren().add(chatBox);
