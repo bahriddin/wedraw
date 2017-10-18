@@ -90,7 +90,7 @@ public class AdminInteraction {
     public void handle_JOIN_REQUEST(Message m){
         //弹出弹窗一个true 或者 false 到 response 里面去
         String otheruser =(String)  m.content();
-        String response= run.c.join_request_dialog(otheruser);
+        String response= run.c.manager_whiteboard.join_request_dialog(otheruser);
 
         Send_JOIN_RESPONSE(otheruser, response);
 
@@ -102,7 +102,7 @@ public class AdminInteraction {
         System.out.println("test respond"+ m.content());
         if (m.content()==null){
 
-           run.c.client_join_response();
+           run.c.client_join_rejected();
 
 
         }
@@ -122,7 +122,7 @@ public class AdminInteraction {
     public void handle_USER_GOT_KICKED(Message m){
         //弹窗，你被踢了
         //炸裂，退出程序
-        run.c.kicked();
+        run.c.client_whiteboard.kicked();
 
     }
 
@@ -183,6 +183,9 @@ public class AdminInteraction {
         name_response[1] = response;
         Message message =  new Message(userName,Message.JOIN_RESPONSE,name_response);
         net.sendMessage(message);
+        if(response.contains("T")){
+            run.c.manager_whiteboard.generate_user( name);
+        }
     }
 
 }

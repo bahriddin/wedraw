@@ -65,8 +65,8 @@ public class LoadingPageController implements Initializable {
 
     Users this_manager ;
 
-    public static WhiteBoard client_whiteboard;
-    public static WhiteBoard manager_whiteboard;
+    public static Client client_whiteboard;
+    public static Manager manager_whiteboard;
 
 
 
@@ -107,9 +107,6 @@ public class LoadingPageController implements Initializable {
             logs.setFont(new Font(20));
             logs.setTextFill(Color.rgb(255,255,255));
 
-
-
-
 //            if(!is_connected){
 //
 //                    dialog_fail();
@@ -117,10 +114,7 @@ public class LoadingPageController implements Initializable {
 //            else
 //
 //            {
-//
-//
 //            }
-
 
         }
 
@@ -162,16 +156,9 @@ public class LoadingPageController implements Initializable {
 
             admModel.Send_JOIN_REQUEST(canvas_id.getText());
 
-            logs.setText("Waiting for manager response");
-            logs.setFont(new Font(20));
+            logs.setText("Waiting for manager response...");
+            logs.setFont(new Font(15));
             logs.setTextFill(Color.rgb(255,255,255));
-
-
-
-
-
-
-
 
 
 //            if(!is_connected){
@@ -212,10 +199,7 @@ public class LoadingPageController implements Initializable {
 //                    }
 //                });
 
-
-
         }
-
 
     }
 
@@ -223,6 +207,7 @@ public class LoadingPageController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Whiteboard");
         stage.setScene(new Scene((Parent) root, 950, 1000));
+
         stage.show();
         rootPane.getScene().getWindow().hide();
 
@@ -245,7 +230,6 @@ public class LoadingPageController implements Initializable {
                 } else {
 
                 }
-
             }
         });
 
@@ -298,21 +282,6 @@ public class LoadingPageController implements Initializable {
 
     }
 
-    public void kicked(){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-//        alert.setTitle("Warning Dialog");
-//        alert.setHeaderText("Look, a Warning Dialog");
-        alert.setContentText("Sorry, you've been kicked out by the manager");
-        Optional<ButtonType> result = alert.showAndWait();
-        ButtonType button = result.orElse(ButtonType.CANCEL);
-        if (button == ButtonType.OK) {
-            System.out.println("bye bye");
-            Platform.exit();
-            System.exit(0);
-        } else {
-
-        }
-    }
 
     public void save_success(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -323,7 +292,7 @@ public class LoadingPageController implements Initializable {
 
     }
 
-    public void client_join_response(){
+    public void client_join_rejected(){
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

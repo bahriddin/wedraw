@@ -129,7 +129,6 @@ public class Client extends WhiteBoard{
 //        alert.setTitle("Warning Dialog");
 //        alert.setHeaderText("Look, a Warning Dialog");
         alert.setContentText("Sorry, you've been kicked out by the manager");
-        alert.showAndWait();
         Optional<ButtonType> result = alert.showAndWait();
         ButtonType button = result.orElse(ButtonType.CANCEL);
         if (button == ButtonType.OK) {
@@ -137,9 +136,13 @@ public class Client extends WhiteBoard{
             Platform.exit();
             System.exit(0);
         } else {
+            Platform.exit();
+            System.exit(0);
 
         }
     }
+
+
 
 
 

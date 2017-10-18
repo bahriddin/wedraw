@@ -136,10 +136,21 @@ public class Manager extends WhiteBoard{
         Button send_btn = new Button("Send");
         send_btn.setPrefSize(70,70);
 
+        send_btn.setOnMouseEntered(new EventHandler<MouseEvent>
+                () {
+            @Override
+            public void handle(MouseEvent t) {
+                admModel.Send_CHAT_MESSAGE(inputTxt.getText());
+
+            }
+        });
+
+
+
         test1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                generate_user(user);
+//                generate_user(user);
             }
         });
 
@@ -187,6 +198,28 @@ public class Manager extends WhiteBoard{
         }
 
     }
+    public String join_request_dialog(String client_name){
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setContentText(client_name +" want to join");
+
+        ButtonType buttonTypeOne = new ButtonType("Allow");
+        ButtonType buttonTypeTwo = new ButtonType("Reject");
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne) {
+            return "T";
+        }
+        else if (result.get() == buttonTypeTwo) {
+            return "F";
+
+        }
+        else
+            return "F";
+
+    }
 
 
 
@@ -196,10 +229,12 @@ public class Manager extends WhiteBoard{
 
 
 
-    public void generate_user(Users user){
+
+
+    public void generate_user(String user){
 
             user_button_list.add(new Button());
-            user_button_list.get(user_number).setText(user.getUser_name());
+            user_button_list.get(user_number).setText(user);
             user_button_list.get(user_number).setPrefSize(300,40);
             Button_list.getChildren().add(user_button_list.get(user_number));
 
