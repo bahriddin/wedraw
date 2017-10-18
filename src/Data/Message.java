@@ -72,11 +72,31 @@ public class Message implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return  "<Message>User:"+username()+"\tID:"+id()+"\tType:"+type();
+    public String toString()
+    {
+        String tp = "";
+
+        switch (this.type()){
+            case 1:tp = "DRAW_OPERATION";break;
+            case 2:tp = "UNDO";break;
+            case 3:tp = "CREATE_CANVAS";break;
+            case 4:tp = "SAVE_CANVAS";break;
+            case 5:tp = "LOAD_CANVAS";break;
+            case 6:tp = "CHAT_MESSAGE";break;
+            case 7:tp = "JOIN_REQUEST";break;
+            case 8:tp = "JOIN_RESPONSE";break;
+            case 9:tp = "KICK_USER";break;
+            case 10:tp = "USER_GOT_KICKED";break;
+            case 11:tp = "EXIT";break;
+            case 12:tp = "SHUTDOWN";break;
+
+        }
+
+        return  "<Message>User:"+username()+"\tID:"+id()+"\tType:"+tp;
     }
 
     public static void main(String[] args) {
+
         Message a = new Message("sd",Message.DRAW_OPERATION,null);
         System.out.print(a);
     }
