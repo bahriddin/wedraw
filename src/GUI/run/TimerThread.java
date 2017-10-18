@@ -21,8 +21,12 @@ public class TimerThread extends Thread{
     public String username;
     CanvasInteraction model;
     public static AdminInteraction admModel;
+
     Network net;
     int[][] CanvasMatrix;
+    int[][] newCanvas;
+    PixelsDifference difference = null;
+
     public static ArrayList<Message>SendQueue = new ArrayList<Message>();
     ArrayList<Message> ReceiveQueue;
     public static Timer timer = new Timer();
@@ -45,7 +49,7 @@ public class TimerThread extends Thread{
 
         System.out.println(username);
         admModel = new AdminInteraction(net,username);
-        long period = (long) (1*1000);
+        long period = (long) (0.1*1000);
         timer.schedule(new TimerTasks(), period, period);
     }
 
@@ -53,49 +57,75 @@ public class TimerThread extends Thread{
         @Override
         public void run() {
             //System.out.println(admModel);
+
+
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    //System.out.println("timer");
                     // Update UI here.
-
-                    int [][] newCanvas = model.getCurrentCanvas();
-                    PixelsDifference difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
+                    newCanvas = model.getCurrentCanvas();
+                    difference =  model.getCanvasDifference(CanvasMatrix,newCanvas);
                     CanvasMatrix = newCanvas;
-
-                    //if the whiteboard have been changed
-                    if (difference.size() > 0) {
-                        Message DrawMessage = new Message("user",Message.DRAW_OPERATION,difference);
-                        SendQueue.add(DrawMessage);
-                        net.sendMessage(DrawMessage);
-                    }
+                }
+            });
 
 
-                    for (Message m:SendQueue){
-                        System.out.println("============current Sending Queue =============");
-                        System.out.println(m);
-                    }
+            //if the whiteboard have been changed
+            if (difference!=null && difference.size() > 0) {
+                Message DrawMessage = new Message("user",Message.DRAW_OPERATION,difference);
+                SendQueue.add(DrawMessage);
+                net.sendMessage(DrawMessage);
+            }
+
+            if (!SendQueue.isEmpty())
+            System.out.println("============current Sending Queue =============");
+            for (Message m:SendQueue){
+                System.out.println(m);
+            }
 
 
-                    //get the ReceiveQueue form network model, and execute the operations in the Queue
-                    //and if any message in ReceiveQueue are also in SendQueue
-                    //execute it and delete it in SendQueue
-                    ReceiveQueue = Network.getMessages();
+            //get the ReceiveQueue form network model, and execute the operations in the Queue
+            //and if any message in ReceiveQueue are also in SendQueue
+            //execute it and delete it in SendQueue
+            ReceiveQueue = Network.getMessages();
 
-                    for (Message m:ReceiveQueue){
-                        System.out.println("============current Received Queue ===========");
-                        System.out.println(m);
+            if (!ReceiveQueue.isEmpty())
+            System.out.println("============current Received Queue ===========");
+            for (Message m:ReceiveQueue){
+                System.out.println(m);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update UI here.
                         handleMessage(m);
-                        if (SendQueue.contains(m)){
-                            SendQueue.remove(m);
-                        }
-                        System.out.println("-----------------------------------------------");
                     }
+                });
+                if (SendQueue.contains(m)){
+                    SendQueue.remove(m);
+                }
+                System.out.println("-----------------------------------------------");
+            }
 
 
-                    if (SendQueue.isEmpty()) {
+
+
+            if (SendQueue.isEmpty()) {
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update UI here.
                         model.clearPermanentCanvas();
+                        CanvasMatrix = model.getCurrentCanvas();
                     }
+                });
+
+            }
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    // Update UI here.
                 }
             });
 
