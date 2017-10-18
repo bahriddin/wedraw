@@ -63,8 +63,27 @@ public class AdminInteraction {
     }
 
 
+    public void handle_EXIT (Message m){
+        String quitUser = (String) m.content();
+        //消失掉对应user的button
+        Send_CHAT_MESSAGE("user \""+quitUser+"\" has quit");
+    }
 
-    public void handle_LOAD_CANVAS(Message m){}
+    public void handle_SHUTDOWN (Message m){
+        String printMessage = (String) m.content();
+        //弹窗显示printMessage
+        //退出系统
+    }
+
+    public void handle_LOAD_CANVAS(Message m){
+        if (m.content()==null){
+            //炸了
+        }else{
+            PixelsDifference pixelsDifference = (PixelsDifference)m.content();
+            model.clearPermanentCanvas();
+            model.updateNetworkCanvas(pixelsDifference);
+        }
+    }
 
     public void handle_CREATE_CANVAS(Message m){
         String stringMessage = LocalDateTime.now()+":\n"+m.content();
@@ -196,5 +215,4 @@ public class AdminInteraction {
             run.c.manager_whiteboard.generate_user( name);
         }
     }
-
 }
