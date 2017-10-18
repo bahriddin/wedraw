@@ -187,6 +187,11 @@ public class AdminInteraction {
         }
     }
 
+    public void Send_NEW_CANVAS (){
+        Message message =  new Message(userName,Message.LOAD_CANVAS,null);
+        net.sendMessage(message);
+    }
+
     public void Send_SAVE_CANVAS(String canvasName){
         //canvasName 是本地保存的 canvasName
         Message message =  new Message(userName,Message.SAVE_CANVAS,canvasName);
