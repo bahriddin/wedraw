@@ -156,12 +156,12 @@ public class Client extends WhiteBoard{
         }
     }
 
-    public void manager_shut_down(){
+    public void manager_shut_down(String message){
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+        alert.setTitle("Info");
 //        alert.setHeaderText("Look, an Error Dialog");
-        alert.setContentText("Manager shut down, program terminated");
+        alert.setContentText(message);
 
         ButtonType buttonTypeOne = new ButtonType("OK");
 

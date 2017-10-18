@@ -7,11 +7,15 @@ import GUI.run.LoadingPageController;
 import GUI.run.TimerThread;
 import GUI.run.run;
 import Network.Network;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 
 import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 //import static GUI.Layout.Client.chatBox;
 
@@ -81,7 +85,38 @@ public class AdminInteraction {
 
     public void handle_SHUTDOWN (Message m){
         //Shut down
-        run.c.client_whiteboard.manager_shut_down();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Info");
+//        alert.setHeaderText("Look, an Error Dialog");
+        if (m.username().length() > 0)
+            alert.setContentText("the manager has exited, system shut down");
+        else
+            alert.setContentText(" The server is closed.");
+
+        ButtonType buttonTypeOne = new ButtonType("OK");
+
+        alert.getButtonTypes().setAll(buttonTypeOne);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            Platform.exit();
+            System.exit(0);
+        }
+
+        else  {
+            // ... uPlatform.exit();
+            Platform.exit();
+            System.exit(0);
+
+
+        }
+
+
+
+
+//        run.c.client_whiteboard.manager_shut_down("the manager has exited");
+
 
         //退出系统
     }
