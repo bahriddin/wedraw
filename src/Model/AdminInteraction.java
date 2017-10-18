@@ -88,10 +88,11 @@ public class AdminInteraction {
 
     public void handle_LOAD_CANVAS(Message m){
         if (m.content()==null){
+            run.c.save_success("Load failed");
             //炸了
         }else{
             PixelsDifference pixelsDifference = (PixelsDifference)m.content();
-            model.clearPermanentCanvas();
+            model.clearAllCanvases();
             model.updateNetworkCanvas(pixelsDifference);
         }
     }
@@ -114,7 +115,7 @@ public class AdminInteraction {
     public void handle_SAVE_CANVAS(Message m){
         String stringMessage = LocalDateTime.now()+":\n"+m.content();
         //弹窗，显示 stringMessage
-        run.c.save_success();
+        run.c.save_success(stringMessage);
 
     }
 

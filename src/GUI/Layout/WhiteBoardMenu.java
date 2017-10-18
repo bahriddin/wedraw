@@ -40,6 +40,7 @@ public class WhiteBoardMenu extends MenuBar {
     static MenuItem load;
 
     static MenuItem save_as;
+    static MenuItem save;
 
 
     public WhiteBoardMenu(CanvasArea canvasArea) {
@@ -83,33 +84,35 @@ public class WhiteBoardMenu extends MenuBar {
         // Create the save logfile menu item.
 
 
-        MenuItem save = new MenuItem("Save");
+        save = new MenuItem("Save");
 
         save.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent t) {
-                FileChooser fileChooser = new FileChooser();
 
-                //Set extension filter
-                FileChooser.ExtensionFilter extFilter =
-                        new FileChooser.ExtensionFilter("wedraw files (*.wedraw)", "*.wedraw");
-                fileChooser.getExtensionFilters().add(extFilter);
-
-                //Show save file dialog
-                File file = fileChooser.showSaveDialog(null);
-
-                if(file != null){
-                    try {
-                        FileOutputStream ostream = new FileOutputStream(file);
-                        ObjectOutputStream p = new ObjectOutputStream(ostream);
-                        p.writeObject(canvasArea.model.getLog());
-                        p.flush();
-                        ostream.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                admModel.Send_SAVE_CANVAS(run.c.canvas_id.getText());
+//                FileChooser fileChooser = new FileChooser();
+//
+//                //Set extension filter
+//                FileChooser.ExtensionFilter extFilter =
+//                        new FileChooser.ExtensionFilter("wedraw files (*.wedraw)", "*.wedraw");
+//                fileChooser.getExtensionFilters().add(extFilter);
+//
+//                //Show save file dialog
+//                File file = fileChooser.showSaveDialog(null);
+//
+//                if(file != null){
+//                    try {
+//                        FileOutputStream ostream = new FileOutputStream(file);
+//                        ObjectOutputStream p = new ObjectOutputStream(ostream);
+//                        p.writeObject(canvasArea.model.getLog());
+//                        p.flush();
+//                        ostream.close();
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
             }
 
         });
@@ -121,31 +124,44 @@ public class WhiteBoardMenu extends MenuBar {
 
             @Override
             public void handle(ActionEvent t) {
-                FileChooser fileChooser = new FileChooser();
 
-                //Set extension filter
-                FileChooser.ExtensionFilter extFilter =
-                        new FileChooser.ExtensionFilter("wedraw files (*.wedraw)", "*.wedraw");
-                fileChooser.getExtensionFilters().add(extFilter);
+                TextInputDialog dialog = new TextInputDialog(" Canvas name");
+                dialog.setTitle("Load Canvas");
+//                dialog.setHeaderText("Look, a Text Input Dialog");
+                dialog.setContentText("Please enter Canvas name you want load:");
 
-                //Show save file dialog
-                File file = fileChooser.showOpenDialog(null);
-
-                if(file != null){
-                    try {
-                        FileInputStream fis = new FileInputStream(file);
-                        ObjectInputStream ois = new ObjectInputStream(fis);
-                        CanvasLog readLog = (CanvasLog) ois.readObject();
-//                        canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,canvasArea.networkCanvas,readLog);
-                        ois.close();
-
-                    } catch (IOException ex) {
-                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, e);
-                    }
+// Traditional way to get the response value.
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()){
+                    admModel.Send_LOAD_CANVAS(result.get());
+//                    System.out.println("Rename Canvas name: " + result.get());
                 }
+
+//                FileChooser fileChooser = new FileChooser();
+//
+//                //Set extension filter
+//                FileChooser.ExtensionFilter extFilter =
+//                        new FileChooser.ExtensionFilter("wedraw files (*.wedraw)", "*.wedraw");
+//                fileChooser.getExtensionFilters().add(extFilter);
+//
+//                //Show save file dialog
+//                File file = fileChooser.showOpenDialog(null);
+//
+//                if(file != null){
+//                    try {
+//                        FileInputStream fis = new FileInputStream(file);
+//                        ObjectInputStream ois = new ObjectInputStream(fis);
+//                        CanvasLog readLog = (CanvasLog) ois.readObject();
+////                        canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,canvasArea.networkCanvas,readLog);
+//                        ois.close();
+//
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (ClassNotFoundException e) {
+//                        e.printStackTrace();
+//                        Logger.getLogger(run.class.getName()).log(Level.SEVERE, null, e);
+//                    }
+//                }
             }
 
         });
@@ -158,7 +174,8 @@ public class WhiteBoardMenu extends MenuBar {
             @Override
             public void handle(ActionEvent t) {
 //                System.out.print("new");
-                canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,canvasArea.networkCanvas);
+//                canvasArea.model = new CanvasInteraction(canvasArea.permanentCanvas,canvasArea.temporaryCanvas,canvasArea.networkCanvas);
+                admModel.Send_NEW_CANVAS();
             }
 
         });

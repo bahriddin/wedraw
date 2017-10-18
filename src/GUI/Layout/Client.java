@@ -73,6 +73,8 @@ public class Client extends WhiteBoard{
 
         WhiteBoardMenu.file.getItems().remove(WhiteBoardMenu.load);
         WhiteBoardMenu.file.getItems().remove(WhiteBoardMenu.newCanvas);
+        WhiteBoardMenu.file.getItems().remove(WhiteBoardMenu.save_as);
+        WhiteBoardMenu.file.getItems().remove(WhiteBoardMenu.save);
 
 
 
@@ -132,7 +134,7 @@ public class Client extends WhiteBoard{
 
         setRight(V_list);
 
-        chatBox.setText("Hello! "+user_name+". Welcome to Canvas "+canvas_id);
+        chatBox.setText("Hello! "+user_name+". Welcome to Canvas "+canvas_id+"\n");
 
     }
 

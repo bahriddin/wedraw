@@ -48,13 +48,22 @@ public class LoadingPageController implements Initializable {
     private TextField username;
 
     @FXML
-    private TextField canvas_id;
+    public TextField canvas_id;
 
     @FXML
     public  Label logs;
 
     @FXML
     public Text title;
+
+    @FXML
+    public TextField server_ip;
+
+    @FXML
+    public TextField server_port;
+
+
+
 
     public  static Boolean is_connected = false;
 
@@ -89,10 +98,13 @@ public class LoadingPageController implements Initializable {
             manager_whiteboard = new Manager(this_manager,canvas_id.getText());
             System.out.println(this_manager);
 
-
-            Network net = new Network("localhost", 3000);
-            run.timerThread = new TimerThread(manager_whiteboard.getCanvasArea().getModel(),username.getText(),net);
-            run.timerThread.start();
+            try {
+                Network net = new Network(server_ip.getText(), Integer.parseInt(server_port.getText()));
+                run.timerThread = new TimerThread(manager_whiteboard.getCanvasArea().getModel(), username.getText(), net);
+                run.timerThread.start();
+            }catch (Exception e){
+                dialog_fail();
+            }
 
             while (admModel==null){
                 try {
@@ -148,10 +160,15 @@ public class LoadingPageController implements Initializable {
         if(!canvas_id.getText().trim().isEmpty() && !username.getText().trim().isEmpty()){
 
 
-            Network net = new Network("localhost", 3000);
-            client_whiteboard = new Client(username.getText(),canvas_id.getText());
-            run.timerThread = new TimerThread(client_whiteboard.getCanvasArea().getModel(),username.getText(),net);
-            run.timerThread.start();
+
+            try {
+                Network net = new Network(server_ip.getText(), Integer.parseInt(server_port.getText()));
+                client_whiteboard = new Client(username.getText(), canvas_id.getText());
+                run.timerThread = new TimerThread(client_whiteboard.getCanvasArea().getModel(), username.getText(), net);
+                run.timerThread.start();
+            }catch (Exception e){
+                dialog_fail();
+            }
 
             while (admModel==null){
                 try {
@@ -222,23 +239,25 @@ public class LoadingPageController implements Initializable {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
+
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("warning");
-//        alert.setHeaderText("This is a test.");
-                alert.setResizable(false);
+                alert.setTitle("Confirmation Dialog");
+//        alert.setHeaderText("Look, a Confirmation Dialog");
                 alert.setContentText("Are you sure to Exit?");
 
                 Optional<ButtonType> result = alert.showAndWait();
-                ButtonType button = result.orElse(ButtonType.CANCEL);
-
-                if (button == ButtonType.OK) {
+                if (result.get() == ButtonType.OK){
+                    // ... user chose OK
                     System.out.println("bye bye");
                     Platform.exit();
                     System.exit(0);
+//            System.out.println(btn.getText());
                 } else {
-
+                    t.consume();
+                    // ... user chose CANCEL or closed the dialog
                 }
-            }
+                }
+
         });
 
 
@@ -306,11 +325,11 @@ public class LoadingPageController implements Initializable {
     }
 
 
-    public void save_success(){
+    public void save_success(String s){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //        alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Save successfully!");
+        alert.setContentText(s);
         alert.showAndWait();
 
     }

@@ -177,7 +177,7 @@ public class Manager extends WhiteBoard{
 
         V_list.toFront();
 
-        chatBox.setText("Hello! "+manager_name);
+        chatBox.setText("Hello! "+manager_name+"\n");
 
 
 
@@ -185,21 +185,20 @@ public class Manager extends WhiteBoard{
 
 
     public void kick_user(Button btn){
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("warning");
-//        alert.setHeaderText("This is a test.");
-        alert.setResizable(false);
+        alert.setTitle("Confirmation Dialog");
+//        alert.setHeaderText("Look, a Confirmation Dialog");
         alert.setContentText("Are you sure to kick this client out?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        ButtonType button = result.orElse(ButtonType.CANCEL);
-
-        if (button == ButtonType.OK) {
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
             Button_list.getChildren().remove(btn);
             admModel.Send_KICK_USER(btn.getText());
 //            System.out.println(btn.getText());
         } else {
-
+            // ... user chose CANCEL or closed the dialog
         }
 
     }
