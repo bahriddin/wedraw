@@ -22,6 +22,7 @@ public class TimerThread extends Thread{
     CanvasInteraction model;
     public static AdminInteraction admModel;
 
+    boolean clear;
     Network net;
     int[][] CanvasMatrix;
     int[][] newCanvas;
@@ -49,7 +50,7 @@ public class TimerThread extends Thread{
 
         System.out.println(username);
         admModel = new AdminInteraction(net,username);
-        long period = (long) (0.1*1000);
+        long period = (long) (0.5*1000);
         timer.schedule(new TimerTasks(), period, period);
     }
 
@@ -75,6 +76,7 @@ public class TimerThread extends Thread{
                 Message DrawMessage = new Message(username,Message.DRAW_OPERATION,difference);
                 SendQueue.add(DrawMessage);
                 net.sendMessage(DrawMessage);
+                clear = true;
             }
 
             if (!SendQueue.isEmpty())
@@ -89,38 +91,36 @@ public class TimerThread extends Thread{
             //execute it and delete it in SendQueue
             ReceiveQueue = Network.getMessages();
 
-            if (!ReceiveQueue.isEmpty())
-            System.out.println("============current Received Queue ===========");
-            for (Message m:ReceiveQueue){
-                System.out.println(m);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Update UI here.
+            Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI here.
+                if (!ReceiveQueue.isEmpty())
+                System.out.println("============current Received Queue ===========");
+                for (Message m:ReceiveQueue){
+                    System.out.println(m);
+
                         handleMessage(m);
+
+                    if (SendQueue.contains(m)){
+                        SendQueue.remove(m);
                     }
-                });
-                if (SendQueue.contains(m)){
-                    SendQueue.remove(m);
+                    System.out.println("-----------------------------------------------");
                 }
-                System.out.println("-----------------------------------------------");
-            }
+
+                if (SendQueue.isEmpty()&&clear) {
+                    model.clearPermanentCanvas();
+                    CanvasMatrix = model.getCurrentCanvas();
+                    clear =false;
+                }
+
+
+            }});
 
 
 
 
-            if (SendQueue.isEmpty()) {
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Update UI here.
-                        model.clearPermanentCanvas();
-                        CanvasMatrix = model.getCurrentCanvas();
-                    }
-                });
-
-            }
 
             Platform.runLater(new Runnable() {
                 @Override
