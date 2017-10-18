@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Receiver implements Runnable {
     private Socket socket;
     private static MessageHandler messageHandler = new MessageHandler();
+    private String myName;
 
     public Receiver(Socket socket) {
         this.socket = socket;
@@ -26,6 +27,8 @@ public class Receiver implements Runnable {
 
             Message clientMessage = (Message) in.readObject();
             String username = clientMessage.username();
+            if (myName == null)
+                myName = username;
 
             if (Network.senderDict.containsKey(username)) {
                 throw new Exception("There is a user with this username.");
@@ -42,8 +45,12 @@ public class Receiver implements Runnable {
             } while ((clientMessage = (Message) in.readObject()) != null);
 
         } catch (IOException e) {
-            if (e.getMessage() == null)
-                System.out.println("User left the board: ");
+            if (e.getMessage() == null) {
+                //System.out.println("User left the board: ");
+                Message userLeftMessage = new Message(myName, Message.EXIT, null);
+                for (Message serverMessage: messageHandler.handleMessage(userLeftMessage))
+                    Network.senderDict.get(serverMessage.username()).add(serverMessage);
+            }
             else
                 System.out.println("IOException1: " + e.getMessage() + " " + socket);
         } catch (Exception e) {
