@@ -123,7 +123,7 @@ public class MessageHandler {
 
                     if (canvas == null || isUserExisted) {
                         responses.add(new Message(message.username(), message.id(), Message
-                                .JOIN_RESPONSE, false));
+                                .JOIN_RESPONSE, null));
                     } else {
                         responses.add(new Message(canvas.getManager(), message.id(), Message
                                 .JOIN_REQUEST, message.username()));

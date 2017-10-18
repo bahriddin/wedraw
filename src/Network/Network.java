@@ -51,7 +51,6 @@ public class Network {
 
     public void sendMessage(Message message) {
         System.out.println("sent:"+message);
-
         try {
             out.writeObject(message);
         } catch (IOException io) {
