@@ -141,6 +141,14 @@ public class ServerCanvas {
         return result;
     }
 
+    public boolean containsUser(String username) {
+        for (String user : users)
+            if (username.equals(user))
+                return true;
+
+        return false;
+    }
+
 
     /**
      * close a closeable object

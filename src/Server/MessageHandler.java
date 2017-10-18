@@ -96,6 +96,8 @@ public class MessageHandler {
                     canvas = findCanvasByUsername(message.username());
 
                     if (canvas != null) {
+                        canvas.removeUser(message.username());
+
                         // manager exit
                         if (canvas.getManager().equals(message.username()))  {
 
@@ -199,10 +201,12 @@ public class MessageHandler {
 
                     if (canvas != null) {
                         String userGotKicked = (String)message.content();
-                        canvas.removeUser(userGotKicked);
-                        responses.add(message);
-                        responses.add(new Message(userGotKicked, message.id(), Message
-                                .USER_GOT_KICKED, null));
+                        if (canvas.containsUser(userGotKicked)) {
+                            canvas.removeUser(userGotKicked);
+                            responses.add(message);
+                            responses.add(new Message(userGotKicked, message.id(), Message
+                                    .USER_GOT_KICKED, null));
+                        }
                     }
                     break;
 
