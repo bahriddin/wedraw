@@ -2,6 +2,7 @@ package GUI.run;
 
 import Data.Message;
 import Data.PixelsDifference;
+import GUI.Layout.Manager;
 import Model.AdminInteraction;
 import Model.CanvasInteraction;
 import Network.Network;
@@ -49,7 +50,7 @@ public class TimerThread extends Thread{
         }
 
         System.out.println(username);
-        admModel = new AdminInteraction(net,username);
+        admModel = new AdminInteraction(net,username, model);
         long period = (long) (0.5*1000);
         timer.schedule(new TimerTasks(), period, period);
     }

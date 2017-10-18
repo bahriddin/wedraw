@@ -1,6 +1,7 @@
 package Model;
 
 import Data.Message;
+import Data.PixelsDifference;
 import GUI.Layout.WhiteBoard;
 import GUI.run.LoadingPageController;
 import GUI.run.TimerThread;
@@ -18,6 +19,7 @@ import static GUI.Layout.Client.chatBox;
 public class AdminInteraction {
     String userName;
     Network net;
+    CanvasInteraction model;
 
 
     @Override
@@ -32,9 +34,10 @@ public class AdminInteraction {
     //and some method that allow join request
 
 
-    public AdminInteraction(Network net, String userName){
+    public AdminInteraction(Network net, String userName, CanvasInteraction model){
         this.net =net;
         this.userName = userName;
+        this.model = model;
 
     }
 
@@ -106,6 +109,7 @@ public class AdminInteraction {
         else{
 
             run.c.show_whiteboard(run.c.client_whiteboard);
+            model.updateNetworkCanvas((PixelsDifference)m.content());
 
         }
 
