@@ -182,6 +182,7 @@ public class AdminInteraction {
         name_response[0] = name;
         name_response[1] = response;
         Message message =  new Message(userName,Message.JOIN_RESPONSE,name_response);
+
         net.sendMessage(message);
         if(response.contains("T")){
             run.c.manager_whiteboard.generate_user( name);
