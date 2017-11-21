@@ -1,5 +1,5 @@
 # Wedraw
-This is distributed Wedraw project. Originally, it is designed for Distributed Systems by **Quad** team which consists of:
+This is distributed Wedraw project. Originally, it is designed for [Distributed Systems subject](https://handbook.unimelb.edu.au/2017/subjects/comp90015) by **Quad** team which consists of:
 - Yi Zhao
 - Boheng Luan
 - Maoyuan Xue
