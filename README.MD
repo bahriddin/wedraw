@@ -4,6 +4,7 @@ This is distributed Wedraw project. Originally, it is designed for Distributed S
 - Boheng Luan
 - Maoyuan Xue
 - and me.
+
 You can find documentation on the wiki pages.
 
 It is Java project. You can generate server and client packages using src/Server/Network.java and src/GUI/run/run files' main methods, respectively (or use built jar files):
