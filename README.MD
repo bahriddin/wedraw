@@ -16,3 +16,7 @@ It is Java project. You can generate server and client packages using src/Server
     >_ java -jar client.jar
 
 All the other part is in the GUI. Enjoy!
+
+![Login Page](https://github.com/bahriddin/wedraw/blob/master/blob/img/login.png)
+
+![Main Window](https://github.com/bahriddin/wedraw/blob/master/blob/img/wedraw.png)
