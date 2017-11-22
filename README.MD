@@ -5,9 +5,9 @@ This is distributed Wedraw project. Originally, it is designed for [Distributed 
 - Maoyuan Xue
 - and me.
 
-You can find documentation on the **[wiki pages](https://github.com/bahriddin/wedraw/wiki)**.
+We used **[JavaFx](https://docs.oracle.com/javafx/2/)** and **[JavaFX GraphicsContext](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html)** libraries. You can find the documentation on the **[wiki pages](https://github.com/bahriddin/wedraw/wiki)**.
 
-It is Java project. You can generate server and client packages using src/Server/Network.java and src/GUI/run/run files' main methods, respectively (or use built jar files):
+You can generate server and client packages using src/Server/Network.java and src/GUI/run/run files' main methods, respectively (or use built jar files):
 
     # run server file first
     >_ java -jar server.jar [port_number]
